@@ -25,6 +25,7 @@ void	init_mini(t_mini *shell);
 char *sub_path(char *path);
 void	prompt_msg(t_mini *shell);
 
+// Echo - echo.c
 void	echo_func(char *str, int flag);
 
 #endif
