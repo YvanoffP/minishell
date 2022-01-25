@@ -11,6 +11,19 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <dirent.h>
+# include "../libft/libft.h"
+
+typedef struct s_mini
+{
+    char    *mini_cwd;
+}               t_mini;
+
+// MiniShell - minishell.c
+void	init_mini(t_mini *shell);
+
+// MiniShell - prompt_msg.c
+char *sub_path(char *path);
+void	prompt_msg(t_mini *shell);
 
 void	echo_func(char *str, int flag);
 
