@@ -12,4 +12,6 @@
 # include <termios.h>
 # include <dirent.h>
 
+void	echo_func(char *str, int flag);
+
 #endif
