@@ -10,8 +10,9 @@ int main(int argc, char **argv)
 	init_mini(&shell);
 	while (1)
 	{
-		prompt_msg(&shell);
+		prompt_msg();
 		sleep(2);
 	}
+	exit_shell(&shell);
 	return (0);
 }
