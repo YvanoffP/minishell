@@ -6,7 +6,7 @@
 /*   By: tpauvret <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:49:28 by tpauvret          #+#    #+#             */
-/*   Updated: 2021/10/17 20:42:08 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:33:11 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_strmapi(char const	*s, char (*f)(unsigned int, char));
 //String :
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
@@ -77,5 +78,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
+
+//More :
+void	free_array(char **array);
 
 #endif

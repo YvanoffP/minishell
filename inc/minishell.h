@@ -28,4 +28,7 @@ void	prompt_msg(t_mini *shell);
 // Echo - echo.c
 void	echo_func(char *str, int flag);
 
+// Export - export.c
+void	export_func(char **envp);
+
 #endif
