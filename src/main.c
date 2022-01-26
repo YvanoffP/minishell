@@ -1,7 +1,6 @@
 #include "../inc/minishell.h"
 
-
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
 	t_mini	shell;
 	(void)argc;
@@ -15,3 +14,6 @@ int main(int argc, char **argv)
 	}
 	return (0);
 }
+
+
+//TODO : Call envp for env_function : env_func(envp);
