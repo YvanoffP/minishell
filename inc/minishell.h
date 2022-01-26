@@ -20,10 +20,11 @@ typedef struct s_mini
 
 // MiniShell - minishell.c
 void	init_mini(t_mini *shell);
+void	exit_shell(t_mini *shell);
 
 // MiniShell - prompt_msg.c
-char *sub_path(char *path);
-void	prompt_msg(t_mini *shell);
+char    *sub_path(char *path);
+void	prompt_msg(void);
 
 // Echo - echo.c
 void	echo_func(char *str, int flag);
