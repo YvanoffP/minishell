@@ -29,4 +29,7 @@ void	prompt_msg(void);
 // Echo - echo.c
 void	echo_func(char *str, int flag);
 
+// Export - export.c
+void	export_func(char **envp);
+
 #endif
