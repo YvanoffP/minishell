@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-static char	**env_duplicate(char **envp)
+char	**env_duplicate(char **envp)
 {
 	char	**copy;
 	int		i;
@@ -21,39 +21,24 @@ static char	**env_duplicate(char **envp)
 	return (copy);
 }
 
-static void	display_tab(char **tab)
+void	print_export_list(t_env **env_list)
 {
-	int	i;
+	t_env	*tmp;
+	t_env	*sort_list;
 
-	i = 0;
-	while (tab[i])
-		printf("%s\n", tab[i++]);
+	sort_list = sort_list_export(env_list);
+	tmp = sort_list;
+	while (tmp != NULL)
+	{
+		if (tmp->var != NULL)
+			ft_putstr_fd(tmp->var, 1);
+		write(1, "\n", 1);
+		tmp = tmp->next;
+	}
+	delete_list(sort_list);
 }
 
-void	export_func(char **envp)
+void	export_func(t_env **env_list)
 {
-	char 	**env_dup;
-	char	*tmp;
-	int		flag;
-	int		i;
-
-	env_dup = env_duplicate(envp);
-	flag = 0;
-	while (env_dup[flag])
-	{
-		i = flag + 1;
-		while (env_dup[i])
-		{
-			if (ft_strcmp(env_dup[flag], env_dup[i]) > 0)
-			{
-				tmp = env_dup[flag];
-				env_dup[flag] = env_dup[i];
-				env_dup[i] = tmp;
-			}
-			i++;
-		}
-		flag++;
-	}
-	display_tab(env_dup);
-	free_array(env_dup);
+	print_export_list(env_list);
 }
