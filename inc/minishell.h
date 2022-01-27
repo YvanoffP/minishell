@@ -36,16 +36,21 @@ void	prompt_msg(void);
 // Echo - echo.c
 void	echo_func(char *str, int flag);
 
-// Export - export.c
-void	export_func(t_env **env_list);
-char	**env_duplicate(char **envp);
-void	print_export_list(t_env **env_list);
-// Export - chained_list.c
+// Env - env.c
+void	env_func(t_env **env_list);
+// Env - chained_list.c
 t_env	*create_node(char *var_array);
 void	add_to_list(t_env **env_list, t_env *new_node);
 void	delete_list(t_env *env_list);
 t_env	*sort_list_export(t_env **env_list);
 t_env	*duplicate_list(t_env **env_list);
 int		count_list(t_env **list);
+
+// Export - export.c
+void	export_func(t_env **env_list);
+void	print_export_list(t_env **env_list);
+char	**env_duplicate(char **envp);
+
+
 
 #endif

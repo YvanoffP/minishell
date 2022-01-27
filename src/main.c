@@ -9,7 +9,6 @@ int main(int argc, char **argv, char **envp)
 
 	init_mini(&shell, &env_list);
 	init_env(&env_list, envp);
-	export_func(&env_list);
 	while (1)
 	{
 		prompt_msg();
@@ -18,6 +17,3 @@ int main(int argc, char **argv, char **envp)
 	exit_shell(&shell);
 	return (0);
 }
-
-
-//TODO : Call envp for env_function : env_func(envp);
