@@ -7,6 +7,7 @@ void	init_mini(t_mini *shell, t_env **env)
 
 	cwd = getcwd(buff, 4096);
 	shell->mini_cwd = sub_path(cwd);
+  shell->argv = NULL;
 	*env = NULL;
 }
 
@@ -31,7 +32,10 @@ void	init_env(t_env **env_list, char **env)
 	free_array(var_array);
 }
 
+
 void	exit_shell(t_mini *shell)
 {
 	free(shell->mini_cwd);
+	if (shell->argv)
+		free(shell->argv);
 }

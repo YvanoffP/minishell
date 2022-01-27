@@ -19,22 +19,28 @@ char *sub_path(char *path)
 		new = malloc(sizeof(char));
 	else
 		new = ft_substr(path, i - 1, str_len);
+	if (!new)
+		return (NULL);
 	new[0] = '~';
 	return (new);
 }
 
-void	prompt_msg(void)
+void	prompt_msg(t_mini *shell)
 {
 	char	*cwd;
+	char	*final;
 	char	*parsed_cwd;
 	char	buff[4096];
 
-	cwd = getcwd(buff, 4096);
 	parsed_cwd = NULL;
+	final = NULL;
+	cwd = getcwd(buff, 4096);
 	parsed_cwd = sub_path(cwd);
-	ft_putstr_fd(parsed_cwd, 1);
-	ft_putstr_fd(" % ", 1);
-	write(1, "\n", 1);
-	if (parsed_cwd != NULL)
-		free(parsed_cwd);
+	if (shell->argv != NULL)
+		free(shell->argv);
+	final = ft_strjoin(parsed_cwd, " % ");
+	free(parsed_cwd);
+	shell->argv = readline(final);
+	if (final != NULL)
+		free(final);
 }
