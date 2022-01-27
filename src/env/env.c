@@ -1,11 +1,17 @@
 #include "../../inc/minishell.h"
 
-void	env_func(char **envp)
+void	env_func(t_env **env_list)
 {
-	while (*envp)
+	t_env	*tmp;
+
+	tmp = *env_list;
+	while (tmp != NULL)
 	{
-		write(1, *envp, ft_strlen(*envp));
-		write(1, "\n", 1);
-		envp++;
+		if (tmp->var != NULL)
+		{
+			ft_putstr_fd(tmp->var, 1);
+			write(1, "\n", 1);
+		}
+		tmp = tmp->next;
 	}
 }
