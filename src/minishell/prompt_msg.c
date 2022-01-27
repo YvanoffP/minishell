@@ -6,7 +6,6 @@ char *sub_path(char *path)
 	int		i;
 	int		slash_count;
 	char	*new;
-	char	*final;
 
 	str_len = ft_strlen(path);
 	slash_count = 1;
@@ -20,24 +19,28 @@ char *sub_path(char *path)
 		new = malloc(sizeof(char));
 	else
 		new = ft_substr(path, i - 1, str_len);
+	if (!new)
+		return (NULL);
 	new[0] = '~';
-	final = ft_strjoin(new, " % ");
-	free(new);
-	return (final);
+	return (new);
 }
 
 void	prompt_msg(t_mini *shell)
 {
 	char	*cwd;
+	char	*final;
 	char	*parsed_cwd;
 	char	buff[4096];
 
-	cwd = getcwd(buff, 4096);
 	parsed_cwd = NULL;
+	final = NULL;
+	cwd = getcwd(buff, 4096);
 	parsed_cwd = sub_path(cwd);
 	if (shell->argv != NULL)
 		free(shell->argv);
-	shell->argv = readline(parsed_cwd);
-	if (parsed_cwd != NULL)
-		free(parsed_cwd);
+	final = ft_strjoin(parsed_cwd, " % ");
+	free(parsed_cwd);
+	shell->argv = readline(final);
+	if (final != NULL)
+		free(final);
 }

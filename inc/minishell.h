@@ -36,4 +36,7 @@ void	export_func(char **envp);
 // CD - cd.c
 int     cd(char *path);
 
+// PWD - pwd.c
+void    pwd(void);
+
 #endif
