@@ -13,6 +13,14 @@
 # include <dirent.h>
 # include "../src/libft/libft.h"
 
+# define CD "cd"
+# define ECHO_CMD "echo"
+# define ENV "env"
+# define EXPORT "export"
+# define EXIT "exit"
+# define PWD "pwd"
+# define UNSET "unset"
+
 typedef struct s_mini
 {
     char    *mini_cwd;
@@ -53,11 +61,15 @@ void	print_export_list(t_env **env_list);
 void	add_var_to_list(t_env **env_list, char *args);
 void	export_func(t_env **env_list, char *args);
 
+
 // Sgnal - signal.c
 void	handler(int sig);
 
 // CD - cd.c
 int     cd(char *path);
+
+// Parse - parsing.c
+void	parsing(t_mini *shell, t_env **env_list);
 
 // PWD - pwd.c
 void    pwd(void);

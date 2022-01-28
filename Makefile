@@ -11,6 +11,7 @@ ENV_FOLDER = env
 EXIT_FOLDER = exit
 EXPORT_FOLDER = export
 MINISHELL_FOLDER = minishell
+PARSE_FOLDER = parse
 PWD_FOLDER = pwd
 SIGNAL_FOLDER = signal
 UNSET_FOLDER = unset
@@ -53,6 +54,10 @@ EXPORT_FILES = export.c
 MINISHELL_FILES = minishell.c \
 				  prompt_msg.c
 
+# Parse files variable
+
+PARSE_FILES = parsing.c
+
 # PWD files variable
 
 PWD_FILES = pwd.c
@@ -76,12 +81,14 @@ OBJ_ENV = $(addprefix $(OBJECTSDIR)/$(ENV_FOLDER)/, $(ENV_FILES:.c=.o))
 OBJ_EXIT = $(addprefix $(OBJECTSDIR)/$(EXIT_FOLDER)/, $(EXIT_FILES:.c=.o))
 OBJ_EXPORT = $(addprefix $(OBJECTSDIR)/$(EXPORT_FOLDER)/, $(EXPORT_FILES:.c=.o))
 OBJ_MINISHELL = $(addprefix $(OBJECTSDIR)/$(MINISHELL_FOLDER)/, $(MINISHELL_FILES:.c=.o))
+OBJ_PARSE= $(addprefix $(OBJECTSDIR)/$(PARSE_FOLDER)/, $(PARSE_FILES:.c=.o))
 OBJ_PWD= $(addprefix $(OBJECTSDIR)/$(PWD_FOLDER)/, $(PWD_FILES:.c=.o))
 OBJ_SIGNAL = $(addprefix $(OBJECTSDIR)/$(SIGNAL_FOLDER)/, $(SIGNAL_FILES:.c=.o))
 OBJ_UNSET = $(addprefix $(OBJECTSDIR)/$(UNSET_FOLDER)/, $(UNSET_FILES:.c=.o))
 OBJ_MAIN = $(addprefix $(OBJECTSDIR)/, $(MAIN_FILE:.c=.o))
 OBJS := $(OBJ_CD) $(OBJ_ECHO) $(OBJ_ENV) $(OBJ_EXIT) $(OBJ_EXPORT) \
-		$(OBJ_MINISHELL) $(OBJ_PWD) $(OBJ_SIGNAL) $(OBJ_UNSET) $(OBJ_MAIN)
+		$(OBJ_MINISHELL) $(OBJ_PWD) $(OBJ_SIGNAL) $(OBJ_UNSET) $(OBJ_MAIN) \
+		$(OBJ_PARSE)
 LIBFT_FILE := $(LIBFT_FOLDER)/$(LIBFT_LIB)
 
 # Name the compiler
