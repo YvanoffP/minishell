@@ -62,6 +62,8 @@ void	add_var_to_list(t_env **env_list, char *args);
 void	export_func(t_env **env_list, char *args);
 
 
+// Sgnal - signal.c
+void	handler(int sig);
 
 // CD - cd.c
 int     cd(char *path);
