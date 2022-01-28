@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+#include "minishell.h"
 
 t_env	*create_node(char *var_array)
 {

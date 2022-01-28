@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+#include "minishell.h"
 
 char	**env_duplicate(char **envp)
 {
