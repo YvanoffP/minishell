@@ -12,6 +12,7 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		prompt_msg(&shell);
+		parsing(&shell, &env_list);
 		// TODO : Free shell->argv after using it or before calling prompt
 		// message again
 	}
