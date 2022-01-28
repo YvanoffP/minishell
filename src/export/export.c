@@ -38,7 +38,18 @@ void	print_export_list(t_env **env_list)
 	delete_list(sort_list);
 }
 
-void	export_func(t_env **env_list)
+void	add_var_to_list(t_env **env_list, char *args)
 {
-	print_export_list(env_list);
+	t_env	*new_node;
+
+	new_node = create_node(args);
+	add_to_list(env_list, new_node);
+}
+
+void	export_func(t_env **env_list, char *args)
+{
+	if (!args)
+		print_export_list(env_list);
+	if (args)
+		add_var_to_list(env_list, args);
 }

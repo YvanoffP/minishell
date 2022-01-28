@@ -48,9 +48,10 @@ t_env	*duplicate_list(t_env **env_list);
 int		count_list(t_env **list);
 
 // Export - export.c
-void	export_func(t_env **env_list);
-void	print_export_list(t_env **env_list);
 char	**env_duplicate(char **envp);
+void	print_export_list(t_env **env_list);
+void	add_var_to_list(t_env **env_list, char *args)
+void	export_func(t_env **env_list);
 
 
 
