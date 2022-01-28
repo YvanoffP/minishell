@@ -11,7 +11,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <dirent.h>
-# include "../libft/libft.h"
+# include "../src/libft/libft.h"
 
 typedef struct s_mini
 {
