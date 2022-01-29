@@ -11,13 +11,13 @@ void	echo_func(char *str, char *str2)
 	{
 		while (str[i] != '\0')
 			write(1, &str[i++], 1);
+		write(1, "\n", 1);
 		return ;
 	}
 	else if (!ft_strcmp(str, "-n"))
 	{
 		while (str2[i] != '\0')
 			write(1, &str2[i++], 1);
-		write(1, "\n", 1);
 		return ;
 	}
 	write(1, "\n", 1);

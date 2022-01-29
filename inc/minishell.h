@@ -79,4 +79,7 @@ int     next_space_i(int start, char *str);
 // PWD - pwd.c
 void    pwd(void);
 
+//UNSET - unset.c
+void	unset(char *arg, t_env **env_list);
+
 #endif
