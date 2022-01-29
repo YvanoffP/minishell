@@ -77,6 +77,6 @@ void	parsing(t_mini *shell, t_env **env_list)
 		exit(0);
 	else if (!ft_strcmp(shell->arg_split[0], PWD))
 		pwd();
-//	else if (shell->arg_split[0], UNSET))
-//		unset();
+	else if (!ft_strcmp(shell->arg_split[0], UNSET))
+		unset(shell->arg_split[1], env_list);
 }
