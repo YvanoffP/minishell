@@ -25,6 +25,7 @@ typedef struct s_mini
 {
     char    *mini_cwd;
     char    *argv;
+    char    *arg_split[50];
 }               t_mini;
 
 typedef struct s_env
@@ -43,7 +44,7 @@ char    *sub_path(char *path);
 void	prompt_msg(t_mini *shell);
 
 // Echo - echo.c
-void	echo_func(char *str, int flag);
+void	echo_func(char *str, char *str2);
 
 // Env - env.c
 void	env_func(t_env **env_list);
@@ -70,6 +71,10 @@ int     cd(char *path);
 
 // Parse - parsing.c
 void	parsing(t_mini *shell, t_env **env_list);
+void	destroy_arg(t_mini *shell);
+void	split_arg(t_mini *shell);
+char	*trim_arg(int from, int to, char *str);
+int     next_space_i(int start, char *str);
 
 // PWD - pwd.c
 void    pwd(void);
