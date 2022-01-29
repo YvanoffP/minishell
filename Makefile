@@ -52,7 +52,8 @@ EXPORT_FILES = export.c
 # MINISHELL file variable
 
 MINISHELL_FILES = minishell.c \
-				  prompt_msg.c
+				  prompt_msg.c \
+				  working_history.c
 
 # Parse files variable
 

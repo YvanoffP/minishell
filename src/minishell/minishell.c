@@ -13,6 +13,7 @@ void	init_mini(t_mini *shell, t_env **env)
 	while (++i != 50)
 		shell->arg_split[i] = NULL;
 	*env = NULL;
+	shell->fd_history = 0;
 }
 
 void	init_env(t_env **env_list, char **env)

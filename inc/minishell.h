@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <unistd.h>
+# include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -26,6 +27,7 @@ typedef struct s_mini
     char    *mini_cwd;
     char    *argv;
     char    *arg_split[50];
+	int		fd_history;
 }               t_mini;
 
 typedef struct s_env
@@ -42,6 +44,9 @@ void	exit_shell(t_mini *shell);
 // MiniShell - prompt_msg.c
 char    *sub_path(char *path);
 void	prompt_msg(t_mini *shell);
+
+// MiniShell - working_history.c
+void	working_history(t_mini *shell);
 
 // Echo - echo.c
 void	echo_func(char *str, char *str2);
