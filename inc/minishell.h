@@ -53,6 +53,7 @@ void	echo_func(char *str, char *str2);
 
 // Env - env.c
 void	env_func(t_env **env_list);
+
 // Env - chained_list.c
 t_env	*create_node(char *var_array);
 void	add_to_list(t_env **env_list, t_env *new_node);
@@ -67,7 +68,6 @@ void	print_export_list(t_env **env_list);
 void	add_var_to_list(t_env **env_list, char *args);
 void	export_func(t_env **env_list, char *args);
 
-
 // Sgnal - signal.c
 void	handler(int sig);
 
@@ -76,10 +76,6 @@ int     cd(char *path);
 
 // Parse - parsing.c
 void	parsing(t_mini *shell, t_env **env_list);
-void	destroy_arg(t_mini *shell);
-void	split_arg(t_mini *shell);
-char	*trim_arg(int from, int to, char *str);
-int     next_space_i(int start, char *str);
 
 // PWD - pwd.c
 void    pwd(void);
