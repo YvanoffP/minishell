@@ -10,8 +10,8 @@ void	init_mini(t_mini *shell, t_env **env)
 	cwd = getcwd(buff, 4096);
 	shell->mini_cwd = sub_path(cwd);
 	shell->argv = NULL;
-	while (++i != 50)
-		shell->arg_split[i] = NULL;
+	shell->first = NULL;
+	shell->current = NULL;
 	*env = NULL;
 	shell->fd_history = 0;
 }
@@ -42,4 +42,5 @@ void	exit_shell(t_mini *shell)
 	free(shell->mini_cwd);
 	if (shell->argv)
 		free(shell->argv);
+	//Check to free t_arg struct
 }
