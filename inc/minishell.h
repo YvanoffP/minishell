@@ -26,9 +26,16 @@ typedef struct s_mini
 {
     char    *mini_cwd;
     char    *argv;
-    char    *arg_split[50];
+    //struct nodes pointeur first elem
+    //struct nodes pointeur current
 	int		fd_history;
 }               t_mini;
+
+typedef struct s_arg
+{
+    char            **args;
+    struct s_arg    *next;
+}           t_arg;
 
 typedef struct s_env
 {
