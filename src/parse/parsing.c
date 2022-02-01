@@ -35,6 +35,7 @@ int	check_n_save_str(t_mini *shell, char quoted)
 	int i;
 
 	i = -1;
+	// create a new arg for all of this
 	(*shell->argv)++;	// skips the first quote before finding the next quote
 	if (!lf_next_quote(shell->argv, quoted))
 	{
@@ -59,7 +60,7 @@ int	save_til_space(t_mini *shell)
 	{
 		INSERTNODEARGHERE[++i] = *shell->argv;		//copy content into struct
 		(*shell->argv)++;
-		if (*shell->argv == '"' || *shell->argc == ''')
+		if (*shell->argv == 39 || *shell->argv == 34)
 		{
 			if (!check_n_save_str(shell), *shell->argv)
 				return (0);
@@ -83,7 +84,7 @@ void	split_args(t_mini *shell)
 		}
 		while (!is_sep(*shell->argv) && *shell->argv)
 		{
-			if (*shell->argv == '"' || *shell->argc == ''')
+			if (*shell->argv == 39 || *shell->argv == 34)
 			{
 				if (!check_n_save_str(shell), *shell->argv)
 					return ;
