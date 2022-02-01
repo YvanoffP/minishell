@@ -49,6 +49,24 @@ int	check_n_save_str(t_mini *shell, char quoted)
 	(*shell->argv)++;	//skips the last quote before going intop the parse again
 }
 
+int	save_til_space(t_mini *shell)
+{
+	int i;
+
+	i = -1
+	while (!is_w_space(*shell->argv) && *shell->argv)
+	{
+		INSERTNODEARGHERE[++i] = *shell->argv;		//copy content into struct
+		(*shell->argv)++;
+		if (*shell->argv == '"' || *shell->argc == ''')
+		{
+			if (!check_n_save_str(shell), *shell->argv)
+				return (0);
+		}
+	}
+	return (1);
+}
+
 void	split_args(t_mini *shell)
 {
 	while (*shell->argv)
@@ -70,7 +88,10 @@ void	split_args(t_mini *shell)
 					return ;
 			}
 			else
-				save_til_space(shell);
+			{
+				if (!save_til_space(shell))
+					return ;
+			}
 			if (is_w_space(*shell->argv) && *shell->argv)	// I should create a skip w space func
 				(*shell->argv)++;
 		}
