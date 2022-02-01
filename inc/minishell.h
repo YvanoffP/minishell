@@ -26,8 +26,8 @@ typedef struct s_mini
 {
     char    *mini_cwd;
     char    *argv;
-    //struct nodes pointeur first elem
-    //struct nodes pointeur current
+	t_arg	*first;
+	t_arg	*current;
 	int		fd_history;
 }               t_mini;
 

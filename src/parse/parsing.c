@@ -55,7 +55,7 @@ int	catch_quote_err(char *arg)
 	{
 		if (arg[i] == 39)
 		{
-			while (arg[i] != 39 || arg[i] != '\0')
+			while (arg[i] != 39 && arg[i] != '\0')
 				i++;
 			if (arg[i] == 39)
 				i++;
@@ -64,7 +64,7 @@ int	catch_quote_err(char *arg)
 		}
 		if (arg[i] == 34)
 		{
-			while (arg[i] != 34 || arg[i] != '\0')
+			while (arg[i] != 34 && arg[i] != '\0')
 				i++;
 			if (arg[i] == 34)
 				i++;
@@ -73,6 +73,66 @@ int	catch_quote_err(char *arg)
 		}
 	}
 	return (0);
+}
+
+int	alloc_wrds(t_mini *shell, int nb_words)
+{
+	t_arg	cmd;
+
+	cmd = malloc(sizeof(t_arg));
+	if (!cmd)
+		return (1);
+	cmd.args = (char **)malloc(sizeof(char *) * (nb_words + 1));
+	if (!cmd.args)
+		return (1);
+	cmd.args[nb_words + 1] = 0;
+	if (shell->first == NULL)
+		shell->first = &cmd;
+	else
+	{
+		shell->current->next = &cmd;
+		shell->current = &cmd;;
+	}
+	return (0);
+}
+
+int	alloc_wrd_til_sep(t_mini *shell)
+{
+	int		i;
+	int		nb_words;
+
+	i = 0;
+	nb_words = 0;
+	while (shell->argv[i] && !is_sep(shell->argv[i]))
+	{
+		while (is_w_space(shell->argv[i]))
+			i++;
+		if (!is_w_space(shell->argv[i]) && !is_sep(shell->argv[i]) && shell->argv[i])
+		{
+			while (!is_w_space(shell->argv[i]) && !is_sep(shell->argv[i]) && shell->argv[i])
+			{
+				if (shell->argv[i] == 39)
+				{
+					while (shell->argv[i] != 39 && shell->argv[i] != '\0')
+						i++;
+					if (shell->argv[i] == 39)
+						nb_words++;
+				}
+				if (shell->argv[i] == 34)
+				{
+					while (shell->argv[i] != 34 && shell->argv[i] != '\0')
+						i++;
+					if (shell->argv[i] == 34)
+						nb_words++;
+				}
+				i++;
+			}
+			nb_words++;
+		}
+		if (is_sep(shell->argv[i]) || !shell->argv[i])
+			return (alloc_wrds(shell, nb_words));
+	}
+	return (alloc_wrds(shell, nb_words));
 }
 
 int	count_n_alloc_wrds(t_mini *shell)
@@ -86,7 +146,8 @@ int	count_n_alloc_wrds(t_mini *shell)
 		return (1);
 	while (shell->argv[i])
 	{
-		alloc_wrd_til_sep(); // pay attention to " ' and count = as a w_space for export
+		if (alloc_wrd_til_sep(&shell))
+			return (1);
 		copy_wrds(); // copy the strlen malloc'd words into the previos allocated ** array
 		if (is_sep(shell->argv[i])) // gets 1 if it's on a sep
 		{
@@ -109,8 +170,6 @@ void	split_arg(t_mini *shell)
 		return ;
 	while (is_w_space(shell->argv[i]))
 		i++;
-
-
 }
 
 void	parsing(t_mini *shell, t_env **env_list)
