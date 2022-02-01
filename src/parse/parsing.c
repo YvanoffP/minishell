@@ -22,9 +22,9 @@ int	lf_next_quote(char *str, char quoted)
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i] != ''' || str[i] != '"' || str[i] != '\0')
+	while (str[i] != quoted || str[i] != '\0')
 		i++;
-	if (str[i] != ''' || str[i] != '"')
+	if (str[i] != quoted)
 		return (1);
 	else
 		return (0);
@@ -38,7 +38,7 @@ int	check_n_save_str(t_mini *shell, char quoted)
 	(*shell->argv)++;	// skips the first quote before finding the next quote
 	if (!lf_next_quote(shell->argv, quoted))
 	{
-		write(1, "Error : found an unclosed quote or double quotes ", 26);
+		write(1, "Error : found an unclosed quote or double quotes\n", 26);
 		return (0);
 	}
 	while (*shell->argv != quoted)
@@ -47,6 +47,7 @@ int	check_n_save_str(t_mini *shell, char quoted)
 		(*shell->argv)++;
 	}
 	(*shell->argv)++;	//skips the last quote before going intop the parse again
+	return (1);
 }
 
 int	save_til_space(t_mini *shell)
