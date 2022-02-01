@@ -86,7 +86,7 @@ int	count_n_alloc_wrds(t_mini *shell)
 		return (1);
 	while (shell->argv[i])
 	{
-		alloc_wrd_til_sep(); // pay attention to " '
+		alloc_wrd_til_sep(); // pay attention to " ' and count = as a w_space for export
 		copy_wrds(); // copy the strlen malloc'd words into the previos allocated ** array
 		if (is_sep(shell->argv[i])) // gets 1 if it's on a sep
 		{
