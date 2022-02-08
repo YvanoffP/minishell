@@ -79,13 +79,6 @@ void	realloc_arr(t_mini *shell)
 
 void	init_args(t_mini *shell)
 {
-//	t_arg	*tmp;
-
-//	tmp = malloc(sizeof(t_arg));
-//	tmp->args = NULL;
-//	tmp->next = NULL;
-//	shell->first = tmp;
-//	shell->current = tmp;
 	shell->first = malloc(sizeof(t_arg));
 	shell->first->args = NULL;
 	shell->first->next = NULL;
