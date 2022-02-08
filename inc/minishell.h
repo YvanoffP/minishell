@@ -24,11 +24,11 @@
 
 typedef struct s_mini
 {
-    char    *mini_cwd;
-    char    *argv;
-	t_arg	*first;
-	t_arg	*current;
-	int		fd_history;
+    char            *mini_cwd;
+    char            *argv;
+	struct s_arg	*first;
+	struct s_arg	*current;
+	int		        fd_history;
 }               t_mini;
 
 typedef struct s_arg

@@ -4,8 +4,8 @@ int	is_w_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\r'
 			|| c == '\n' || c == '\v' || c == '\f')
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 int print_sep_error(char sep)
@@ -23,161 +23,127 @@ int	is_sep(char c)
 	return (0);
 }
 
-int	catch_sep_err(char *argv)
-{
-	int	i;
-
-	i = -1;
-	while (argv[++i])
-	{
-		while (is_w_space(argv[i]))
-			i++;
-		if (is_sep(argv[i]))
-			return (print_sep_error(argv[i]));
-		while (!is_sep(argv[i]) && argv[i])
-			i++;
-	}
-	return (0);
-}
-
 int	print_quote_err(void)
 {
 	write(1, "Error : found an unclosed quote or double quotes\n", 26);
 	return (1);
 }
 
-int	catch_quote_err(char *arg)
+int	count_arr(char **tab)
 {
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+char **tab_dup(char **args, int	size)
+{
+	char **ret;
 	int	i;
 
 	i = -1;
-	while (arg[++i])
-	{
-		if (arg[i] == 39)
-		{
-			while (arg[i] != 39 && arg[i] != '\0')
-				i++;
-			if (arg[i] == 39)
-				i++;
-			else
-				return (print_quote_err());
-		}
-		if (arg[i] == 34)
-		{
-			while (arg[i] != 34 && arg[i] != '\0')
-				i++;
-			if (arg[i] == 34)
-				i++;
-			else
-				return (print_quote_err());
-		}
-	}
-	return (0);
+	ret = (char **)malloc(sizeof(char *) * size);
+	if (!ret)
+		return (NULL); // ERROR MALLOC CATCHED
+	while (args[++i])
+		ret[i] = ft_strdup(args[i]);
+	ret[i] = "\0";
+	return (ret);
 }
 
-int	alloc_wrds(t_mini *shell, int nb_words)
+void	realloc_arr(t_mini *shell)
 {
-	t_arg	cmd;
+	char	**tmp;
 
-	cmd = malloc(sizeof(t_arg));
-	if (!cmd)
-		return (1);
-	cmd.args = (char **)malloc(sizeof(char *) * (nb_words + 1));
-	if (!cmd.args)
-		return (1);
-	cmd.args[nb_words + 1] = 0;
-	if (shell->first == NULL)
-		shell->first = &cmd;
-	else
+	if (shell->current->args == NULL)
 	{
-		shell->current->next = &cmd;
-		shell->current = &cmd;;
+		shell->current->args = (char **)malloc(sizeof(char *));
+		if (!shell->current->args)
+			return ; // ERROR MALLOC CATCHED
+		shell->current->args[0] = "\0";
+		return ;
 	}
-	return (0);
+	tmp = tab_dup(shell->current->args, count_arr(shell->current->args) + 1);
+	free_array(shell->current->args);
+	if (!tmp)
+		return ; // ERROR MALLOC CATCHED
+	shell->current->args = tab_dup(tmp, count_arr(tmp));
+	free_array(tmp);
+	if (!shell->current->args)
+		return ; // ERROR MALLOC CATCHED
 }
 
-int	alloc_wrd_til_sep(t_mini *shell)
+void	init_args(t_mini *shell)
 {
-	int		i;
-	int		nb_words;
+	t_arg	*tmp;
 
-	i = 0;
-	nb_words = 0;
-	while (shell->argv[i] && !is_sep(shell->argv[i]))
-	{
-		while (is_w_space(shell->argv[i]))
-			i++;
-		if (!is_w_space(shell->argv[i]) && !is_sep(shell->argv[i]) && shell->argv[i])
-		{
-			while (!is_w_space(shell->argv[i]) && !is_sep(shell->argv[i]) && shell->argv[i])
-			{
-				if (shell->argv[i] == 39)
-				{
-					while (shell->argv[i] != 39 && shell->argv[i] != '\0')
-						i++;
-					if (shell->argv[i] == 39)
-						nb_words++;
-				}
-				if (shell->argv[i] == 34)
-				{
-					while (shell->argv[i] != 34 && shell->argv[i] != '\0')
-						i++;
-					if (shell->argv[i] == 34)
-						nb_words++;
-				}
-				i++;
-			}
-			nb_words++;
-		}
-		if (is_sep(shell->argv[i]) || !shell->argv[i])
-			return (alloc_wrds(shell, nb_words));
-	}
-	return (alloc_wrds(shell, nb_words));
+	tmp = malloc(sizeof(t_arg));
+	tmp->args = NULL;
+	tmp->next = NULL;
+	shell->first = tmp;
+	shell->current = tmp;
 }
 
-int	count_n_alloc_wrds(t_mini *shell)
+int	wrd_len(char *str, char sep, int *i)
 {
-	int	nb_wrd;
-	int	i;
+	int	j;
 
-	if (catch_sep_err(shell->argv))
-		return (1); // an error has been catched
-	if (catch_quote_err(shell->argv))
-		return (1);
-	while (shell->argv[i])
-	{
-		if (alloc_wrd_til_sep(&shell))
-			return (1);
-		copy_wrds(); // copy the strlen malloc'd words into the previos allocated ** array
-		if (is_sep(shell->argv[i])) // gets 1 if it's on a sep
-		{
-			new_node(); // this node will be there to stock the sep
-			copy_node(); // this will copy the sep into the node
-			move_pointer_curr_node(); // move the current pointer of the lichain
-			create_arg_node(); // this node will be there to stock the new passage in the while loop
-			move_pointer_curr_node(); // move pointer again
-		}
-	}
-	return (0);
+	j = *i;
+	while (str[j] != sep && str[j] && !is_sep(str[j]))
+		j++;
+	return (j - *i);
+}
+
+void	copy_wrd(t_mini *shell, int *i, int nb_wrd)
+{
+	int	wrd_size;
+
+
+	wrd_size = wrd_len(shell->argv, ' ', i);
+	// if it;s a ' or a ", copy until you find the closing one
+	shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (size_t)wrd_size);
+	*i += wrd_size;
+	while (is_w_space(shell->argv[*i]) && shell->argv[*i])
+		*i += 1;
 }
 
 void	split_arg(t_mini *shell)
 {
 	int	i;
+	int	nb_wrd;
 
 	i = 0;
-	if (count_n_alloc_wrds(shell))
-		return ;
-	while (is_w_space(shell->argv[i]))
-		i++;
+	init_args(shell);
+	while (shell->argv[i])
+	{
+		realloc_arr(shell);
+		nb_wrd = 0;
+		while (!is_sep(shell->argv[i]) && shell->argv[i])
+		{
+			copy_wrd(shell, &i, nb_wrd);
+			write(1, "BITE\n", 5);
+			nb_wrd++;
+		}
+		//create new node
+		//stock sep in new node
+		//create new node initialisated @ NULL
+	}
 }
 
 void	parsing(t_mini *shell, t_env **env_list)
 {
+	int i = 0;
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell);
-	if (!ft_strcmp(shell->arg_split[0], CD))
+	while (shell->current->args[i])
+		printf("%s\n", shell->current->args[i++]);
+	(void)env_list;
+	exit(0);
+	/*if (!ft_strcmp(shell->arg_split[0], CD))
 		cd(shell->arg_split[1]);
 	else if (!ft_strcmp(shell->arg_split[0], ECHO_CMD))
 		echo_func(shell->arg_split[1], shell->arg_split[2]);
@@ -191,4 +157,5 @@ void	parsing(t_mini *shell, t_env **env_list)
 		pwd();
 	else if (!ft_strcmp(shell->arg_split[0], UNSET))
 		unset(shell->arg_split[1], env_list);
+		*/
 }
