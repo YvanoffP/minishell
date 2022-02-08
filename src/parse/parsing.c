@@ -4,8 +4,8 @@ int	is_w_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\r'
 			|| c == '\n' || c == '\v' || c == '\f')
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int print_sep_error(char sep)
@@ -39,7 +39,7 @@ int	count_arr(char **tab)
 	return (i);
 }
 
-char **tab_dup(char **args, int	size)
+char **tab_dup(char **args, int	size, int flag)
 {
 	char **ret;
 	int	i;
@@ -50,7 +50,8 @@ char **tab_dup(char **args, int	size)
 		return (NULL); // ERROR MALLOC CATCHED
 	while (args[++i])
 		ret[i] = ft_strdup(args[i]);
-	ret[i] = "\0";
+	if (flag)
+		ret[i] = "\0";
 	return (ret);
 }
 
@@ -66,11 +67,11 @@ void	realloc_arr(t_mini *shell)
 		shell->current->args[0] = "\0";
 		return ;
 	}
-	tmp = tab_dup(shell->current->args, count_arr(shell->current->args) + 1);
+	tmp = tab_dup(shell->current->args, count_arr(shell->current->args) + 1, 1);
 	free_array(shell->current->args);
 	if (!tmp)
 		return ; // ERROR MALLOC CATCHED
-	shell->current->args = tab_dup(tmp, count_arr(tmp));
+	shell->current->args = tab_dup(tmp, count_arr(tmp), 0);
 	free_array(tmp);
 	if (!shell->current->args)
 		return ; // ERROR MALLOC CATCHED
@@ -106,7 +107,7 @@ void	copy_wrd(t_mini *shell, int *i, int nb_wrd)
 	// if it;s a ' or a ", copy until you find the closing one
 	shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (size_t)wrd_size);
 	*i += wrd_size;
-	while (is_w_space(shell->argv[*i]) && shell->argv[*i])
+	while (is_w_space(shell->argv[*i]) && shell->argv[*i] != '\0')
 		*i += 1;
 }
 
@@ -119,18 +120,18 @@ void	split_arg(t_mini *shell)
 	init_args(shell);
 	while (shell->argv[i])
 	{
-		realloc_arr(shell);
 		nb_wrd = 0;
 		while (!is_sep(shell->argv[i]) && shell->argv[i])
 		{
+			realloc_arr(shell);
 			copy_wrd(shell, &i, nb_wrd);
-			write(1, "BITE\n", 5);
 			nb_wrd++;
 		}
 		//create new node
 		//stock sep in new node
 		//create new node initialisated @ NULL
 	}
+	init_args(shell);
 }
 
 void	parsing(t_mini *shell, t_env **env_list)
@@ -139,9 +140,14 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell);
-	while (shell->current->args[i])
+	while (i != 2)
 		printf("%s\n", shell->current->args[i++]);
 	(void)env_list;
+	//free_array(shell->current->args);
+	//free(shell->first);
+	//while (1)
+	//{
+	//}
 	exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))
 		cd(shell->arg_split[1]);
