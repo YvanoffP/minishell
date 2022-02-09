@@ -84,6 +84,13 @@ int     cd(char *path);
 // Parse - parsing.c
 void	parsing(t_mini *shell, t_env **env_list);
 
+// Parse - list_parsing.c
+void	init_args(t_mini *shell);
+void	add_sep_to_lst(t_mini *shell, int *i);
+char	*add_sep_to_node(t_mini *shell, int *i);
+void	create_n_add_empty_node(t_mini *shell);
+void	destroy_arg_lst(t_mini *shell);
+
 // PWD - pwd.c
 void    pwd(void);
 

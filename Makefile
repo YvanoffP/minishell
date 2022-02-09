@@ -57,7 +57,8 @@ MINISHELL_FILES = minishell.c \
 
 # Parse files variable
 
-PARSE_FILES = parsing.c
+PARSE_FILES =	parsing.c \
+				list_parsing.c
 
 # PWD files variable
 
