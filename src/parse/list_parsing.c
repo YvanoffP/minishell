@@ -40,6 +40,7 @@ char	*add_sep_to_node(t_mini *shell, int *i)
 	char	*ret;
 
 	j = *i;
+	//TODO : change this condition with is_sep function
 	while (shell->argv[*i] == '|' || shell->argv[*i] == '<' || shell->argv[*i] == '>')
 		*i += 1;
 	ret = ft_substr(shell->argv, j, (*i - j));
