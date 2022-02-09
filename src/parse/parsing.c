@@ -103,10 +103,90 @@ void	skip_w_space(char *str, int *i)
 		*i += 1;
 }
 
+int	*catch_quote(char const *s, unsigned int start, int len)
+{
+	int i;
+	char sep;
+	int flag;
+	int j;
+	int *quotes;
+	int	nb_quotes;
+
+	quotes = malloc(sizeof(int) * 29);
+	flag = 0;
+	j = 0;
+	i = 0;
+	nb_quotes = 0;
+	while (i < len && s[start + i])
+	{
+		if ((s[start + i] == 34 || s[start + i] == 39) && flag == 0)
+		{
+			flag = 1;
+			sep = s[start + i];
+			quotes[j++] = start + i;
+			nb_quotes++;
+		}
+		else if (s[start + i] == sep && flag == 1)
+		{
+			flag = 0;
+			quotes[j++] = start + i;
+			nb_quotes++;
+		}
+		i++;
+	}
+	quotes[j] = -1;
+	quotes[29] = nb_quotes;
+	return (quotes);
+}
+
+char	*cpy_str(char const *s, int start, int len)
+{
+	char	*ret;
+	int	i;
+	int	j;
+	int	count;
+	int	*quotes;
+	int	cpy_count;
+
+	cpy_count = 0;
+	j = 0;
+	count = 0;
+	i = ft_strlen(s);
+	if (!s)
+		return (NULL);
+	if ((int)start > i)
+		return (ft_strdup(""));
+	quotes = catch_quote(s, start, len);
+	if (i - start < len)
+		len = i - (int)start;
+	if (quotes[29] % 2 == 1)
+	{
+		write(1, "Error : found an unclosed quote or double quotes\n", 49);
+		return (NULL);
+	}
+	ret = (char *)malloc(sizeof(char) * (len + 1) - quotes[29]);
+	if (ret == NULL)
+		return (NULL);
+	while (count < len)
+	{
+		if (count + start == quotes[j] && quotes[j] != -1)
+		{
+			j++;
+			count++;
+		}
+		ret[cpy_count] = s[start + count];
+		count++;
+		cpy_count++;
+	}
+	ret[cpy_count] = '\0';
+	free(quotes);
+	return (ret);
+}
+
 int	copy_wrd(t_mini *shell, int *i, int nb_wrd)
 {
-	int	wrd_size;
-	char  sep;
+	int		wrd_size;
+	char	sep;
 
 	if (!shell->argv[*i])
 		return (0);
@@ -123,7 +203,7 @@ int	copy_wrd(t_mini *shell, int *i, int nb_wrd)
 			*i += 1;
 			return (-1);
 		}
-		shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (size_t)wrd_size);
+		shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (int)wrd_size);
 		*i += wrd_size;
 		*i += 1;
 		return (0);
@@ -131,7 +211,9 @@ int	copy_wrd(t_mini *shell, int *i, int nb_wrd)
 	else
 	{
 		wrd_size = wrd_len(shell->argv, ' ', i);
-		shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (size_t)wrd_size);
+		shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, (int)wrd_size);
+		if (shell->current->args[nb_wrd] == NULL)
+			return (1);
 		*i += wrd_size;
 		while (is_w_space(shell->argv[*i]) && shell->argv[*i] != '\0')
 			*i += 1;
