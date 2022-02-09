@@ -79,10 +79,13 @@ void	realloc_arr(t_mini *shell)
 
 void	init_args(t_mini *shell)
 {
-	shell->first = malloc(sizeof(t_arg));
-	shell->first->args = NULL;
-	shell->first->next = NULL;
-	shell->current = shell->first;
+	t_arg	*args;
+
+	args = malloc(sizeof(t_arg));
+	args->args = NULL;
+	args->next = NULL;
+	shell->first = args;
+	shell->current = args;
 }
 
 int	wrd_len(char *str, char sep, int *i)
@@ -222,6 +225,61 @@ int	copy_wrd(t_mini *shell, int *i, int nb_wrd)
 	return (1);
 }
 
+char	*add_sep_to_node(t_mini *shell, int *i)
+{
+	int	j;
+	char	*ret;
+
+	j = *i;
+	while (shell->argv[*i] == '|' || shell->argv[*i] == '<' || shell->argv[*i] == '>')
+		*i += 1;
+	ret = ft_substr(shell->argv, j, (*i - j));
+	if (!ret)
+		return (NULL);
+	return (ret);
+}
+
+void	add_sep_to_lst(t_mini *shell, t_arg *current, int *i)
+{
+	t_arg	*new;
+
+	new = malloc(sizeof(t_arg));
+	if (new)
+	{
+		new->args = malloc(sizeof(char *) * 2);
+		new->args[0] = add_sep_to_node(shell, i);
+		new->args[1] = NULL;
+		new->next = NULL;
+		if (current)
+		{
+			while (current && current->next)
+				current = current->next;
+			current->next = new;
+			current = new;
+		}
+		else
+			current = new;
+	}
+}
+
+void	create_n_add_empty_node(t_arg *current)
+{
+	t_arg	*new;
+
+	new = malloc(sizeof(t_arg));
+	if (new)
+	{
+		new->args = NULL;
+		new->next = NULL;
+		while (current && current->next)
+			current = current->next;
+		current->next = new;
+		current = new;
+	}
+	else
+		current = new;
+}
+
 void	split_arg(t_mini *shell)
 {
 	int	i;
@@ -243,6 +301,21 @@ void	split_arg(t_mini *shell)
 				return ;
 			nb_wrd++;
 		}
+		//START LIST
+		printf("%s\n", shell->current->args[0]);
+		skip_w_space(shell->argv, &i);
+		if (is_sep(shell->argv[i]) && shell->argv[i])
+		{
+			add_sep_to_lst(shell, shell->current, &i);
+			printf("%s\n", shell->current->args[0]);
+			skip_w_space(shell->argv, &i);
+			if (!shell->argv[i] || is_sep(shell->argv[i]))
+			{
+				printf("Error : no args after after sep or two consecutive sep\n");
+				return ;
+			}
+			create_n_add_empty_node(shell->current);
+		}
 		//create new node
 		//stock sep in new node
 		//create new node initialisated @ NULL
@@ -255,8 +328,6 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell);
-	printf("%s\n", shell->current->args[0]);
-	printf("%s\n", shell->current->args[1]);
 	free_array(shell->current->args);
 	exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))
