@@ -314,9 +314,7 @@ void	split_arg(t_mini *shell)
 			}
 			create_n_add_empty_node(shell);
 		}
-		//create new node
-		//stock sep in new node
-		//create new node initialisated @ NULL
+		//DESTROY LIST
 	}
 }
 
