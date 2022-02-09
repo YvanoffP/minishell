@@ -336,6 +336,9 @@ void	destroy_arg_lst(t_mini *shell)
 	}
 	free_array(shell->first->args);
 	free(shell->first);
+	//USEFUL ? I saw some guys put their pointer on NULL after free. HAD TO CHECK
+	//shell->first = NULL;
+	//shell->current = NULL;
 }
 
 void	parsing(t_mini *shell, t_env **env_list)
