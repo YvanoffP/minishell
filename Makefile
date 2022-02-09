@@ -21,7 +21,7 @@ LIBFT_FOLDER = $(SOURCEDIR)/libft
 # Name of variables
 LIBFT_LIB = libft.a
 LIBS = -lncurses
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
@@ -93,7 +93,7 @@ OBJS := $(OBJ_CD) $(OBJ_ECHO) $(OBJ_ENV) $(OBJ_EXIT) $(OBJ_EXPORT) \
 LIBFT_FILE := $(LIBFT_FOLDER)/$(LIBFT_LIB)
 
 # Name the compiler
-CC = gcc
+CC = gcc 
 
 # OS specific part
 RM = rm -rf
