@@ -25,7 +25,7 @@ int	is_sep(char c)
 
 int	print_quote_err(void)
 {
-	write(1, "Error : found an unclosed quote or double quotes\n", 26);
+	write(1, "Error : found an unclosed quote or double quotes\n", 49);
 	return (1);
 }
 
@@ -92,26 +92,59 @@ int	wrd_len(char *str, char sep, int *i)
 	j = *i;
 	while (str[j] != sep && str[j] && !is_sep(str[j]))
 		j++;
+	if (str[j] == '\0' && sep != ' ')
+		return (-1);
 	return (j - *i);
 }
 
-void	copy_wrd(t_mini *shell, int *i, int nb_wrd)
+void	skip_w_space(char *str, int *i)
+{
+	while (is_w_space(str[*i]))
+		*i += 1;
+}
+
+int	copy_wrd(t_mini *shell, int *i, int nb_wrd)
 {
 	int	wrd_size;
+	char  sep;
 
-
-	wrd_size = wrd_len(shell->argv, ' ', i);
-	// if it;s a ' or a ", copy until you find the closing one
-	shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (size_t)wrd_size);
-	*i += wrd_size;
-	while (is_w_space(shell->argv[*i]) && shell->argv[*i] != '\0')
+	if (!shell->argv[*i])
+		return (0);
+	skip_w_space(shell->argv, i);
+	if (shell->argv[*i] == 34 || shell->argv[*i] == 39)
+	{
+		sep = shell->argv[*i];
 		*i += 1;
+		wrd_size = wrd_len(shell->argv, sep, i);
+		if (wrd_size == -1)
+			return (print_quote_err());
+		if (wrd_size == 0)
+		{
+			*i += 1;
+			return (-1);
+		}
+		shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (size_t)wrd_size);
+		*i += wrd_size;
+		*i += 1;
+		return (0);
+    }
+	else
+	{
+		wrd_size = wrd_len(shell->argv, ' ', i);
+		shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, (size_t)wrd_size);
+		*i += wrd_size;
+		while (is_w_space(shell->argv[*i]) && shell->argv[*i] != '\0')
+			*i += 1;
+		return (0);
+	}
+	return (1);
 }
 
 void	split_arg(t_mini *shell)
 {
 	int	i;
 	int	nb_wrd;
+	int ret;
 
 	i = 0;
 	init_args(shell);
@@ -121,7 +154,11 @@ void	split_arg(t_mini *shell)
 		while (!is_sep(shell->argv[i]) && shell->argv[i])
 		{
 			realloc_arr(shell);
-			copy_wrd(shell, &i, nb_wrd);
+			ret = copy_wrd(shell, &i, nb_wrd);
+			while (ret == -1)
+				ret = copy_wrd(shell, &i, nb_wrd);
+			if (ret == 1)
+				return ;
 			nb_wrd++;
 		}
 		//create new node
@@ -136,6 +173,8 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell);
+	printf("%s\n", shell->current->args[0]);
+	printf("%s\n", shell->current->args[1]);
 	free_array(shell->current->args);
 	exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))
