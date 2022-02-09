@@ -318,16 +318,33 @@ void	split_arg(t_mini *shell)
 	}
 }
 
+void	destroy_arg_lst(t_mini *shell)
+{
+	//Those free functions have to be tested with valgrind because leaks seems not ok
+	//With or without the two last free, leaks commands display no leak
+	//but if we print shell->first->args after boucle while, shell->first->args contains
+	//the last argument
+
+	t_arg	*tmp;
+
+	while (shell->first && shell->first->next)
+	{
+		tmp = shell->first->next;
+		free_array(shell->first->args);
+		free(shell->first);
+		shell->first = tmp;
+	}
+	free_array(shell->first->args);
+	free(shell->first);
+}
+
 void	parsing(t_mini *shell, t_env **env_list)
 {
 	(void)env_list;
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell);
-	printf("%s\n", shell->first->args[0]);
-	printf("%s\n", shell->first->next->args[0]);
-	printf("%s\n", shell->first->next->next->args[0]);
-	free_array(shell->current->args);
+	destroy_arg_lst(shell);
 	exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))
 		cd(shell->arg_split[1]);
