@@ -239,7 +239,7 @@ char	*add_sep_to_node(t_mini *shell, int *i)
 	return (ret);
 }
 
-void	add_sep_to_lst(t_mini *shell, t_arg *current, int *i)
+void	add_sep_to_lst(t_mini *shell, int *i)
 {
 	t_arg	*new;
 
@@ -250,19 +250,19 @@ void	add_sep_to_lst(t_mini *shell, t_arg *current, int *i)
 		new->args[0] = add_sep_to_node(shell, i);
 		new->args[1] = NULL;
 		new->next = NULL;
-		if (current)
+		if (shell->current)
 		{
-			while (current && current->next)
-				current = current->next;
-			current->next = new;
-			current = new;
+			while (shell->current && shell->current->next)
+				shell->current = shell->current->next;
+			shell->current->next = new;
+			shell->current = new;
 		}
 		else
-			current = new;
+			shell->current = new;
 	}
 }
 
-void	create_n_add_empty_node(t_arg *current)
+void	create_n_add_empty_node(t_mini *shell)
 {
 	t_arg	*new;
 
@@ -271,13 +271,13 @@ void	create_n_add_empty_node(t_arg *current)
 	{
 		new->args = NULL;
 		new->next = NULL;
-		while (current && current->next)
-			current = current->next;
-		current->next = new;
-		current = new;
+		while (shell->current && shell->current->next)
+			shell->current = shell->current->next;
+		shell->current->next = new;
+		shell->current = new;
 	}
 	else
-		current = new;
+		shell->current = new;
 }
 
 void	split_arg(t_mini *shell)
@@ -302,19 +302,17 @@ void	split_arg(t_mini *shell)
 			nb_wrd++;
 		}
 		//START LIST
-		printf("%s\n", shell->current->args[0]);
 		skip_w_space(shell->argv, &i);
 		if (is_sep(shell->argv[i]) && shell->argv[i])
 		{
-			add_sep_to_lst(shell, shell->current, &i);
-			printf("%s\n", shell->current->args[0]);
+			add_sep_to_lst(shell, &i);
 			skip_w_space(shell->argv, &i);
 			if (!shell->argv[i] || is_sep(shell->argv[i]))
 			{
 				printf("Error : no args after after sep or two consecutive sep\n");
 				return ;
 			}
-			create_n_add_empty_node(shell->current);
+			create_n_add_empty_node(shell);
 		}
 		//create new node
 		//stock sep in new node
@@ -328,6 +326,9 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell);
+	printf("%s\n", shell->first->args[0]);
+	printf("%s\n", shell->first->next->args[0]);
+	printf("%s\n", shell->first->next->next->args[0]);
 	free_array(shell->current->args);
 	exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))
