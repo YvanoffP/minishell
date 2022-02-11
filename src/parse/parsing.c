@@ -177,10 +177,14 @@ char *append(char *ret, char *tmp, char *value)
 
 	if (!value && !ret)
 		return (ft_strdup(tmp));
-	else if (!value && ret)
+	else if (!value && ret && tmp)
 		return (ft_strjoin(ret, tmp));
 	else if (value && !ret)
 		return (ft_strjoin(tmp, value));
+	else if (!value && ret && !tmp)
+		return (ret);
+	else if (value && ret && !tmp)
+		return (ft_strjoin(ret, value));
 	else
 	{
 		old_ret = ft_strdup(ret);
@@ -203,6 +207,9 @@ char *replace_dollars(char *str, t_env **env_list)
 
 	i = 0;
 	j = 0;
+	ret = NULL;
+	tmp = NULL;
+	value = NULL;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -217,13 +224,17 @@ char *replace_dollars(char *str, t_env **env_list)
 				ret = append(ret, tmp, value);
 				free(tmp);
 				free(value);
+				tmp = NULL;
+				value = NULL;
 			}
 			j = i;
 		}
 		while (str[i] && str[i] != '$')
 			i++;
-		tmp = ft_substr(str, j + 1, i - j);
+		tmp = ft_substr(str, j + 1, i - j - 1);
 		ret = append(ret, tmp, value);
+		free(tmp);
+		tmp = NULL;
 	}
 	return (ret);
 }

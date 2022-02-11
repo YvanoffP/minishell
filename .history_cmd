@@ -388,3 +388,49 @@ export
 export mama=5
 echo "$mama et $papa ont un fils"
 exit
+export mama=5
+echo $mama
+export
+export mama=5
+export
+echo mama
+echo $mama
+export mama=5
+echo $mama
+export
+export mama=5
+echo $mama
+export
+export mama=5
+echo $mama
+export mama=5
+echo $mama
+export mama=5
+echo $mama
+echo "$mama et puis $papa s'en vont"
+echo "$mama et puis $papa sen vont"
+exit
+export mama=5
+echo "$mama et %pp s'en vont"
+echo "$mama et %pp sen vont"
+export mama=5
+echo "$mama et $pp s'en vont"
+echo "$mama et $pp sen vont"
+export mama=5
+echo "$mama et $pp sen vont"
+export mama=5
+echo "$mama et $pp sen vont"
+exit
+export mama=5
+echo "$mama et $pp sen vont"
+export mama=5
+echo "$mama et $pp sen vont"
+echo "$mama et $mama suce $pp"
+q
+exit
+export mama=5
+echo "$mama et $mama et aussi $pp sen vont"
+export mama=5
+echo "$mama et $mama et aussi $pp sen vont"
+q
+exit
