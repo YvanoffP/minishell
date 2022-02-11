@@ -274,3 +274,117 @@ export
 export
 export
 export
+salut
+echo salut
+salut
+echo salut
+echo salut
+export
+export mama=5
+export
+export mama=5
+export
+echo mama
+echo $mama
+echo "$mama"
+echo $mama
+echo $
+exit
+exit
+export mama=5
+export
+echo mama
+echo $mama
+echo "$mama"
+exit
+echo $PATH
+export mama=5
+echo $mama
+echo "$mama"
+echo "$mama papa"
+echo "mama papa"
+echo "$ mama papa"
+exit
+echo $PATH
+export mama
+export
+export mama=5
+export
+exit
+export mama=5
+export
+echo $mama
+echo "$mama"
+exit
+echo $PATH
+echo $path
+echo $PATH
+export mama=5
+echo $mama
+echo "$mama"
+echo "$mama $mama"
+exit
+export mama=5
+echo "$mama"
+echo "$mama $mama"
+exit
+echo "$PATH $PATH"
+echo "$PATH $PATH"
+export mama=5
+echo "$mama $mama"
+export mama=5
+echo "$mama $mama"
+echo "$mama $mama"
+echo "$mama $mama"
+echo "$mama SALUT $mama"
+exit
+export mama=5
+echo "$mama et $mama"
+lldb minishell
+exit
+y
+echo "$PATH COUCOU $PATH"
+export mama=5ter
+echo "$mama COUCOU $mama"
+exit
+export mama=pute
+echo "$mama COUCOU $mama"
+exit
+export mama=5
+echo "$mama et $mama"
+exit
+echo "$PATH COUCOU $PATH"
+export mama=5
+echo "$mama COUCOU $mama"
+echo "$mama COUCOU $mama OU ENCORE $MAMA"
+echo "$mama COUCOU $mama OU ENCORE $mama"
+echo "$mama COUCOU $mama OU ENCORE $mama et $penis hihi"
+exit
+export mama=5
+echo "$mama COUCOU $mama OU ENCORE $mama et $penis hihi"
+make re
+exit
+export mama=5
+echo "$mama COUCOU $mama OU ENCORE $mama et $penis hihi"
+echo "$pipi coucou"
+exit
+echo "$guitbg COUCOU"
+echo "$PATH coucou $PATH"
+export bite=5
+echo "$bite coucou $vite salut"
+exit
+export mama=5
+echo "$mama et $papa ont un fils"
+exit
+export mama=5
+echo "$mama et $papa ont un fils"
+exit
+export mama=5
+echo "$mama et $papa ont un fils"
+export mama=5
+echo "$mama et $papa ont un fils"
+export mama-5
+export
+export mama=5
+echo "$mama et $papa ont un fils"
+exit
