@@ -256,6 +256,8 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell);
+	if (!ft_strcmp(shell->first->args[0], EXPORT))
+		export_func(env_list, shell->first->args[1]);
 	destroy_arg_lst(shell);
 	exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))

@@ -3,11 +3,33 @@
 t_env	*create_node(char *var_array)
 {
 	t_env	*new_node;
+	int		i;
+
+	new_node = malloc(sizeof(t_env));
+	i = 0;
+	if (new_node)
+	{
+		//We want to put '=' in name of var, not value
+		while (var_array[i] != '=')
+			i++;
+		new_node->var = ft_substr(var_array, 0, i);
+		i++;
+		new_node->value = ft_substr(var_array, i, (ft_strlen(var_array) - i));
+		new_node->next = NULL;
+		return (new_node);
+	}
+	return (NULL);
+}
+
+t_env	*dup_node(char *name, char *value)
+{
+	t_env	*new_node;
 
 	new_node = malloc(sizeof(t_env));
 	if (new_node)
 	{
-		new_node->var = ft_strdup(var_array);
+		new_node->var = ft_strdup(name);
+		new_node->value = ft_strdup(value);
 		new_node->next = NULL;
 		return (new_node);
 	}
@@ -33,22 +55,22 @@ void	add_to_list(t_env **env_list, t_env *new_node)
 
 t_env	*duplicate_list(t_env **env_list)
 {
-	t_env	*tmp;
+	t_env	*list;
 	t_env	*new;
 	t_env	*copy;
 
-	tmp = *env_list;
+	list = *env_list;
 	copy = NULL;
 	if (*env_list == NULL)
 		return (NULL);
-	while (tmp != NULL)
+	while (list != NULL)
 	{
-		new = create_node(tmp->var);
+		new = dup_node(list->var, list->value);
 		if (copy == NULL)
 			copy = new;
 		else
 			add_to_list(&copy, new);
-		tmp = tmp->next;
+		list = list->next;
 	}
 	return (copy);
 }
@@ -70,16 +92,24 @@ int	count_list(t_env **list)
 
 void	swap_nodes(t_env *tmp)
 {
-	char	*str;
+	char	*name;
+	char	*value;
 
 	if (ft_strcmp(tmp->var, tmp->next->var) > 0)
 	{
-		str = ft_strdup(tmp->next->var);
+		name = ft_strdup(tmp->next->var);
+		value = ft_strdup(tmp->next->value);
 		free(tmp->next->var);
+		free(tmp->next->value);
 		tmp->next->var = ft_strdup(tmp->var);
+		tmp->next->value = ft_strdup(tmp->value);
 		free(tmp->var);
-		tmp->var = ft_strdup(str);
-		//TODO : free(str) ??
+		free(tmp->value);
+		tmp->var = ft_strdup(name);
+		tmp->value = ft_strdup(value);
+		//TODO : free(value) + free(name) ??
+		//free(name);
+		//free(value);
 	}
 }
 
@@ -116,6 +146,7 @@ void	delete_list(t_env *env_list)
 	while (tmp != NULL)
 	{
 		free(tmp->var);
+		free(tmp->value);
 		node = tmp->next;
 		free(tmp);
 		tmp = node;

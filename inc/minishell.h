@@ -40,6 +40,7 @@ typedef struct s_arg
 typedef struct s_env
 {
 	char			*var;
+	char			*value;
 	struct s_env	*next;
 }			t_env;
 
@@ -63,6 +64,7 @@ void	env_func(t_env **env_list);
 
 // Env - chained_list.c
 t_env	*create_node(char *var_array);
+t_env	*dup_node(char *name, char *value);
 void	add_to_list(t_env **env_list, t_env *new_node);
 void	delete_list(t_env *env_list);
 t_env	*sort_list_export(t_env **env_list);
