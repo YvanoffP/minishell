@@ -434,3 +434,68 @@ export mama=5
 echo "$mama et $mama et aussi $pp sen vont"
 q
 exit
+export mama=5
+echo "salut$mama"
+export mama=5
+echo "salut$mama"
+exit
+export mama=5
+echo "salut$mama"
+echo "$mamasalut"
+echo "$mama_salut"
+echo "$mama_$mama"
+exit
+export mama=5
+echo "$mama_$mama"
+export mama=5
+echo "$mama_$mama"
+echo "salut$mama"
+echo "$mama$mama"
+exit
+export mama=5
+echo "$mama_$mama"
+export mama=5
+echo "$mama_$mama"
+echo "$mama$mama_"
+echo "$mama$mama_ o"
+exit
+export mama=5
+echo "$mama$mama_ o"
+export
+echo "$mama$mama_ o"
+export
+echo "$mama$mama_ o"
+exit
+export
+echo "$mama$mama_ o"
+export
+echo "$mama"
+echo "$mama$mama"
+echo "$mama_$mama"
+echo "$mama_ $mama"
+echo "$mama$mama_ o"
+exit
+export
+echo "$mama"
+echo "$mama$mama"
+echo "$mama_$mama"
+echo "$mama_ $mama"
+echo "$mama_   $mama"
+echo "$mama_ $mama"
+echo "$mama$mama_ o"
+exit
+export
+echo "$mama$mama_ o"
+export
+echo "$mama$mama_ o"
+echo "$mama$mama_ o"
+echo "$mama$mama_ o"
+echo "$mama$mama_ o"
+echo "$mama$mama_ o"
+echo "$mama$mama_ o"
+echo "$mama"
+echo "$mama$mama"
+echo "$mama$mama_ o"
+echo "$mama _$mama_ o"
+echo " $mama"
+exit

@@ -154,7 +154,7 @@ char *find_env_var(char *str, int *i, t_env **env_list)
 	*i += 1;
 	j = *i;
 	list = *env_list;
-	while (!is_w_space(str[*i]) && str[*i])
+	while (!is_w_space(str[*i]) && str[*i] && str[*i] != '$')
 		*i += 1;
 	name = ft_substr(str, j, (*i - j));
 	while (ft_strcmp(name, list->var) && list->next != NULL)
@@ -166,35 +166,25 @@ char *find_env_var(char *str, int *i, t_env **env_list)
 	}
 	free(name);
 	name = ft_strdup(list->value);
-	*i -= 1;
+//	*i -= 1;
 	return (name);
 }
 
 char *append(char *ret, char *tmp, char *value)
 {
-	char *old_ret;
-	char *new_ret;
-
-	if (!value && !ret)
+	if (!value && !ret && tmp)
 		return (ft_strdup(tmp));
 	else if (!value && ret && tmp)
 		return (ft_strjoin(ret, tmp));
-	else if (value && !ret)
+	else if (value && !ret && tmp)
 		return (ft_strjoin(tmp, value));
 	else if (!value && ret && !tmp)
 		return (ret);
 	else if (value && ret && !tmp)
 		return (ft_strjoin(ret, value));
-	else
-	{
-		old_ret = ft_strdup(ret);
-		free(ret);
-		ret = ft_strjoin(tmp, value);
-		new_ret = ft_strjoin(old_ret, ret);
-		free(old_ret);
-		free(ret);
-	}
-	return (new_ret);
+	else if (value && !ret && !tmp)
+		return (ft_strdup(value));
+	return (NULL);
 }
 
 char *replace_dollars(char *str, t_env **env_list)
@@ -214,8 +204,6 @@ char *replace_dollars(char *str, t_env **env_list)
 	{
 		if (str[i] == '$')
 		{
-			if (!i)
-				tmp = ft_substr(str, j + 1, i - j);
 			value = find_env_var(str, &i, env_list);
 			if (!value)
 				ret = append(ret, tmp, value);
@@ -231,10 +219,13 @@ char *replace_dollars(char *str, t_env **env_list)
 		}
 		while (str[i] && str[i] != '$')
 			i++;
-		tmp = ft_substr(str, j + 1, i - j - 1);
-		ret = append(ret, tmp, value);
-		free(tmp);
-		tmp = NULL;
+		if (i != j)
+		{
+			tmp = ft_substr(str, j, i - j);
+			ret = append(ret, tmp, value);
+			free(tmp);
+			tmp = NULL;
+		}
 	}
 	return (ret);
 }
