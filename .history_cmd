@@ -508,3 +508,7 @@ export mama=5
 echo mama"$mama"papa
 echo mama"mama"papa
 exit
+echo 'salut$bite'
+echo 'salut$bite'mama
+exit
+echo 'salut$bite'mama

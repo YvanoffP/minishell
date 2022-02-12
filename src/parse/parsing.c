@@ -283,7 +283,51 @@ char	*cpy_str(char const *s, int start, int len, t_env **env_list)
 	return (ret);
 }
 
+
 int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
+{
+	char *ret;
+	int		j;
+
+	j = *i;
+	ret = NULL;
+	while ()
+	{
+		while (shell->argv[*i] && !is_w_space(shell->argv[*i])
+				&& shell->argv[*i] != 34 && shell->argv[*i] != 39
+				&& !is_sep(shell->argv[*i]))
+			*i += 1;
+		if (is_w_space(shell->argv[*i]) || is_sep(shell->argv[*i]))
+		{
+			if (!ret)
+				return (ft_substr(shell->argv), j, *i - j);
+			//si on a rien avant, retourner un substr sur ret de i
+			//sinon join sur ret et retourner ret
+			return (ret);
+		}
+		else if (shell->argv[*i] == 34)
+		{
+			while (next double quote)
+			{
+				avancefdp++;
+				copie lettre par lettre dans tmp;
+				if (dollar)
+				{
+					traiter dollar;
+
+				}
+			}
+
+			//traiter le dollar
+		}
+		else if (shell->argv[*i] == 39)
+		{
+			//pale copie jusqua la fermeture de la single quote
+		}
+	}
+}
+
+/*int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
 {
 	int		wrd_size;
 	char	sep;
@@ -303,7 +347,10 @@ int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
 			*i += 1;
 			return (-1);
 		}
-		shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, wrd_size, env_list);
+		if (sep == 39)
+			shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, wrd_size);
+		else
+			shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, wrd_size, env_list);
 		*i += wrd_size;
 		*i += 1;
 		return (0);
@@ -320,7 +367,7 @@ int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
 		return (0);
 	}
 	return (1);
-}
+}*/
 
 void	split_arg(t_mini *shell, t_env **env_list)
 {
