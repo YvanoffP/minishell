@@ -303,7 +303,7 @@ int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
 			*i += 1;
 			return (-1);
 		}
-		shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, (int)wrd_size, env_list);
+		shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, wrd_size, env_list);
 		*i += wrd_size;
 		*i += 1;
 		return (0);
@@ -311,7 +311,7 @@ int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
 	else
 	{
 		wrd_size = wrd_len(shell->argv, ' ', i);
-		shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, (int)wrd_size, env_list);
+		shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, wrd_size, env_list);
 		if (shell->current->args[nb_wrd] == NULL)
 			return (1);
 		*i += wrd_size;
