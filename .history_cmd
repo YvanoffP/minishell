@@ -499,3 +499,12 @@ echo "$mama$mama_ o"
 echo "$mama _$mama_ o"
 echo " $mama"
 exit
+export mama=5
+echo salut
+echo salut maman
+echo "bibibibi$PATH ))W BITE"
+echo mama"$mama"papa
+export mama=5
+echo mama"$mama"papa
+echo mama"mama"papa
+exit
