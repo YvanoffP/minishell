@@ -52,19 +52,18 @@ char	*add_sep_to_node(t_mini *shell, int *i)
 void	create_n_add_empty_node(t_mini *shell)
 {
 	t_arg	*new;
+	t_arg	*lst;
 
 	new = malloc(sizeof(t_arg));
+	lst = shell->first;
 	if (new)
 	{
 		new->args = NULL;
 		new->next = NULL;
-		while (shell->current && shell->current->next)
-			shell->current = shell->current->next;
-		shell->current->next = new;
-		shell->current = new;
+		while (lst && lst->next)
+			lst = lst->next;
+		lst->next = new;
 	}
-	else
-		shell->current = new;
 }
 
 void	destroy_arg_lst(t_mini *shell)

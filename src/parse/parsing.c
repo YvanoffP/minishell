@@ -39,96 +39,10 @@ int	count_arr(char **tab)
 	return (i);
 }
 
-char **tab_dup(char **args, int	size)
-{
-	char **ret;
-	int	i;
-
-	i = -1;
-	ret = (char **)malloc(sizeof(char *) * size + 1);
-	if (!ret)
-		return (NULL); // ERROR MALLOC CATCHED
-	while (++i < size - 1)
-		ret[i] = ft_strdup(args[i]);
-	ret[i] = 0;
-	return (ret);
-}
-
-void	realloc_arr(t_mini *shell)
-{
-	char	**tmp;
-
-	if (shell->current->args == NULL)
-	{
-		shell->current->args = (char **)malloc(sizeof(char *) * 2);
-		if (!shell->current->args)
-			return ; // ERROR MALLOC CATCHED
-		shell->current->args[0] = 0;
-		shell->current->args[1] = 0;
-		return ;
-	}
-	tmp = tab_dup(shell->current->args, count_arr(shell->current->args) + 1);
-	free_array(shell->current->args);
-	if (!tmp)
-		return ; // ERROR MALLOC CATCHED
-	shell->current->args = tab_dup(tmp, count_arr(tmp) + 1);
-	free_array(tmp);
-	if (!shell->current->args)
-		return ; // ERROR MALLOC CATCHED
-}
-
-int	wrd_len(char *str, char sep, int *i)
-{
-	int	j;
-
-	j = *i;
-	while (str[j] != sep && str[j] && !is_sep(str[j]))
-		j++;
-	if (str[j] == '\0' && sep != ' ')
-		return (-1);
-	return (j - *i);
-}
-
 void	skip_w_space(char *str, int *i)
 {
 	while (is_w_space(str[*i]))
 		*i += 1;
-}
-
-int	*catch_quote(char const *s, unsigned int start, int len)
-{
-	int i;
-	char sep;
-	int flag;
-	int j;
-	int *quotes;
-	int	nb_quotes;
-
-	quotes = malloc(sizeof(int) * 29);
-	flag = 0;
-	j = 0;
-	i = 0;
-	nb_quotes = 0;
-	while (i < len && s[start + i])
-	{
-		if ((s[start + i] == 34 || s[start + i] == 39) && flag == 0)
-		{
-			flag = 1;
-			sep = s[start + i];
-			quotes[j++] = start + i;
-			nb_quotes++;
-		}
-		else if (s[start + i] == sep && flag == 1)
-		{
-			flag = 0;
-			quotes[j++] = start + i;
-			nb_quotes++;
-		}
-		i++;
-	}
-	quotes[j] = -1;
-	quotes[29] = nb_quotes;
-	return (quotes);
 }
 
 int	have_a_dollar(char *str)
@@ -230,179 +144,259 @@ char *replace_dollars(char *str, t_env **env_list)
 	return (ret);
 }
 
-char	*cpy_str(char const *s, int start, int len, t_env **env_list)
+void	skip_quote(char *str, int *i)
 {
-	char	*ret;
-	char	*final;
+	//Reste a proteger du nb impair de quote si c'est necessaire
+	//Sinon le compte est mauvais
+
+	if (str[*i] == 34 || str[*i] == 39)
+	{
+		if (str[*i] == 34 && str[*i + 1])
+		{
+			*i += 1;
+			while (str[*i] != 34 && str[*i])
+				*i += 1;
+			if (!str[*i])
+				return ;
+		}
+		else if (str[*i] == 39 && str[*i + 1])
+		{
+			*i += 1;
+			while (str[*i] != 39 && str[*i])
+				*i += 1;
+			if (!str[*i])
+				return ;
+		}
+	}
+}
+
+int	count_sep(char *str)
+{
+	int	i;
+	int	nb_sep;
+
+	i = 0;
+	nb_sep = 0;
+	while (str[i])
+	{
+		skip_quote(str, &i);
+		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+			nb_sep++;
+		i++;
+	}
+	return (nb_sep);
+}
+
+int	count_space(char *str)
+{
+	int	i;
+	int	nb_space;
+
+	i = 0;
+	nb_space = 0;
+	while (str[i])
+	{
+		skip_quote(str, &i);
+		if (is_w_space(str[i]))
+		{
+			nb_space++;
+			skip_w_space(str, &i);
+			i--;
+		}
+		i++;
+	}
+	return (nb_space);
+}
+
+int	*parse_sep(char *str)
+{
+	int	nb_sep;
+	int	*ind_sep;
 	int	i;
 	int	j;
-	int	count;
-	int	*quotes;
-	int	cpy_count;
 
-	cpy_count = 0;
+	i = 0;
 	j = 0;
-	count = 0;
-	i = ft_strlen(s);
-	if (!s)
+	nb_sep = count_sep(str);
+	ind_sep = malloc(sizeof(int) * nb_sep);
+	if (!ind_sep)
 		return (NULL);
-	if ((int)start > i)
-		return (ft_strdup(""));
-	quotes = catch_quote(s, start, len);
-	if (i - start < len)
-		len = i - (int)start;
-	if (quotes[29] % 2 == 1)
+	while (str[i])
 	{
-		write(1, "Error : found an unclosed quote or double quotes\n", 49);
-		return (NULL);
+		skip_quote(str, &i);
+		if (is_sep(str[i]))
+			ind_sep[j++] = i;
+		i++;
 	}
-	ret = (char *)malloc(sizeof(char) * (len + 1) - quotes[29]);
-	if (ret == NULL)
+	return (ind_sep);
+}
+
+int	*parse_space(char *str)
+{
+	int	nb_space;
+	int	*ind_space;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	nb_space = count_space(str);
+	ind_space = malloc(sizeof(int) * nb_space + 1);
+	if (!ind_space)
 		return (NULL);
-	while (count < len)
+	ind_space[nb_space] = 0;
+	while (str[i])
 	{
-		if (count + start == quotes[j] && quotes[j] != -1)
+		skip_quote(str, &i);
+		if (is_w_space(str[i]))
 		{
-			j++;
-			count++;
+			ind_space[j++] = i;
+			skip_w_space(str, &i);
+			i--;
 		}
-		ret[cpy_count] = s[start + count];
-		count++;
-		cpy_count++;
+		i++;
 	}
-	ret[cpy_count] = '\0';
-	if (have_a_dollar(ret))
+	return (ind_space);
+}
+
+int	count_missing_space(char *str, int *sep)
+{
+	int	i;
+	int	*ptr;
+	int	missing_space;
+
+	missing_space = 0;
+	i = 0;
+	ptr = sep;
+	while (*ptr)
 	{
-		final = replace_dollars(ret, env_list);
-		if (final == NULL)
-			//Variable pas trouvee, faire qqch
-		free(ret);
-		return (final);
+		i = *ptr;
+		if (is_w_space(str[i - 1]))
+			missing_space++;
+		if (is_w_space(str[i + 1]))
+			missing_space++;
+		ptr++;
 	}
-	free(quotes);
+	return (missing_space);
+}
+
+void	delete_last_spaces(char **str)
+{
+	int		len;
+	int		i;
+	int	nb_space;
+	char	*tmp;
+
+	len = ft_strlen(*str) - 1;
+	tmp = NULL;
+	i = -1;
+	nb_space = 0;
+	while (is_w_space((*str)[len]))
+	{
+		nb_space++;
+		len--;
+	}
+	if (nb_space)
+	{
+		tmp = malloc(sizeof(char) * (len + 2));
+		if (!tmp)
+			return ;
+		while (i++ < len)
+			tmp[i] = (*str)[i];
+		tmp[i] = 0;
+	}
+	free(*str);
+	*str = ft_strdup(tmp);
+	free(tmp);
+}
+
+char	*pimp_my_string(t_mini *shell, int *sep)
+{
+	char	*ret;
+	int		*ptr;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	ptr = sep;
+	ret = (char *)malloc(sizeof(char) * (ft_strlen(shell->argv) + count_missing_space(shell->argv, sep) + 1));
+	if (!ret)
+		return (NULL);
+	while (shell->argv[i])
+	{
+		ret[j++] = shell->argv[i++];
+		if (is_sep(shell->argv[i]) && shell->argv[i] && i == *ptr)
+		{
+			if (!is_w_space(shell->argv[i - 1]))
+				ret[j++] = 32;
+		}
+		else if (is_sep(shell->argv[i - 1]) && shell->argv[i] && (i - 1) == *ptr)
+		{
+			if (!is_w_space(shell->argv[i]))
+				ret[j++] = 32;
+			ptr++;
+		}
+	}
+	ret[j] = 0;
+	delete_last_spaces(&ret);
+	free(shell->argv);
 	return (ret);
 }
 
-
-int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
+void	alloc_args_tab(t_mini *shell, int *sep, int *space)
 {
-	char *ret;
-	int		j;
+	int	*ptr_sep;
+	int	*ptr_space;
+	int	i;
 
-	j = *i;
-	ret = NULL;
-	while ()
+	ptr_sep = sep;
+	ptr_space = space;
+	i = 0;
+	while (*space < *sep)
 	{
-		while (shell->argv[*i] && !is_w_space(shell->argv[*i])
-				&& shell->argv[*i] != 34 && shell->argv[*i] != 39
-				&& !is_sep(shell->argv[*i]))
-			*i += 1;
-		if (is_w_space(shell->argv[*i]) || is_sep(shell->argv[*i]))
-		{
-			if (!ret)
-				return (ft_substr(shell->argv), j, *i - j);
-			//si on a rien avant, retourner un substr sur ret de i
-			//sinon join sur ret et retourner ret
-			return (ret);
-		}
-		else if (shell->argv[*i] == 34)
-		{
-			while (next double quote)
-			{
-				avancefdp++;
-				copie lettre par lettre dans tmp;
-				if (dollar)
-				{
-					traiter dollar;
-
-				}
-			}
-
-			//traiter le dollar
-		}
-		else if (shell->argv[*i] == 39)
-		{
-			//pale copie jusqua la fermeture de la single quote
-		}
+		i++;
+		space++;
 	}
+	shell->current->args = malloc(sizeof(char *) * (i + 1));
+	shell->current->args[i] = 0;
+	shell->current = shell->current->next;
+	sep++;
+	i = 0;
+	while (*space < *sep)
+	{
+		i++;
+		space++;
+	}
+	shell->current->args = malloc(sizeof(char *) * i);
+	shell->current->args[--i] = 0;
+	shell->current = shell->current->next;
+	sep++;
+	i = 0;
+	while (*(space++))
+		i++;
+	shell->current->args = malloc(sizeof(char *) * i + 1);
+	shell->current->args[i] = 0;
+	shell->current = shell->current->next;
 }
-
-/*int	copy_wrd(t_mini *shell, int *i, int nb_wrd, t_env **env_list)
-{
-	int		wrd_size;
-	char	sep;
-
-	if (!shell->argv[*i])
-		return (0);
-	skip_w_space(shell->argv, i);
-	if (shell->argv[*i] == 34 || shell->argv[*i] == 39)
-	{
-		sep = shell->argv[*i];
-		*i += 1;
-		wrd_size = wrd_len(shell->argv, sep, i);
-		if (wrd_size == -1)
-			return (print_quote_err());
-		if (wrd_size == 0)
-		{
-			*i += 1;
-			return (-1);
-		}
-		if (sep == 39)
-			shell->current->args[nb_wrd] = ft_substr(shell->argv, *i, wrd_size);
-		else
-			shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, wrd_size, env_list);
-		*i += wrd_size;
-		*i += 1;
-		return (0);
-    }
-	else
-	{
-		wrd_size = wrd_len(shell->argv, ' ', i);
-		shell->current->args[nb_wrd] = cpy_str(shell->argv, *i, wrd_size, env_list);
-		if (shell->current->args[nb_wrd] == NULL)
-			return (1);
-		*i += wrd_size;
-		while (is_w_space(shell->argv[*i]) && shell->argv[*i] != '\0')
-			*i += 1;
-		return (0);
-	}
-	return (1);
-}*/
 
 void	split_arg(t_mini *shell, t_env **env_list)
 {
-	int	i;
-	int	nb_wrd;
-	int ret;
+	//TODO : free int*
+	int	*sep;
+	int	*space;
+	int	*ptr;
+	(void)env_list;
 
-	i = 0;
+	sep = parse_sep(shell->argv);
+	shell->argv = pimp_my_string(shell, sep);
+	free(sep);
+	sep = parse_sep(shell->argv);
+	space = parse_space(shell->argv);
 	init_args(shell);
-	while (shell->argv[i])
-	{
-		nb_wrd = 0;
-		while (!is_sep(shell->argv[i]) && shell->argv[i])
-		{
-			realloc_arr(shell);
-			ret = copy_wrd(shell, &i, nb_wrd, env_list);
-			while (ret == -1)
-				ret = copy_wrd(shell, &i, nb_wrd, env_list);
-			if (ret == 1)
-				return ;
-			nb_wrd++;
-		}
-		skip_w_space(shell->argv, &i);
-		if (is_sep(shell->argv[i]) && shell->argv[i])
-		{
-			add_sep_to_lst(shell, &i);
-			skip_w_space(shell->argv, &i);
-			if (!shell->argv[i] || is_sep(shell->argv[i]))
-			{
-				printf("Error : no args after after sep or two consecutive sep\n");
-				return ;
-			}
-			create_n_add_empty_node(shell);
-		}
-	}
+	ptr = sep;
+	while (*(ptr++))
+		create_n_add_empty_node(shell);
 }
 
 void	parsing(t_mini *shell, t_env **env_list)
