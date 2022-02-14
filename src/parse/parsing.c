@@ -141,7 +141,7 @@ char *replace_dollars(char *str, t_env **env_list, int i)
 	if (i < (int)ft_strlen(str))
 	{
 		tmp = ft_strdup(ret);
-		value = ft_substr(str, i + 1, ft_strlen(str) - (i + 1));
+		value = ft_substr(str, i, ft_strlen(str) - i);
 		free(ret);
 		ret = NULL;
 		ret = ft_strjoin(tmp, value);
@@ -471,9 +471,6 @@ void	delete_quote(t_mini *shell, int i, int *j)
 		return ; // ERROR MALLOC
 	while (shell->current->args[i][k])
 	{
-		ret[index] = shell->current->args[i][k];
-		index++;
-		k++;
 		if (k == *j)
 			k++;
 		if (shell->current->args[i][k] == shell->current->args[i][*j])
@@ -482,6 +479,9 @@ void	delete_quote(t_mini *shell, int i, int *j)
 			*j = k - 2;
 			break ;
 		}
+		ret[index] = shell->current->args[i][k];
+		index++;
+		k++;
 	}
 	while (shell->current->args[i][k])
 	{
@@ -532,15 +532,23 @@ void	quotes_cleaner(t_mini *shell, t_env **env_list)
 {
 	int	i;
 
-	i = 0;
 	while (shell->current && shell->current->next)
 	{
+		i = 0;
 		while (shell->current->args[i])
 		{
 			if (detect_quote(shell->current->args[i]))
 				quote_remover(shell, env_list, i);
 			i++;
 		}
+		shell->current = shell->current->next;
+	}
+	i = 0;
+	while (shell->current->args[i])
+	{
+		if (detect_quote(shell->current->args[i]))
+			quote_remover(shell, env_list, i);
+		i++;
 	}
 }
 

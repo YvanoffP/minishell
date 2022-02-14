@@ -631,3 +631,30 @@ export
 export mama=5
 echo "$mama"
 echo "$mama" | echo bite
+export
+echo "ma$PATH"
+echo ma"ma$PATH"bite
+echo "path $PATH" | echo mama
+echo "path $PATH" | echo mama
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo "path $PATH" | echo bite
+echo mama
+echo mama
+echo mama bite
+echo "path $PATH"
+export
+export mama=5
+export
+echo "$PATH et $mama"ohoh
+exit
