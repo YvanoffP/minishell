@@ -658,3 +658,19 @@ export mama=5
 export
 echo "$PATH et $mama"ohoh
 exit
+echo "mama     $mamaa$mama "
+export mama=5
+echo "mama     $mamaa$mama "
+echo "mama     $mamaa$mama a"
+exit
+export mama=5
+export papa=6
+echo mama"variable $mama'hellow$papa'cul"bite
+export
+echo mama"variable $mama 'hellow$papa'cul"bite
+exit
+echo mama"variable $mama 'hellow$papa'cul"bite
+echo mama"variable $mama 'hellow$papa'cul"bite
+export mama=5
+echo mama"variable $mama 'hellow$papa'cul"bite
+exit
