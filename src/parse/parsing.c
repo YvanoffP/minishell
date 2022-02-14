@@ -45,12 +45,9 @@ void	skip_w_space(char *str, int *i)
 		*i += 1;
 }
 
-int	have_a_dollar(char *str)
+int	have_a_dollar(char *str, int i)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
+	while (str[i] != 34)
 	{
 		if (str[i] == '$')
 			return (1);
@@ -68,7 +65,7 @@ char *find_env_var(char *str, int *i, t_env **env_list)
 	*i += 1;
 	j = *i;
 	list = *env_list;
-	while (!is_w_space(str[*i]) && str[*i] && str[*i] != '$')
+	while (!is_w_space(str[*i]) && str[*i] && str[*i] != '$' && str[*i] != 34)
 		*i += 1;
 	name = ft_substr(str, j, (*i - j));
 	while (ft_strcmp(name, list->var) && list->next != NULL)
@@ -101,20 +98,18 @@ char *append(char *ret, char *tmp, char *value)
 	return (NULL);
 }
 
-char *replace_dollars(char *str, t_env **env_list)
+char *replace_dollars(char *str, t_env **env_list, int i)
 {
-	int	i;
 	int	j;
 	char *ret;
 	char *tmp;
 	char *value;
 
-	i = 0;
-	j = 0;
+	j = i;
 	ret = NULL;
-	tmp = NULL;
 	value = NULL;
-	while (str[i])
+	tmp = ft_substr(str, 0, i);
+	while (str[i] != 34)
 	{
 		if (str[i] == '$')
 		{
@@ -131,15 +126,29 @@ char *replace_dollars(char *str, t_env **env_list)
 			}
 			j = i;
 		}
-		while (str[i] && str[i] != '$')
+		while (str[i] != 34 && str[i] != '$')
 			i++;
 		if (i != j)
 		{
-			tmp = ft_substr(str, j, i - j);
+			value = ft_substr(str, j, i - j);
 			ret = append(ret, tmp, value);
 			free(tmp);
+			free(value);
 			tmp = NULL;
+			value = NULL;
 		}
+	}
+	if (i < (int)ft_strlen(str))
+	{
+		tmp = ft_strdup(ret);
+		value = ft_substr(str, i + 1, ft_strlen(str) - (i + 1));
+		free(ret);
+		ret = NULL;
+		ret = ft_strjoin(tmp, value);
+		free(tmp);
+		free(value);
+		tmp = NULL;
+		value = NULL;
 	}
 	return (ret);
 }
@@ -419,7 +428,6 @@ void	alloc_args_tab(t_mini *shell, int *sep, int *space)
 	ptr_sep = sep;
 	ptr_space = space;
 	i = 0;
-	//Boucle : shell->argv || shell->current->next 
 	while (1)
 	{
 		shell->current->args = (char **)malloc(sizeof(char *) * (count_nb_wrd(ptr_sep, ptr_space) + 1));
@@ -435,6 +443,104 @@ void	alloc_args_tab(t_mini *shell, int *sep, int *space)
 			shell->current = shell->current->next;
 		}
 		ptr_sep++;
+	}
+}
+
+int	detect_quote(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != 34 && str[i] != 39 && str[i])
+		i++;
+	if (str[i] == 34 || str[i] == 39)
+		return (1);
+	return (0);
+}
+
+void	delete_quote(t_mini *shell, int i, int *j)
+{
+	int		index;
+	int		k;
+	char	*ret;
+
+	index = 0;
+	k = 0;
+	ret = malloc(sizeof(char) * ft_strlen(shell->current->args[i]) - 2);
+	if (!ret)
+		return ; // ERROR MALLOC
+	while (shell->current->args[i][k])
+	{
+		ret[index] = shell->current->args[i][k];
+		index++;
+		k++;
+		if (k == *j)
+			k++;
+		if (shell->current->args[i][k] == shell->current->args[i][*j])
+		{
+			k++;
+			*j = k - 2;
+			break ;
+		}
+	}
+	while (shell->current->args[i][k])
+	{
+		ret[index] = shell->current->args[i][k];
+		index++;
+		k++;
+	}
+	ret[index] = 0;
+	free(shell->current->args[i]);
+	shell->current->args[i] = ft_strdup(ret);
+	free(ret);
+}
+
+void	realloc_args(t_mini *shell, t_env **env_list, int j, int i)
+{
+	//ON SEST ARRETER LA AHGASGAGAGAGAGAGFFGAGAG
+
+	char	*ret;
+
+	ret = replace_dollars(shell->current->args[i], env_list, j + 1);
+	if (!ret)
+		return ;
+	free(shell->current->args[i]);
+	shell->current->args[i] = ft_strdup(ret);
+	free(ret);
+}
+
+void	quote_remover(t_mini *shell, t_env **env_list, int i)
+{
+	int	j;
+
+	j = 0;
+	while (shell->current->args[i][j])
+	{
+		if (shell->current->args[i][j] == 34)
+		{
+			if (have_a_dollar(shell->current->args[i], j + 1))
+				realloc_args(shell, env_list, j, i);
+			delete_quote(shell, i, &j);
+		}
+		else if (shell->current->args[i][j] == 39)
+			delete_quote(shell, i, &j);
+		j++;
+	}
+}
+
+void	quotes_cleaner(t_mini *shell, t_env **env_list)
+{
+	int	i;
+
+	i = 0;
+	while (shell->current && shell->current->next)
+	{
+		while (shell->current->args[i])
+		{
+			if (detect_quote(shell->current->args[i]))
+				quote_remover(shell, env_list, i);
+			i++;
+		}
 	}
 }
 
@@ -459,6 +565,8 @@ void	split_arg(t_mini *shell, t_env **env_list)
 		create_n_add_empty_node(shell);
 	}
 	alloc_args_tab(shell, sep, space);
+	shell->current = shell->first;
+	quotes_cleaner(shell, env_list);
 }
 
 void	parsing(t_mini *shell, t_env **env_list)

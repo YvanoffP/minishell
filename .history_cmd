@@ -602,3 +602,32 @@ echo mama | echo bite | echo couille
 echo mama | echo bite | echo couille
 echo mama | echo bite | echo couille
 echo mama | echo couille | echo bite
+ec'hooho'o mama
+ec'hohoh'oh mama | echo bite
+ec'hohoh'eo mama | echo bite
+ec'1234'5
+]
+ec'12345'6 mama | echo mama
+export mama=5
+export
+echo $mama
+exit
+export
+echo "$mama"
+exit
+echo ma"ma$mama eh" | echo bite
+echo ma"12$mama 34"bite | echo couille
+echo ma"12$mama"bite | echo bite
+echo ma"12$mama" | echo bite
+echo ma"12$mama"bite | echo bite
+export
+export mama=5
+echo "$mama"
+exit
+export
+export mama=5
+echo ma"12$mama"bite | echo bit
+export
+export mama=5
+echo "$mama"
+echo "$mama" | echo bite
