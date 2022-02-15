@@ -771,3 +771,54 @@ export mama=5
 export papa=5
 echo salu'mec$mama""'"$mama$papa$bite"uwu
 exit
+export
+export mama=5
+export papa=$mama
+export caca="Bonjour $couille"
+export
+echo mama
+echo $mama
+echo mama$mama
+echo "mama$mama$papa"'$caca'
+echo $caca"ma$mama'bite $papa'"$papa
+echo '$'mama
+exit
+export mama=5
+export papa=$mama
+export caca="Bonjour $couille"
+export
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo "mama$mama$papa"'$caca'
+export mama=5
+export papa=5
+export caca="Bonjour $couille"
+echo mama
+echo $mama
+echo mama$mama
+echo "mama$mama$papa"'$caca'
+echo $caca"ma$mama'bite $papa'"$papa
+echo '$'mama
+exit
