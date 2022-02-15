@@ -117,7 +117,11 @@ char *replace_dollars(char *str, t_env **env_list, int i, int flag)
 		{
 			value = find_env_var(str, &i, env_list);
 			if (!value)
+			{
 				ret = append(ret, tmp, value);
+				free(tmp);
+				tmp = NULL;
+			}
 			else
 			{
 				ret = append(ret, tmp, value);
@@ -480,7 +484,7 @@ void	delete_quote(t_mini *shell, int i, int *j)
 	{
 		if (k == *j)
 			k++;
-		if (shell->current->args[i][k] == shell->current->args[i][*j])
+		if (shell->current->args[i][k] == shell->current->args[i][*j] && k > *j)
 		{
 			k++;
 			*j = k - 2;
@@ -530,7 +534,10 @@ void	quote_remover(t_mini *shell, t_env **env_list, int i)
 			delete_quote(shell, i, &j);
 		}
 		else if (shell->current->args[i][j] == 39)
+		{
 			delete_quote(shell, i, &j);
+			j--;
+		}
 		j++;
 	}
 }

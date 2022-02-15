@@ -722,3 +722,52 @@ echo $mama"salut$mama"$mama
 echo “”’$mam’a”$mama $USER”$PATH
 echo ""'$mam'a"$mama $USER"$PATH
 exit
+export
+export mama=5
+export papa=$mama
+echo mama
+export
+echo $mama
+echo '$mama'
+echo "$mama"
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+exit
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+export
+export mama=5
+export papa=5
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+exit
+export
+
+
+
+
+
+
+
+
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+export mama=5
+export papa=$mama
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+exit
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+export mama=5
+export papa=5
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+exit
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+export mama=5
+export papa=5
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+exit
+export mama=5
+export papa=5
+echo salu'mec$mama""'"$mama$papa$bite"uwu
+exit
