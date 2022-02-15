@@ -843,3 +843,36 @@ export papa=5
 echo "eh$papa$"a
 echo "eh$papa$"
 exit
+export papa=5
+echo "eh$papa$a$"
+exit
+echo mama papa cul
+exit
+echo papa cul bite
+exit
+echo papa cul
+exit
+echo papa bite
+echo papa bite
+echo papa bite
+echo papa bite
+exit
+echo mama papa
+exit
+echo mama papa
+echo mama papa
+exit
+echo mama papa
+echo mama papa
+exit
+echo mama papa
+echo -n mama papa
+exit
+echo -n mama mescouilles
+echo -n mama mescouilles
+echo mama mescouilles
+
+echo mama mescouilles
+exit
+echo mama mesocuilles
+echo -n mama mesocuilles
