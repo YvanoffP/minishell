@@ -115,6 +115,8 @@ char *replace_dollars(char *str, t_env **env_list, int i, int flag)
 	{
 		if (str[i] == '$')
 		{
+			if (str[i + 1] == 34 || str[i + 1] == '\0')
+				break ;
 			value = find_env_var(str, &i, env_list);
 			if (!value)
 			{
