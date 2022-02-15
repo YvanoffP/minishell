@@ -57,7 +57,7 @@ void	prompt_msg(t_mini *shell);
 void	working_history(t_mini *shell);
 
 // Echo - echo.c
-void	echo_func(char *str, char *str2);
+void	echo_func(t_mini *shell);
 
 // Env - env.c
 void	env_func(t_env **env_list);

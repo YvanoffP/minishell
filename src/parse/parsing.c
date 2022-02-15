@@ -649,6 +649,7 @@ void	split_arg(t_mini *shell, t_env **env_list)
 	dollar_out_quote(shell, env_list);
 	shell->current = shell->first;
 	quotes_cleaner(shell, env_list);
+	shell->current = shell->first;
 }
 
 void	parsing(t_mini *shell, t_env **env_list)
@@ -659,10 +660,11 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
 	split_arg(shell, env_list);
+	shell->current = shell->first;
 	if (!ft_strcmp(shell->first->args[0], EXPORT))
 		export_func(env_list, shell->first->args[1]);
 	else if (!ft_strcmp(shell->first->args[0], ECHO_CMD))
-		echo_func(shell->first->args[1], NULL);
+		echo_func(shell);
 	else if (!ft_strcmp(shell->first->args[0], EXIT))
 		exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))
