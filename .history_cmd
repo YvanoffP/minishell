@@ -674,3 +674,51 @@ echo mama"variable $mama 'hellow$papa'cul"bite
 export mama=5
 echo mama"variable $mama 'hellow$papa'cul"bite
 exit
+echo mama'allo'mdr""
+echo ''salut
+echo ''salut''
+echo ''salut''bite!!!
+export mama=5
+echo $mama salut !
+exit
+exit
+echo $mama
+echo "$mama"
+exit
+echo $mama
+echo "$mama"
+exit
+echo ""'$mam'a"$mama $USER"$PATH
+exit
+echo salut
+echo "$mama"
+echo "$salut"
+echo "$mama"
+echo "$mama"
+echo "$mama"
+export mama=5
+echo "$mama"
+echo $mama
+echo $mama
+export mama=5
+echo $mama
+echo $mama
+echo $mama
+echo $mama
+echo $mama
+echo $mama
+echo $mama
+echo $mama
+echo $mama"salut"$mama
+echo $mama"salut"
+echo $mama"salut"$mama
+echo $mama"salut"
+exit
+echo $mama"salut"$mama
+echo $mama"salut"$mama
+echo $mama"salut"$mama
+echo $mama"salut"$mama
+echo $mama"salut$mama"$mama
+echo “”’$mam’a”$mama $USER”$PATH
+echo ""'$mam'a"$mama $USER"$PATH
+exit

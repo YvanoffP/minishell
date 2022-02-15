@@ -98,7 +98,7 @@ char *append(char *ret, char *tmp, char *value)
 	return (NULL);
 }
 
-char *replace_dollars(char *str, t_env **env_list, int i)
+char *replace_dollars(char *str, t_env **env_list, int i, int flag)
 {
 	int	j;
 	char *ret;
@@ -108,8 +108,10 @@ char *replace_dollars(char *str, t_env **env_list, int i)
 	j = i;
 	ret = NULL;
 	value = NULL;
-	tmp = ft_substr(str, 0, i);
-	while (str[i] != 34)
+	tmp = NULL;
+	if (i != 0)
+		tmp = ft_substr(str, 0, i);
+	while (str[i] != 34 && str[i])
 	{
 		if (str[i] == '$')
 		{
@@ -126,8 +128,13 @@ char *replace_dollars(char *str, t_env **env_list, int i)
 			}
 			j = i;
 		}
-		while (str[i] != 34 && str[i] != '$')
+		while (str[i] != 34 && str[i] != '$' && str[i])
 			i++;
+		if (flag)
+		{
+			while (str[i])
+				i++;
+		}
 		if (i != j)
 		{
 			value = ft_substr(str, j, i - j);
@@ -501,7 +508,7 @@ void	realloc_args(t_mini *shell, t_env **env_list, int j, int i)
 
 	char	*ret;
 
-	ret = replace_dollars(shell->current->args[i], env_list, j + 1);
+	ret = replace_dollars(shell->current->args[i], env_list, j + 1, 0);
 	if (!ret)
 		return ;
 	free(shell->current->args[i]);
@@ -552,6 +559,62 @@ void	quotes_cleaner(t_mini *shell, t_env **env_list)
 	}
 }
 
+int	have_a_dollar_out_q(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == 34 || str[i] == 39)
+		{
+			skip_quote(str, &i);
+			i++;
+		}
+		else if (str[i] == '$')
+			return (i);
+		else
+			i++;
+	}
+	return (-1);
+}
+
+int	realloc_string(t_mini *shell, int i, char *s2)
+{
+	free(shell->current->args[i]);
+	shell->current->args[i] = NULL;
+	shell->current->args[i] = ft_strdup(s2);
+	free(s2);
+	s2 = NULL;
+	return (1);
+}
+
+void	dollar_out_quote(t_mini *shell, t_env **env_list)
+{
+	int	i;
+	int	dollar_index;
+	char *ret;
+
+	while (shell->current)
+	{
+		i = 0;
+		dollar_index = 0;
+		while (shell->current->args[i])
+		{
+			dollar_index = have_a_dollar_out_q(shell->current->args[i]);
+			if (dollar_index != -1)
+			{
+				ret = replace_dollars(shell->current->args[i], env_list, dollar_index, 1);
+				realloc_string(shell, i, ret);
+			}
+			else
+				i++; // le else permet de recheck une fois la string apres avoir traiter un premier dollar en dehors de quotes
+			//genre si t'en a deux style echo salut$mama'salut'$mama
+		}
+		shell->current = shell->current->next;
+	}
+}
+
 void	split_arg(t_mini *shell, t_env **env_list)
 {
 	//TODO : free int*
@@ -573,6 +636,8 @@ void	split_arg(t_mini *shell, t_env **env_list)
 		create_n_add_empty_node(shell);
 	}
 	alloc_args_tab(shell, sep, space);
+	shell->current = shell->first;
+	dollar_out_quote(shell, env_list);
 	shell->current = shell->first;
 	quotes_cleaner(shell, env_list);
 }
