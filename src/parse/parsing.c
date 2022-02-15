@@ -533,7 +533,7 @@ void	quote_remover(t_mini *shell, t_env **env_list, int i)
 				realloc_args(shell, env_list, j, i);
 			delete_quote(shell, i, &j);
 		}
-		else if (shell->current->args[i][j] == 39)
+		if (shell->current->args[i][j] == 39)
 		{
 			delete_quote(shell, i, &j);
 			j--;
