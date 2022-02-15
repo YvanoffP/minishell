@@ -822,3 +822,24 @@ echo "mama$mama$papa"'$caca'
 echo $caca"ma$mama'bite $papa'"$papa
 echo '$'mama
 exit
+export test=l
+echo $"$test"s
+exit
+export mama=5
+export papa=$mama
+export test='$mama'$papa
+echo echo
+echo ww'$test'$$pap"a$papa$"op
+export
+echo ww'$test'$$pap"a$papa$"op
+echo ww'$test'$pap"a$papa$"op
+echo "eh$pap"a
+echo "eh$papa$"a
+exit
+echo "eh$papa$"r
+echo "eh$papa$"r
+echo "eh$papa$"a
+export papa=5
+echo "eh$papa$"a
+echo "eh$papa$"
+exit
