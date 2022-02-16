@@ -152,3 +152,22 @@ void	delete_list(t_env *env_list)
 		tmp = node;
 	}
 }
+
+t_env	*search_in_env(char	*var, t_env **env_list)
+{
+	t_env	*tmp;
+
+	tmp = *env_list;
+	if (tmp == NULL || var == NULL)
+		return (NULL);
+	while (tmp != NULL && ft_strncmp(tmp->var, var, ft_strlen()) != 0)
+		tmp = tmp->next;
+	return (tmp);
+}
+
+void	replace_var(t_env **env_list, char *var)
+{
+	t_env	*tmp;
+
+	tmp = search_in_env(var, )
+}
