@@ -624,7 +624,27 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 	}
 }
 
-void	split_arg(t_mini *shell, t_env **env_list)
+int	check_quotes_err(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == 34 || str[i] == 39)
+		{
+			skip_quotes(str, &i);
+			if (str[i] == '\0')
+				return (print_quote_err());
+			else
+				i++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	split_arg(t_mini *shell, t_env **env_list)
 {
 	//TODO : free int*
 	int	*sep;
@@ -632,6 +652,9 @@ void	split_arg(t_mini *shell, t_env **env_list)
 	int	*ptr;
 	(void)env_list;
 
+
+	if (!check_quotes_err(shell->argv))
+		return (0);
 	sep = parse_sep(shell->argv);
 	shell->argv = pimp_my_string(shell, sep);
 	free(sep);
@@ -650,16 +673,18 @@ void	split_arg(t_mini *shell, t_env **env_list)
 	shell->current = shell->first;
 	quotes_cleaner(shell, env_list);
 	shell->current = shell->first;
+	return (1);
 }
 
 void	parsing(t_mini *shell, t_env **env_list)
 {
-	//Notre maniere d'appeler echo est mauvaise puisquil faut boucler lappel a echo pour le
+	// Notre maniere d'appeler echo est mauvaise puisquil faut boucler lappel a echo pour le
 	// nb darguments que notre node contient
 
 	if (!ft_strcmp(shell->argv, ""))
 		return ;
-	split_arg(shell, env_list);
+	if (!split_arg(shell, env_list))
+		return ;
 	shell->current = shell->first;
 	if (!ft_strcmp(shell->first->args[0], EXPORT))
 		export_func(env_list, shell->first->args[1]);
