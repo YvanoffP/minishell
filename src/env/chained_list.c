@@ -153,7 +153,7 @@ void	delete_list(t_env *env_list)
 	}
 }
 
-t_env	*search_in_env(char	*var, t_env **env_list)
+/*t_env	*search_in_env(char	*var, t_env **env_list)
 {
 	t_env	*tmp;
 
@@ -170,4 +170,4 @@ void	replace_var(t_env **env_list, char *var)
 	t_env	*tmp;
 
 	tmp = search_in_env(var, )
-}
+}*/
