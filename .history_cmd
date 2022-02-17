@@ -950,3 +950,5 @@ coucou <<mama
 coucou<<mama
 coucou<< mama
 echo >> bite
+echo mama | salut
+exit

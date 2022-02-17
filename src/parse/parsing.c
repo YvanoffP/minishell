@@ -709,7 +709,6 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!split_arg(shell, env_list))
 		return ;
 	shell->current = shell->first;
-	printf("%s\n", shell->first->next->args[0]);
 	if (!ft_strcmp(shell->first->args[0], EXPORT))
 		export_func(env_list, shell->first->args[1]);
 	else if (!ft_strcmp(shell->first->args[0], ECHO_CMD))
