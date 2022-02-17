@@ -87,6 +87,9 @@ OBJ_CD = $(addprefix $(OBJECTSDIR)/$(CD_FOLDER)/, $(CD_FILES:.c=.o))
 OBJ_ECHO = $(addprefix $(OBJECTSDIR)/$(ECHO_FOLDER)/, $(ECHO_FILES:.c=.o))
 OBJ_ENV = $(addprefix $(OBJECTSDIR)/$(ENV_FOLDER)/, $(ENV_FILES:.c=.o))
 OBJ_EXIT = $(addprefix $(OBJECTSDIR)/$(EXIT_FOLDER)/, $(EXIT_FILES:.c=.o))
+
+# OBJ_EXEC = $(addprefix $(OBJECTSDIR)/$(EXEC_FOLDER)/, $(EXEC_FILES:.c=.o))
+
 OBJ_EXPORT = $(addprefix $(OBJECTSDIR)/$(EXPORT_FOLDER)/, $(EXPORT_FILES:.c=.o))
 OBJ_MINISHELL = $(addprefix $(OBJECTSDIR)/$(MINISHELL_FOLDER)/, $(MINISHELL_FILES:.c=.o))
 OBJ_PARSE= $(addprefix $(OBJECTSDIR)/$(PARSE_FOLDER)/, $(PARSE_FILES:.c=.o))

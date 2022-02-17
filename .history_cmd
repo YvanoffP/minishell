@@ -876,6 +876,43 @@ echo mama mescouilles
 exit
 echo mama mesocuilles
 echo -n mama mesocuilles
+echo "salut"'coucou"
+echo "salut"'coucou'
+echo "salut"'coucou' | merde
+echo "salut"'coucou'
+echo "salut"'coucou' | merde
+exit
+exit
+
+
+
+
+
+exit
+lol
+aled
+
+exit
+leave
+exit
+exit
+EXIT
+exit
+exit
+echo 'papa'"mama;
+echo 'papa'"mama'
+echo 'papa'"mama"
+exit
+echo 'mama'mama"papa;
+echo 'mama'mama"papa'
+echo 'mama'mama"papa""
+exit
+echo 'papa'"mama""
+echo 'papa'"mama"
+echo 'papa"mama"'
+echo 'papa"mama"' | 'echo' "papa'papa'mama'
+echo 'papa"mama"' | 'echo' "papa'papa'mama
+exit
 echo "teststststst"
 echo "teststststst"'salut"
 echo "teststststst'
