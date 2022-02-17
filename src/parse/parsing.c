@@ -680,6 +680,8 @@ int	check_args_error(char *str)
 		while (is_sep(str[i]) && str[i])
 			i++;
 	}
+	if (is_sep(str[i - 1]))
+		return (1);
 	return (0);
 }
 
