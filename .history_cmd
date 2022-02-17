@@ -952,3 +952,18 @@ coucou<< mama
 echo >> bite
 echo mama | salut
 exit
+echo mama
+echo mama | papa
+echo mama | papa papa
+exit
+exit
+allo mama
+echo mama | papa mama
+echo papa | echo mama
+exit
+echo papa | echo mama
+echo mama | echo papa
+echo mama |          |echo papa
+echo mama |      a    | echo papa
+echo mama |      | echo papa
+exit
