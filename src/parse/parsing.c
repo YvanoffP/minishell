@@ -173,7 +173,7 @@ void	skip_quote(char *str, int *i)
 
 	if (str[*i] == 34 || str[*i] == 39)
 	{
-		if (str[*i] == 34 && str[*i + 1])
+		if (str[*i] == 34)
 		{
 			*i += 1;
 			while (str[*i] != 34 && str[*i])
@@ -181,7 +181,7 @@ void	skip_quote(char *str, int *i)
 			if (!str[*i])
 				return ;
 		}
-		else if (str[*i] == 39 && str[*i + 1])
+		else if (str[*i] == 39)
 		{
 			*i += 1;
 			while (str[*i] != 39 && str[*i])
@@ -624,7 +624,7 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 	}
 }
 
-int	check_quotes_err(char *str)
+int	check_quote_err(char *str)
 {
 	int	i;
 
@@ -633,11 +633,9 @@ int	check_quotes_err(char *str)
 	{
 		if (str[i] == 34 || str[i] == 39)
 		{
-			skip_quotes(str, &i);
+			skip_quote(str, &i);
 			if (str[i] == '\0')
 				return (print_quote_err());
-			else
-				i++;
 		}
 		i++;
 	}
@@ -653,7 +651,7 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	(void)env_list;
 
 
-	if (!check_quotes_err(shell->argv))
+	if (check_quote_err(shell->argv))
 		return (0);
 	sep = parse_sep(shell->argv);
 	shell->argv = pimp_my_string(shell, sep);

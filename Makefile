@@ -9,7 +9,7 @@ CD_FOLDER = cd
 ECHO_FOLDER = echo
 ENV_FOLDER = env
 EXIT_FOLDER = exit
-EXEC_FOLDER = execution
+# EXEC_FOLDER = execution
 EXPORT_FOLDER = export
 MINISHELL_FOLDER = minishell
 PARSE_FOLDER = parse
@@ -86,7 +86,7 @@ OBJ_CD = $(addprefix $(OBJECTSDIR)/$(CD_FOLDER)/, $(CD_FILES:.c=.o))
 OBJ_ECHO = $(addprefix $(OBJECTSDIR)/$(ECHO_FOLDER)/, $(ECHO_FILES:.c=.o))
 OBJ_ENV = $(addprefix $(OBJECTSDIR)/$(ENV_FOLDER)/, $(ENV_FILES:.c=.o))
 OBJ_EXIT = $(addprefix $(OBJECTSDIR)/$(EXIT_FOLDER)/, $(EXIT_FILES:.c=.o))
-OBJ_EXEC = $(addprefix $(OBJECTSDIR)/$(EXEC_FOLDER)/, $(EXEC_FILES:.c=.o))
+# OBJ_EXEC = $(addprefix $(OBJECTSDIR)/$(EXEC_FOLDER)/, $(EXEC_FILES:.c=.o))
 OBJ_EXPORT = $(addprefix $(OBJECTSDIR)/$(EXPORT_FOLDER)/, $(EXPORT_FILES:.c=.o))
 OBJ_MINISHELL = $(addprefix $(OBJECTSDIR)/$(MINISHELL_FOLDER)/, $(MINISHELL_FILES:.c=.o))
 OBJ_PARSE= $(addprefix $(OBJECTSDIR)/$(PARSE_FOLDER)/, $(PARSE_FILES:.c=.o))
@@ -96,11 +96,11 @@ OBJ_UNSET = $(addprefix $(OBJECTSDIR)/$(UNSET_FOLDER)/, $(UNSET_FILES:.c=.o))
 OBJ_MAIN = $(addprefix $(OBJECTSDIR)/, $(MAIN_FILE:.c=.o))
 OBJS := $(OBJ_CD) $(OBJ_ECHO) $(OBJ_ENV) $(OBJ_EXIT) $(OBJ_EXPORT) \
 		$(OBJ_MINISHELL) $(OBJ_PWD) $(OBJ_SIGNAL) $(OBJ_UNSET) $(OBJ_MAIN) \
-		$(OBJ_PARSE) $(OBJ_EXEC)
+		$(OBJ_PARSE) # $(OBJ_EXEC)
 LIBFT_FILE := $(LIBFT_FOLDER)/$(LIBFT_LIB)
 
 # Name the compiler
-CC = gcc 
+CC = gcc
 
 # OS specific part
 RM = rm -rf
