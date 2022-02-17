@@ -967,3 +967,10 @@ echo mama |          |echo papa
 echo mama |      a    | echo papa
 echo mama |      | echo papa
 exit
+echo mama |
+echo mama
+echo mama 
+echo mama ||
+echo mama ||   
+echo mama ||  echo papa
+echo mama |  echo papa
