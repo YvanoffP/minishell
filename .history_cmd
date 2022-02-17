@@ -916,3 +916,37 @@ exit
 echo "teststststst"
 echo "teststststst"'salut"
 echo "teststststst'
+echo mama | echo papa
+echo mama || echo papa
+echo mama < echo papa
+echo mama << echo papa
+make re
+exit
+echo salut << mama
+exit
+echo salut << mama
+exit
+echo penis << mama mama
+salut maman << ca va
+salut maman || ca va
+mama papa >> coucou
+mama papa >| coucou
+mama papa || coucou
+mama papa |< coucou
+mama papa << coucou
+mama papa <<< coucou
+mama papa < << coucou
+mama papa |<< coucou
+mama papa|<<coucou
+mama papa<<coucou
+mama papa<<coucou
+salut << papa
+salut <<papa
+salut<< papa
+exit
+salut <<papa
+papa <<mama
+coucou <<mama
+coucou<<mama
+coucou<< mama
+echo >> bite
