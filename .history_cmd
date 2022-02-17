@@ -913,3 +913,6 @@ echo 'papa"mama"'
 echo 'papa"mama"' | 'echo' "papa'papa'mama'
 echo 'papa"mama"' | 'echo' "papa'papa'mama
 exit
+echo "teststststst"
+echo "teststststst"'salut"
+echo "teststststst'
