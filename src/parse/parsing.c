@@ -196,6 +196,7 @@ int	count_sep(char *str)
 {
 	int	i;
 	int	nb_sep;
+	char	c;
 
 	i = 0;
 	nb_sep = 0;
@@ -203,7 +204,16 @@ int	count_sep(char *str)
 	{
 		skip_quote(str, &i);
 		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+		{
 			nb_sep++;
+			c = str[i];
+			if (str[i + 1] == c && c != '|')
+				i++;
+			else if (is_sep(str[i + 1]))
+				return (-1);
+			if (is_sep(str[i + 1]))
+				return (-1);
+		}
 		i++;
 	}
 	return (nb_sep);
@@ -240,6 +250,8 @@ int	*parse_sep(char *str)
 	i = 0;
 	j = 0;
 	nb_sep = count_sep(str);
+	if (nb_sep == -1)
+		return (NULL);
 	ind_sep = malloc(sizeof(int) * nb_sep + 1);
 	if (!ind_sep)
 		return (NULL);
@@ -247,7 +259,11 @@ int	*parse_sep(char *str)
 	{
 		skip_quote(str, &i);
 		if (is_sep(str[i]))
+		{
 			ind_sep[j++] = i;
+			while (is_sep(str[i + 1]))
+				i++;
+		}
 		i++;
 	}
 	ind_sep[j] = 0;
@@ -354,7 +370,7 @@ char	*pimp_my_string(t_mini *shell, int *sep)
 			if (!is_w_space(shell->argv[i - 1]))
 				ret[j++] = 32;
 		}
-		else if (is_sep(shell->argv[i - 1]) && shell->argv[i] && (i - 1) == *ptr)
+		else if (is_sep(shell->argv[i - 1]) && shell->argv[i] && ((i - 1) == *ptr || (i - 2) == *ptr) && !is_sep(shell->argv[i]))
 		{
 			if (!is_w_space(shell->argv[i]))
 				ret[j++] = 32;
@@ -642,6 +658,13 @@ int	check_quote_err(char *str)
 	return (0);
 }
 
+int	str_error(char *str, int ret)
+{
+	write(1, str, ft_strlen(str));
+	write(1, "\n", 1);
+	return (ret);
+}
+
 int	split_arg(t_mini *shell, t_env **env_list)
 {
 	//TODO : free int*
@@ -650,10 +673,11 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	int	*ptr;
 	(void)env_list;
 
-
 	if (check_quote_err(shell->argv))
 		return (0);
 	sep = parse_sep(shell->argv);
+	if (sep == NULL)
+		return (str_error("Sep error detected", 0));
 	shell->argv = pimp_my_string(shell, sep);
 	free(sep);
 	sep = parse_sep(shell->argv);
@@ -667,6 +691,7 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	}
 	alloc_args_tab(shell, sep, space);
 	shell->current = shell->first;
+	//destroy sep and space
 	dollar_out_quote(shell, env_list);
 	shell->current = shell->first;
 	quotes_cleaner(shell, env_list);
@@ -684,6 +709,7 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!split_arg(shell, env_list))
 		return ;
 	shell->current = shell->first;
+	printf("%s\n", shell->first->next->args[0]);
 	if (!ft_strcmp(shell->first->args[0], EXPORT))
 		export_func(env_list, shell->first->args[1]);
 	else if (!ft_strcmp(shell->first->args[0], ECHO_CMD))
