@@ -665,6 +665,24 @@ int	str_error(char *str, int ret)
 	return (ret);
 }
 
+int	check_args_error(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		skip_w_space(str, &i);
+		if (is_sep(str[i]))
+			return (1);
+		while (!is_sep(str[i]) && str[i])
+			i++;
+		while (is_sep(str[i]) && str[i])
+			i++;
+	}
+	return (0);
+}
+
 int	split_arg(t_mini *shell, t_env **env_list)
 {
 	//TODO : free int*
@@ -675,6 +693,8 @@ int	split_arg(t_mini *shell, t_env **env_list)
 
 	if (check_quote_err(shell->argv))
 		return (0);
+	if (check_args_error(shell->argv))
+		return (str_error("Args error detected", 0));
 	sep = parse_sep(shell->argv);
 	if (sep == NULL)
 		return (str_error("Sep error detected", 0));
