@@ -1,61 +1,5 @@
 #include "../../inc/minishell.h"
 
-int	is_w_space(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\r'
-			|| c == '\n' || c == '\v' || c == '\f')
-		return (1);
-	return (0);
-}
-
-int print_sep_error(char sep)
-{
-	write(1, "parse error near '", 18);
-	write(1, &sep, 1);
-	write(1, "'\n", 2);
-	return (1);
-}
-
-int	is_sep(char c)
-{
-	if (c == '<' || c == '>' || c == '|')
-		return (1);
-	return (0);
-}
-
-int	print_quote_err(void)
-{
-	write(1, "Error : found an unclosed quote or double quotes\n", 49);
-	return (1);
-}
-
-int	count_arr(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-void	skip_w_space(char *str, int *i)
-{
-	while (is_w_space(str[*i]))
-		*i += 1;
-}
-
-int	have_a_dollar(char *str, int i)
-{
-	while (str[i] != 34)
-	{
-		if (str[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char *find_env_var(char *str, int *i, t_env **env_list)
 {
 	char *name;
@@ -78,32 +22,6 @@ char *find_env_var(char *str, int *i, t_env **env_list)
 	free(name);
 	name = ft_strdup(list->value);
 	return (name);
-}
-
-void	skip_quote(char *str, int *i)
-{
-	//Reste a proteger du nb impair de quote si c'est necessaire
-	//Sinon le compte est mauvais
-
-	if (str[*i] == 34 || str[*i] == 39)
-	{
-		if (str[*i] == 34)
-		{
-			*i += 1;
-			while (str[*i] != 34 && str[*i])
-				*i += 1;
-			if (!str[*i])
-				return ;
-		}
-		else if (str[*i] == 39)
-		{
-			*i += 1;
-			while (str[*i] != 39 && str[*i])
-				*i += 1;
-			if (!str[*i])
-				return ;
-		}
-	}
 }
 
 int	count_sep(char *str)
@@ -233,69 +151,6 @@ int	count_missing_space(char *str, int *sep)
 	return (missing_space);
 }
 
-void	delete_last_spaces(char **str)
-{
-	int		len;
-	int		i;
-	int	nb_space;
-	char	*tmp;
-
-	len = ft_strlen(*str) - 1;
-	tmp = NULL;
-	i = -1;
-	nb_space = 0;
-	while (is_w_space((*str)[len]))
-	{
-		nb_space++;
-		len--;
-	}
-	if (nb_space)
-	{
-		tmp = malloc(sizeof(char) * (len + 2));
-		if (!tmp)
-			return ;
-		while (i++ < len)
-			tmp[i] = (*str)[i];
-		tmp[i] = 0;
-		free(*str);
-		*str = ft_strdup(tmp);
-		free(tmp);
-	}
-}
-
-char	*pimp_my_string(t_mini *shell, int *sep)
-{
-	char	*ret;
-	int		*ptr;
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	ptr = sep;
-	ret = (char *)malloc(sizeof(char) * (ft_strlen(shell->argv) + count_missing_space(shell->argv, sep) + 1));
-	if (!ret)
-		return (NULL);
-	while (shell->argv[i])
-	{
-		ret[j++] = shell->argv[i++];
-		if (is_sep(shell->argv[i]) && shell->argv[i] && i == *ptr)
-		{
-			if (!is_w_space(shell->argv[i - 1]))
-				ret[j++] = 32;
-		}
-		else if (is_sep(shell->argv[i - 1]) && shell->argv[i] && ((i - 1) == *ptr || (i - 2) == *ptr) && !is_sep(shell->argv[i]))
-		{
-			if (!is_w_space(shell->argv[i]))
-				ret[j++] = 32;
-			ptr++;
-		}
-	}
-	ret[j] = 0;
-	delete_last_spaces(&ret);
-	free(shell->argv);
-	return (ret);
-}
 
 int	count_nb_wrd(int *sep, int *space)
 {
@@ -389,17 +244,6 @@ void	alloc_args_tab(t_mini *shell, int *sep, int *space)
 	}
 }
 
-int	detect_quote(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != 34 && str[i] != 39 && str[i])
-		i++;
-	if (str[i] == 34 || str[i] == 39)
-		return (1);
-	return (0);
-}
 
 void	delete_quote(t_mini *shell, int i, int *j)
 {
@@ -568,13 +412,6 @@ int	check_quote_err(char *str)
 		i++;
 	}
 	return (0);
-}
-
-int	str_error(char *str, int ret)
-{
-	write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
-	return (ret);
 }
 
 int	check_args_error(char *str)

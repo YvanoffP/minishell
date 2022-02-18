@@ -981,3 +981,16 @@ export mama=5
 echo $mama
 echo "$mama"
 exit
+echo bonjour
+echo bonjour | echo papa
+echo bonjour| echo papa
+echo bonjour|echo papa
+echo bonjour|echo papa          
+eot
+exit
+echo papa
+echo papa " echo amma
+echo papa | echo amma
+echo papa|echo amma
+echo papa|echo amma          
+exit
