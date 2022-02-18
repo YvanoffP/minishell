@@ -1027,3 +1027,39 @@ echo "         " mamapute | echo yolesqueezos
 echo "         " mamapute | echo yolesqueezos
 echo "         " mamapute | echo yolesqueezos
 exit
+export mama=5
+export caca
+export papa=$mama
+export bima="salut le$papa  "
+export
+echo aa"$mam$a   , $mama et $papafont $bima"
+echo aa'$mama'"$bim"a"
+echo aa'$mama'$bim"a"
+echo '"$mama"'
+echo '"$mama'"
+echo "'$mama'"
+echo "$$"
+echo $$
+export mama=5
+export
+unset mama
+export mama=5
+unset mama
+export
+exit
+unset LESS
+export mama=5
+export
+unset mama
+unset LESS
+export mama=5
+unset mama
+unset LESS
+export mama=5
+unset mama
+export
+unset LESS
+export
+exit
+export
+exit
