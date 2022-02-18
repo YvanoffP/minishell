@@ -974,6 +974,7 @@ echo mama ||
 echo mama ||   
 echo mama ||  echo papa
 echo mama |  echo papa
+
 echo salut
 echo papa
 export mama=5

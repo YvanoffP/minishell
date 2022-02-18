@@ -47,13 +47,75 @@ void	add_var_to_list(t_env **env_list, char *args)
 	t_env	*new_node;
 
 	new_node = create_node(args);
-	add_to_list(env_list, new_node);
+	if (!new_node)
+		return ; //Error : new_node was not created
+	if (!is_in_lst(new_node->var, env_list))
+		add_to_list(env_list, new_node);
+	else
+		replace_in_lst(new_node, env_list);
 }
 
-void	export_func(t_env **env_list, char *args)
+int	check_wrong_char(char *str)
 {
-	if (!args)
+	if (*str == '=')
+		return (0);
+	while (*str)
+	{
+		if (is_sep(*str) || *str == ',' || *str == 34 || *str == 39
+			|| (*str == '=' && *(str + 1) == '='))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+int	is_num(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int	check_only_num(char *str)
+{
+	while (*str && is_num(*str))
+		str++;
+	if (!*str)
+		return (0);
+	return (1);
+}
+
+int	check_args(t_mini *shell, int i)
+{
+//	int	i;
+
+//	i = 1;
+//	while (shell->current->args[i])
+//	{
+		if (!check_wrong_char(shell->current->args[i]))
+			return (0);
+		if (!check_only_num(shell->current->args[i]))
+			return (0);
+//		i++;
+//	}
+	return (1);
+}
+
+int	export_func(t_env **env_list, t_mini *shell)
+{
+	int	i;
+
+	i = 1;
+	if (shell->current->args[1])
+	{
+		while (shell->current->args[i])
+		{
+			if (!check_args(shell, i))
+				return (str_error("Export arguments wrong : expected identifier", 0));
+			add_var_to_list(env_list, shell->current->args[i++]);
+		}
+	}
+	else
 		print_export_list(env_list);
-	if (args)
-		add_var_to_list(env_list, args);
+	return (1);
 }

@@ -73,20 +73,26 @@ void	env_func(t_env **env_list);
 
 // Env - chained_list.c
 void	add_to_list(t_env **env_list, t_env *new_node);
-t_env	*search_in_env(char	*var, t_env **env_list);
 t_env	*sort_list_export(t_env **env_list);
 t_env	*dup_node(char *name, char *value);
 t_env	*duplicate_list(t_env **env_list);
 t_env	*create_node(char *var_array);
 void	delete_list(t_env *env_list);
 int		count_list(t_env **list);
+int		is_in_lst(char	*var, t_env **env_list);
+t_env	*get_in_lst(char *var, t_env **env_list);
+void	replace_in_lst(t_env *new_node, t_env **env_list);
+
 
 // Export - export.c
 void	add_var_to_list(t_env **env_list, char *args);
-void	export_func(t_env **env_list, char *args);
 void	print_export_list(t_env **env_list);
 char	**env_duplicate(char **envp);
-
+int		export_func(t_env **env_list, t_mini *shell);
+int		check_wrong_char(char *str);
+int		check_args(t_mini *shell, int i);
+int		is_num(char c);
+int		check_only_num(char *str);
 
 // EXECUTION - execution.c
 
@@ -99,6 +105,9 @@ int     cd(char *path);
 
 // Parse - parsing.c
 void	parsing(t_mini *shell, t_env **env_list);
+int		str_error(char *str, int ret);
+int		is_sep(char c);
+
 // NOT REFACTORED
 char *find_env_var(char *str, int *i, t_env **env_list);
 int	count_sep(char *str);
@@ -120,6 +129,7 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list);
 int	check_quote_err(char *str);
 int	check_args_error(char *str);
 int	split_arg(t_mini *shell, t_env **env_list);
+
 
 // Parse - pimp_my_string.c
 char    *check_around_n_cpy(t_mini *shell, int *ptr, int i, int j);
