@@ -1,14 +1,16 @@
 #include "minishell.h"
 
-void	unset(char *arg, t_env **env_list)
+void	unset(t_mini *shell, t_env **env_list)
 {
 	t_env	*check_node;
 	t_env	*prev_node;
+	int		i;
 
+	i = 1;
 	check_node = *env_list;
-	if (!arg || *env_list == NULL)
+	if (!shell->current->args[i] || *env_list == NULL)
 		return ;
-	while (ft_strncmp(arg, check_node->var, ft_strlen(arg)) != 0)
+	while (ft_strcmp(shell->current->args[i], check_node->var) != 0 && shell->current->args[i])
 	{
 		prev_node = check_node;
 		check_node = check_node->next;
@@ -17,5 +19,6 @@ void	unset(char *arg, t_env **env_list)
 	}
 	prev_node->next = check_node->next;
 	free(check_node->var);
+	free(check_node->value);
 	free(check_node);
 }

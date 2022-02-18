@@ -169,6 +169,6 @@ char    *append(t_dollvar *data);
 void    pwd(void);
 
 //UNSET - unset.c
-void	unset(char *arg, t_env **env_list);
+void	unset(t_mini *shell, t_env **env_list);
 
 #endif

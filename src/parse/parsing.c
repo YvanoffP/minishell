@@ -480,11 +480,13 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!split_arg(shell, env_list))
 		return ;
 	shell->current = shell->first;
-	if (!ft_strcmp(shell->first->args[0], EXPORT))
+	if (!ft_strcmp(shell->current->args[0], EXPORT))
 		export_func(env_list, shell);
-	else if (!ft_strcmp(shell->first->args[0], ECHO_CMD))
+	else if (!ft_strcmp(shell->current->args[0], ECHO_CMD))
 		echo_func(shell);
-	else if (!ft_strcmp(shell->first->args[0], EXIT))
+	else if (!ft_strcmp(shell->current->args[0], UNSET))
+		unset(shell, env_list);
+	else if (!ft_strcmp(shell->current->args[0], EXIT))
 		exit(0);
 	/*if (!ft_strcmp(shell->arg_split[0], CD))
 		cd(shell->arg_split[1]);
@@ -494,7 +496,5 @@ void	parsing(t_mini *shell, t_env **env_list)
 		export_func(env_list, shell->arg_split[1]);
 	else if (!ft_strcmp(shell->arg_split[0], PWD))
 		pwd();
-	else if (!ft_strcmp(shell->arg_split[0], UNSET))
-		unset(shell->arg_split[1], env_list);
 		*/
 }
