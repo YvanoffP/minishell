@@ -70,13 +70,19 @@ void	delete_list(t_env *env_list);
 t_env	*sort_list_export(t_env **env_list);
 t_env	*duplicate_list(t_env **env_list);
 int		count_list(t_env **list);
-t_env	*search_in_env(char	*var, t_env **env_list);
+int		is_in_lst(char	*var, t_env **env_list);
+t_env	*get_in_lst(char *var, t_env **env_list);
+void	replace_in_lst(t_env *new_node, t_env **env_list);
 
 // Export - export.c
 char	**env_duplicate(char **envp);
 void	print_export_list(t_env **env_list);
 void	add_var_to_list(t_env **env_list, char *args);
-void	export_func(t_env **env_list, char *args);
+int		export_func(t_env **env_list, t_mini *shell);
+int		check_wrong_char(char *str);
+int		check_args(t_mini *shell, int i);
+int		is_num(char c);
+int		check_only_num(char *str);
 
 
 // EXECUTION - execution.c
@@ -90,6 +96,8 @@ int     cd(char *path);
 
 // Parse - parsing.c
 void	parsing(t_mini *shell, t_env **env_list);
+int		str_error(char *str, int ret);
+int		is_sep(char c);
 
 // Parse - list_parsing.c
 void	init_args(t_mini *shell);
