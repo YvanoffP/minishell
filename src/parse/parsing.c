@@ -77,93 +77,7 @@ char *find_env_var(char *str, int *i, t_env **env_list)
 	}
 	free(name);
 	name = ft_strdup(list->value);
-//	*i -= 1;
 	return (name);
-}
-
-char *append(char *ret, char *tmp, char *value)
-{
-	if (!value && !ret && tmp)
-		return (ft_strdup(tmp));
-	else if (!value && ret && tmp)
-		return (ft_strjoin(ret, tmp));
-	else if (value && !ret && tmp)
-		return (ft_strjoin(tmp, value));
-	else if (!value && ret && !tmp)
-		return (ret);
-	else if (value && ret && !tmp)
-		return (ft_strjoin(ret, value));
-	else if (value && !ret && !tmp)
-		return (ft_strdup(value));
-	return (NULL);
-}
-
-char *replace_dollars(char *str, t_env **env_list, int i, int flag)
-{
-	int	j;
-	char *ret;
-	char *tmp;
-	char *value;
-
-	j = i;
-	ret = NULL;
-	value = NULL;
-	tmp = NULL;
-	if (i != 0)
-		tmp = ft_substr(str, 0, i);
-	while (str[i] != 34 && str[i])
-	{
-		if (str[i] == '$')
-		{
-			if (str[i + 1] == 34 || str[i + 1] == '\0')
-				break ;
-			value = find_env_var(str, &i, env_list);
-			if (!value)
-			{
-				ret = append(ret, tmp, value);
-				free(tmp);
-				tmp = NULL;
-			}
-			else
-			{
-				ret = append(ret, tmp, value);
-				free(tmp);
-				free(value);
-				tmp = NULL;
-				value = NULL;
-			}
-			j = i;
-		}
-		while (str[i] != 34 && str[i] != '$' && str[i])
-			i++;
-		if (flag)
-		{
-			while (str[i])
-				i++;
-		}
-		if (i != j)
-		{
-			value = ft_substr(str, j, i - j);
-			ret = append(ret, tmp, value);
-			free(tmp);
-			free(value);
-			tmp = NULL;
-			value = NULL;
-		}
-	}
-	if (i < (int)ft_strlen(str))
-	{
-		tmp = ft_strdup(ret);
-		value = ft_substr(str, i, ft_strlen(str) - i);
-		free(ret);
-		ret = NULL;
-		ret = ft_strjoin(tmp, value);
-		free(tmp);
-		free(value);
-		tmp = NULL;
-		value = NULL;
-	}
-	return (ret);
 }
 
 void	skip_quote(char *str, int *i)
@@ -526,8 +440,6 @@ void	delete_quote(t_mini *shell, int i, int *j)
 
 void	realloc_args(t_mini *shell, t_env **env_list, int j, int i)
 {
-	//ON SEST ARRETER LA AHGASGAGAGAGAGAGFFGAGAG
-
 	char	*ret;
 
 	ret = replace_dollars(shell->current->args[i], env_list, j + 1, 0);

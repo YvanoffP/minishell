@@ -44,6 +44,15 @@ typedef struct s_env
 	struct s_env	*next;
 }			t_env;
 
+typedef struct s_dollvar
+{
+    int     j;
+    char    *ret;
+    char    *tmp;
+    char    *value;
+    int     flag;
+}           t_dollvar;
+
 // MiniShell - minishell.c
 void	init_mini(t_mini *shell, t_env **env);
 void	init_env(t_env **env_list, char **env);
@@ -99,12 +108,53 @@ void	parsing(t_mini *shell, t_env **env_list);
 int		str_error(char *str, int ret);
 int		is_sep(char c);
 
+// NOT REFACTORED
+int	is_w_space(char c);
+int print_sep_error(char sep);
+int	is_sep(char c);
+int	print_quote_err(void);
+int	count_arr(char **tab);
+void	skip_w_space(char *str, int *i);
+int	have_a_dollar(char *str, int i);
+char *find_env_var(char *str, int *i, t_env **env_list);
+void	skip_quote(char *str, int *i);
+int	count_sep(char *str);
+int	count_space(char *str);
+int	*parse_sep(char *str);
+int	*parse_space(char *str);
+int	count_missing_space(char *str, int *sep);
+void	delete_last_spaces(char **str);
+char	*pimp_my_string(t_mini *shell, int *sep);
+int	count_nb_wrd(int *sep, int *space);
+void	fill_array(t_mini *shell, int **sep, int **space, int *i);
+void	create_sep_node(t_mini *shell, int *i, int **space);
+void	alloc_args_tab(t_mini *shell, int *sep, int *space);
+int	detect_quote(char *str);
+void	delete_quote(t_mini *shell, int i, int *j);
+void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);
+void	quote_remover(t_mini *shell, t_env **env_list, int i);
+void	quotes_cleaner(t_mini *shell, t_env **env_list);
+int	have_a_dollar_out_q(char *str);
+int	realloc_string(t_mini *shell, int i, char *s2);
+void	dollar_out_quote(t_mini *shell, t_env **env_list);
+int	check_quote_err(char *str);
+int	str_error(char *str, int ret);
+int	check_args_error(char *str);
+int	split_arg(t_mini *shell, t_env **env_list);
+
 // Parse - list_parsing.c
 void	init_args(t_mini *shell);
 void	add_sep_to_lst(t_mini *shell, int *i);
 char	*add_sep_to_node(t_mini *shell, int *i);
 void	create_n_add_empty_node(t_mini *shell);
 void	destroy_arg_lst(t_mini *shell);
+
+// Parse - replace_dollars.c
+char    *replace_dollars(char *str, t_env **env_list, int i, int flag);
+void    init_dollvar(t_dollvar *data, int i, int flag);
+char    *append(t_dollvar *data);
+int     get_value_in_str(char *str, int *i, t_dollvar *data, t_env **env_list);
+int     find_dollars_str(char *str, int *i, t_dollvar *data, t_env **env_list);
 
 // PWD - pwd.c
 void    pwd(void);
