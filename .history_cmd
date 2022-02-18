@@ -974,3 +974,9 @@ echo mama ||
 echo mama ||   
 echo mama ||  echo papa
 echo mama |  echo papa
+echo salut
+echo papa
+export mama=5
+echo $mama
+echo "$mama"
+exit
