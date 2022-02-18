@@ -8,7 +8,7 @@ void	skip_w_space(char *str, int *i)
 
 int	have_a_dollar(char *str, int i)
 {
-	while (str[i] != 34)
+	while (str[i] != 34 && str[i])
 	{
 		if (str[i] == '$')
 			return (1);
