@@ -9,10 +9,15 @@ t_env	*create_node(char *var_array)
 	i = 0;
 	if (new_node)
 	{
-		//We want to put '=' in name of var, not value
-		while (var_array[i] != '=')
+		while (var_array[i] != '=' && var_array[i])
 			i++;
 		new_node->var = ft_substr(var_array, 0, i);
+		if (var_array[i] == '\0')
+		{
+			new_node->value = ft_strdup("");
+			new_node->next = NULL;
+			return (new_node);
+		}
 		i++;
 		new_node->value = ft_substr(var_array, i, (ft_strlen(var_array) - i));
 		new_node->next = NULL;
@@ -153,21 +158,46 @@ void	delete_list(t_env *env_list)
 	}
 }
 
-/*t_env	*search_in_env(char	*var, t_env **env_list)
+int	is_in_lst(char	*var, t_env **env_list)
+{
+	t_env	*tmp;
+
+	tmp = *env_list;
+	if (tmp == NULL || var == NULL)
+		return (0);
+	//DOUTE : CHECK SI LE STRCMP SEXEC CORRECTEMENT
+	while (tmp != NULL && ft_strcmp(tmp->var, var) != 0)
+		tmp = tmp->next;
+	if (tmp)
+		return (1);
+	return (0);
+}
+
+t_env	*get_in_lst(char *var, t_env **env_list)
 {
 	t_env	*tmp;
 
 	tmp = *env_list;
 	if (tmp == NULL || var == NULL)
 		return (NULL);
-	while (tmp != NULL && ft_strncmp(tmp->var, var, ft_strlen()) != 0)
+	while (tmp != NULL && ft_strcmp(tmp->var, var) != 0)
 		tmp = tmp->next;
-	return (tmp);
+	if (tmp)
+		return (tmp);
+	return (NULL);
 }
 
-void	replace_var(t_env **env_list, char *var)
+void	replace_in_lst(t_env *new_node, t_env **env_list)
 {
 	t_env	*tmp;
 
-	tmp = search_in_env(var, )
-}*/
+	tmp = get_in_lst(new_node->var, env_list);
+	if (tmp)
+	{
+		free(tmp->value);
+		tmp->value = ft_strdup(new_node->value);
+		free(new_node->var);
+		free(new_node->value);
+		free(new_node);
+	}
+}
