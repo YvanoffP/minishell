@@ -64,6 +64,9 @@ MINISHELL_FILES = minishell.c \
 
 PARSE_FILES =	parsing.c \
 				replace_dollars.c \
+				parse_tools.c \
+				parse_tools_2.c \
+				pimp_my_string.c \
 				list_parsing.c
 
 # PWD files variable
