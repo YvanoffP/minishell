@@ -70,3 +70,24 @@ void	delete_last_spaces(char **str)
 		free(tmp);
 	}
 }
+
+int	count_missing_space(char *str, int *sep)
+{
+	int	i;
+	int	*ptr;
+	int	missing_space;
+
+	missing_space = 0;
+	i = 0;
+	ptr = sep;
+	while (*ptr)
+	{
+		i = *ptr;
+		if (is_w_space(str[i - 1]))
+			missing_space++;
+		if (is_w_space(str[i + 1]))
+			missing_space++;
+		ptr++;
+	}
+	return (missing_space);
+}

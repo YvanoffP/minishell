@@ -52,9 +52,22 @@ int	detect_quote(char *str)
 	return (0);
 }
 
-int	str_error(char *str, int ret)
+int	have_a_dollar_out_q(char *str)
 {
-	write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
-	return (ret);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == 34 || str[i] == 39)
+		{
+			skip_quote(str, &i);
+			i++;
+		}
+		else if (str[i] == '$')
+			return (i);
+		else
+			i++;
+	}
+	return (-1);
 }
