@@ -104,36 +104,40 @@ void	handler(int sig);
 int     cd(char *path);
 
 // Parse - parsing.c
+char    *find_env_var(char *str, int *i, t_env **env_list);
+int     split_arg(t_mini *shell, t_env **env_list);
 void	parsing(t_mini *shell, t_env **env_list);
-int		str_error(char *str, int ret);
-int		is_sep(char c);
 
-// NOT REFACTORED
-char *find_env_var(char *str, int *i, t_env **env_list);
-int	count_sep(char *str);
-int	count_space(char *str);
-int	*parse_sep(char *str);
-int	*parse_space(char *str);
-int	count_missing_space(char *str, int *sep);
-int	count_nb_wrd(int *sep, int *space);
+// Parse - sep_n_space.c
+int	    count_nb_wrd(int *sep, int *space);
+int	    *parse_space(char *str);
+int	    count_space(char *str);
+int     *parse_sep(char *str);
+int     count_sep(char *str);
+
+// Parse - quote_treatment.c
 void	fill_array(t_mini *shell, int **sep, int **space, int *i);
-void	create_sep_node(t_mini *shell, int *i, int **space);
-void	alloc_args_tab(t_mini *shell, int *sep, int *space);
-void	delete_quote(t_mini *shell, int i, int *j);
-void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);
 void	quote_remover(t_mini *shell, t_env **env_list, int i);
-void	quotes_cleaner(t_mini *shell, t_env **env_list);
-int	have_a_dollar_out_q(char *str);
-int	realloc_string(t_mini *shell, int i, char *s2);
 void	dollar_out_quote(t_mini *shell, t_env **env_list);
-int	check_quote_err(char *str);
-int	check_args_error(char *str);
-int	split_arg(t_mini *shell, t_env **env_list);
+void	quotes_cleaner(t_mini *shell, t_env **env_list);
+void	delete_quote(t_mini *shell, int i, int *j);
 
+// Parse - array_zone.c
+void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);
+void	alloc_args_tab(t_mini *shell, int *sep, int *space);
+void	create_sep_node(t_mini *shell, int *i, int **space);
+int	    realloc_string(t_mini *shell, int i, char *s2);
+int	    split_arg(t_mini *shell, t_env **env_list);
+
+// Parse - error_parse.c
+int     str_error(char *str, int ret);
+int     check_args_error(char *str);
+int	    check_quote_err(char *str);
 
 // Parse - pimp_my_string.c
 char    *check_around_n_cpy(t_mini *shell, int *ptr, int i, int j);
 char	*pimp_my_string(t_mini *shell, int *sep);
+int	    count_missing_space(char *str, int *sep);
 void    work_nb_n_len(int *nb_space, int *len);
 void	delete_last_spaces(char **str);
 
@@ -154,8 +158,8 @@ int	    is_sep(char c);
 // Parse - parse_tools_2.c
 void	skip_w_space(char *str, int *i);
 int     have_a_dollar(char *str, int i);
+int	    have_a_dollar_out_q(char *str);
 void	skip_quote(char *str, int *i);
-int     str_error(char *str, int ret);
 int     detect_quote(char *str);
 
 // Parse - replace_dollars.c
