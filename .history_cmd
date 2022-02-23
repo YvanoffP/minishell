@@ -1063,3 +1063,8 @@ export
 exit
 export
 exit
+echo mama
+export mama=5
+export
+echo $mama
+exit
