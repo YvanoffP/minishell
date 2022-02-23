@@ -65,13 +65,13 @@ void	prompt_msg(t_mini *shell);
 // MiniShell - working_history.c
 void	working_history(t_mini *shell);
 
-// Echo - echo.c
+// Builtins - echo.c
 void	echo_func(t_mini *shell);
 
-// Env - env.c
+// Builtins - env.c
 void	env_func(t_env **env_list);
 
-// Env - chained_list.c
+// Builtins - chained_list.c
 void	add_to_list(t_env **env_list, t_env *new_node);
 t_env	*sort_list_export(t_env **env_list);
 t_env	*dup_node(char *name, char *value);
@@ -84,7 +84,7 @@ t_env	*get_in_lst(char *var, t_env **env_list);
 void	replace_in_lst(t_env *new_node, t_env **env_list);
 
 
-// Export - export.c
+// Builtins - export.c
 void	add_var_to_list(t_env **env_list, char *args);
 void	print_export_list(t_env **env_list);
 char	**env_duplicate(char **envp);
@@ -97,10 +97,10 @@ int		check_only_num(char *str);
 // EXECUTION - execution.c
 
 
-// Sgnal - signal.c
+// Signal - signal.c
 void	handler(int sig);
 
-// CD - cd.c
+// Builtins - cd.c
 int     cd(char *path);
 
 // Parse - parsing.c
@@ -169,10 +169,10 @@ char    *replace_dollars(char *str, t_env **env_list, int i, int flag);
 void    init_dollvar(t_dollvar *data, int i, int flag);
 char    *append(t_dollvar *data);
 
-// PWD - pwd.c
+// Builtins - pwd.c
 void    pwd(void);
 
-//UNSET - unset.c
+// Builtins - unset.c
 void	unset(t_mini *shell, t_env **env_list);
 
 #endif
