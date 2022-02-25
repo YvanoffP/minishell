@@ -95,7 +95,15 @@ int		is_num(char c);
 int		check_only_num(char *str);
 
 // EXECUTION - execution.c
-
+char	**lst_to_array(t_env **env_list);
+int		find_file(t_env **env_list, t_mini *shell);
+char	*join_path_to_arg(char *path, char *arg);
+void	exec_file(t_mini *shell, t_env **env_list, char *path, int *status);
+int		exec_program(t_mini *shell, t_env **env_list);
+int		check_file(t_env **env_list, t_mini *shell);
+int		check_path(t_env **env_list, t_mini *shell);
+int		is_builtins(t_env **env_list, t_mini *shell);
+int		execution(t_env **env_list, t_mini *shell);
 
 // Signal - signal.c
 void	handler(int sig);

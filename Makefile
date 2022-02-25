@@ -5,7 +5,6 @@ NAME = minishell
 SOURCEDIR := ./src
 HEADERSDIR := ./inc
 OBJECTSDIR := ./objects
-# EXEC_FOLDER = execution
 MINISHELL_FOLDER = minishell
 PARSE_FOLDER = parse
 SIGNAL_FOLDER = signal
@@ -62,14 +61,17 @@ SIGNAL_FILES = signal.c
 MAIN_FILE = main.c
 
 # Define objects for all sources
-# OBJ_EXEC = $(addprefix $(OBJECTSDIR)/$(EXEC_FOLDER)/, $(EXEC_FILES:.c=.o))
+
+OBJ_EXEC = $(addprefix $(OBJECTSDIR)/$(EXEC_FOLDER)/, $(EXEC_FILES:.c=.o))
 OBJ_BUILT = $(addprefix $(OBJECTSDIR)/$(BUILT_FOLDER)/, $(BUILT_FILES:.c=.o))
 OBJ_MINISHELL = $(addprefix $(OBJECTSDIR)/$(MINISHELL_FOLDER)/, $(MINISHELL_FILES:.c=.o))
 OBJ_PARSE= $(addprefix $(OBJECTSDIR)/$(PARSE_FOLDER)/, $(PARSE_FILES:.c=.o))
 OBJ_SIGNAL = $(addprefix $(OBJECTSDIR)/$(SIGNAL_FOLDER)/, $(SIGNAL_FILES:.c=.o))
 OBJ_MAIN = $(addprefix $(OBJECTSDIR)/, $(MAIN_FILE:.c=.o))
+
 OBJS := $(OBJ_MINISHELL) $(OBJ_SIGNAL) $(OBJ_MAIN) \
-		$(OBJ_PARSE) $(OBJ_BUILT) # $(OBJ_EXEC)
+		$(OBJ_PARSE) $(OBJ_BUILT) $(OBJ_EXEC)
+
 LIBFT_FILE := $(LIBFT_FOLDER)/$(LIBFT_LIB)
 
 # Name the compiler
