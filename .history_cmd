@@ -1063,3 +1063,36 @@ export
 exit
 export
 exit
+export
+ls
+exit
+ls
+ls
+ls
+ls
+ls -la
+cd ..
+cd push_swap 
+./push_swap 1 2 3
+./push_swap 8 3 74 9 1
+echo MAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+cd ..
+cd minishell 
+lsa
+./mama
+.mama
+/mama
+exit
+export mama="90 2 63 8 921 74"
+cd ../push_swap 
+.//push_swap
+./push_swap $mama
+exit
+ls
+cd ..
+cd push_swap 
+./push_swap "5678 93 74 028 84"
+cd ..
+cd push_swap 
+make
+exit
