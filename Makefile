@@ -9,6 +9,7 @@ MINISHELL_FOLDER = minishell
 PARSE_FOLDER = parse
 SIGNAL_FOLDER = signal
 BUILT_FOLDER = builtins
+EXEC_FOLDER = execution
 LIBFT_HEADER = $(SOURCEDIR)/libft/libft.h
 LIBFT_FOLDER = $(SOURCEDIR)/libft
 
@@ -55,6 +56,10 @@ PARSE_FILES =	parsing.c \
 # SIGNAL files variable
 
 SIGNAL_FILES = signal.c
+
+# Exec files variable
+
+EXEC_FILES = execution.c
 
 # Main file variable
 
