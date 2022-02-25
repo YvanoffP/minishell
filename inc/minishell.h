@@ -65,13 +65,13 @@ void	prompt_msg(t_mini *shell);
 // MiniShell - working_history.c
 void	working_history(t_mini *shell);
 
-// Echo - echo.c
+// Builtins - echo.c
 void	echo_func(t_mini *shell);
 
-// Env - env.c
+// Builtins - env.c
 void	env_func(t_env **env_list);
 
-// Env - chained_list.c
+// Builtins - chained_list.c
 void	add_to_list(t_env **env_list, t_env *new_node);
 t_env	*sort_list_export(t_env **env_list);
 t_env	*dup_node(char *name, char *value);
@@ -84,7 +84,7 @@ t_env	*get_in_lst(char *var, t_env **env_list);
 void	replace_in_lst(t_env *new_node, t_env **env_list);
 
 
-// Export - export.c
+// Builtins - export.c
 void	add_var_to_list(t_env **env_list, char *args);
 void	print_export_list(t_env **env_list);
 char	**env_duplicate(char **envp);
@@ -105,43 +105,47 @@ int		check_path(t_env **env_list, t_mini *shell);
 int		is_builtins(t_env **env_list, t_mini *shell);
 int		execution(t_env **env_list, t_mini *shell);
 
-// Sgnal - signal.c
+// Signal - signal.c
 void	handler(int sig);
 
-// CD - cd.c
+// Builtins - cd.c
 int     cd(char *path);
 
 // Parse - parsing.c
+char    *find_env_var(char *str, int *i, t_env **env_list);
+int     split_arg(t_mini *shell, t_env **env_list);
 void	parsing(t_mini *shell, t_env **env_list);
-int		str_error(char *str, int ret);
-int		is_sep(char c);
 
-// NOT REFACTORED
-char *find_env_var(char *str, int *i, t_env **env_list);
-int	count_sep(char *str);
-int	count_space(char *str);
-int	*parse_sep(char *str);
-int	*parse_space(char *str);
-int	count_missing_space(char *str, int *sep);
-int	count_nb_wrd(int *sep, int *space);
+// Parse - sep_n_space.c
+int	    count_nb_wrd(int *sep, int *space);
+int	    *parse_space(char *str);
+int	    count_space(char *str);
+int     *parse_sep(char *str);
+int     count_sep(char *str);
+
+// Parse - quote_treatment.c
 void	fill_array(t_mini *shell, int **sep, int **space, int *i);
-void	create_sep_node(t_mini *shell, int *i, int **space);
-void	alloc_args_tab(t_mini *shell, int *sep, int *space);
-void	delete_quote(t_mini *shell, int i, int *j);
-void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);
 void	quote_remover(t_mini *shell, t_env **env_list, int i);
-void	quotes_cleaner(t_mini *shell, t_env **env_list);
-int	have_a_dollar_out_q(char *str);
-int	realloc_string(t_mini *shell, int i, char *s2);
 void	dollar_out_quote(t_mini *shell, t_env **env_list);
-int	check_quote_err(char *str);
-int	check_args_error(char *str);
-int	split_arg(t_mini *shell, t_env **env_list);
+void	quotes_cleaner(t_mini *shell, t_env **env_list);
+void	delete_quote(t_mini *shell, int i, int *j);
 
+// Parse - array_zone.c
+void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);
+void	alloc_args_tab(t_mini *shell, int *sep, int *space);
+void	create_sep_node(t_mini *shell, int *i, int **space);
+int	    realloc_string(t_mini *shell, int i, char *s2);
+int	    split_arg(t_mini *shell, t_env **env_list);
+
+// Parse - error_parse.c
+int     str_error(char *str, int ret);
+int     check_args_error(char *str);
+int	    check_quote_err(char *str);
 
 // Parse - pimp_my_string.c
 char    *check_around_n_cpy(t_mini *shell, int *ptr, int i, int j);
 char	*pimp_my_string(t_mini *shell, int *sep);
+int	    count_missing_space(char *str, int *sep);
 void    work_nb_n_len(int *nb_space, int *len);
 void	delete_last_spaces(char **str);
 
@@ -162,8 +166,8 @@ int	    is_sep(char c);
 // Parse - parse_tools_2.c
 void	skip_w_space(char *str, int *i);
 int     have_a_dollar(char *str, int i);
+int	    have_a_dollar_out_q(char *str);
 void	skip_quote(char *str, int *i);
-int     str_error(char *str, int ret);
 int     detect_quote(char *str);
 
 // Parse - replace_dollars.c
@@ -173,10 +177,10 @@ char    *replace_dollars(char *str, t_env **env_list, int i, int flag);
 void    init_dollvar(t_dollvar *data, int i, int flag);
 char    *append(t_dollvar *data);
 
-// PWD - pwd.c
+// Builtins - pwd.c
 void    pwd(void);
 
-//UNSET - unset.c
+// Builtins - unset.c
 void	unset(t_mini *shell, t_env **env_list);
 
 #endif

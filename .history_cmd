@@ -1095,4 +1095,8 @@ cd push_swap
 cd ..
 cd push_swap 
 make
+echo mama
+export mama=5
+export
+echo $mama
 exit
