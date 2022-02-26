@@ -70,5 +70,4 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!split_arg(shell, env_list))
 		return ;
 	shell->current = shell->first;
-	execution(env_list, shell);
 }
