@@ -1323,3 +1323,64 @@ exit
 
 
 exit
+export
+exit
+exit
+export
+exit
+ls > papa
+ls
+exit
+ls > papa
+ls > papa
+ls
+cat papa
+rm papa
+exit
+ls
+ls > mama > papa
+ls
+cat mama
+cat papa
+rm mama
+rm papa
+exit
+ls
+touch mama
+echo mama >> mama
+cat mama
+ls > papa >> mama
+cat mama
+cat papa
+ls
+rm mama
+rm papa
+ls
+exit
+ls
+ls > papa
+cat papa
+rm papa
+ls > papa >> mama
+cat papa
+cat mama
+rm mama
+rm papa
+touch mama
+echo mescouilles >> mama
+cat mama
+ls > papa >> mama
+cat mama
+rm mama
+rm papa
+echo mama
+exit
+ls > papa -la
+cat papa
+ls -la
+cat papa
+exit
+ls > papa < mama
+ls
+cat mama
+exit

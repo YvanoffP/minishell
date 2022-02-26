@@ -158,6 +158,26 @@ int	check_path(t_env **env_list, t_mini *shell)
 	return (0);
 }
 
+void	backup(int flag)
+{
+	static int	stdin;
+	static int	stdout;
+	static int	stderr;
+
+	if (flag)
+	{
+		stdin = dup(STDIN_FILENO);
+		stdout = dup(STDOUT_FILENO);
+		stderr = dup(STDERR_FILENO);
+	}
+	else if (!flag)
+	{
+		dup2(stdin, 0);
+		dup2(stdout, 1);
+		dup2(stderr, 2);
+	}
+}
+
 int	is_builtins(t_env **env_list, t_mini *shell)
 {
 	if (!ft_strcmp(shell->current->args[0], EXPORT))
@@ -179,9 +199,67 @@ int	is_builtins(t_env **env_list, t_mini *shell)
 	return (0);
 }
 
+int	great_than(int *fd, t_arg *tmp)
+{
+	*fd = open(tmp->next->args[0], O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
+	if ((*fd) < 0)
+		return (1);
+	dup2((*fd), STDOUT_FILENO);
+	close((*fd));
+	return (0);
+}
+
+int	less_than(int *fd, t_arg *tmp)
+{
+	*fd = open(tmp->next->args[0], O_RDONLY);
+	if ((*fd) < 0)
+		return (1);
+	dup2((*fd), STDIN_FILENO);
+	close((*fd));
+	return (0);
+}
+
+int	db_great_than(int *fd, t_arg *tmp)
+{
+	*fd = open(tmp->next->args[0], O_CREAT | O_RDONLY | O_WRONLY | O_APPEND, 0644);
+	if ((*fd) < 0)
+		return (1);
+	dup2((*fd), STDOUT_FILENO);
+	close((*fd));
+	return (0);
+}
+
+int	redirection(t_mini *shell, int *my_fd)
+{
+	t_arg	*tmp;
+
+	tmp = shell->first->next;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->args[0], "<"))
+		{
+			if (less_than(&my_fd[0], tmp))
+				return (1);
+		}
+		else if (!ft_strcmp(tmp->args[0], ">"))
+		{
+			if (great_than(&my_fd[1], tmp))
+				return (1);
+		}
+		else if (!ft_strcmp(tmp->args[0], ">>"))
+		{
+			if (db_great_than(&my_fd[1], tmp))
+				return (1);
+		}
+		tmp = tmp->next->next;
+	}
+	return (0);
+}
+
 int	execution(t_env **env_list, t_mini *shell)
 {
 	int ret;
+	int	*my_fd;
 
 	//We have to adapt the code with redirection
 	//Once parsing is done, we have to treat args with those redirections
@@ -192,6 +270,19 @@ int	execution(t_env **env_list, t_mini *shell)
 	//do_backup ???
 
 	//treat redirection
+	my_fd = malloc(sizeof(int) * 2);
+	my_fd[0] = 0;
+	my_fd[1] = 0;
+	backup(1);
+	if (shell->first->next)
+	{
+		if (redirection(shell, my_fd))
+		{
+			backup(0);
+			return (1);
+		}
+	}
 	ret = is_builtins(env_list, shell);
+	backup(0);
 	return (ret);
 }
