@@ -53,6 +53,9 @@ typedef struct s_dollvar
     int     flag;
 }           t_dollvar;
 
+//FILSDEPUTE
+void rl_replace_line (const char *, int);
+
 // MiniShell - minishell.c
 void	init_mini(t_mini *shell, t_env **env);
 void	init_env(t_env **env_list, char **env);
