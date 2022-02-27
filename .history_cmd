@@ -1384,3 +1384,21 @@ ls > papa < mama
 ls
 cat mama
 exit
+ls > papa
+cat papa
+rm papa
+exit
+ls > papa -la
+ls > papa -la
+exit
+ls > papa -la
+ls > papa -la
+q
+
+
+ls > papa -la
+ls > papa -la
+ls > papa -la
+ls > papa -la
+ls > papa -la
+ls > papa -la
