@@ -117,10 +117,12 @@ int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
 	t_built_args	*temp;
 	int				i;
 
+	(void)tmp;
 	i = 1;
 	child->redirection = NULL;
 	child->args = NULL;
-	while (shell->current != tmp)
+	child->next = NULL;
+	while (1)
 	{
 		child->cmd = ft_strdup(shell->current->args[0]);
 		if (shell->current->args[i])
@@ -133,6 +135,7 @@ int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
 			}
 		}
 		shell->current = shell->current->next;
+		break ;
 	}
 	return (0);
 }
@@ -175,9 +178,11 @@ int	acorn_of_wisdom(t_mini *shell)
 	t_arg		*save;
 
 	tmp = shell->current;
+	child = malloc(sizeof(t_command)); //FREE IT
+	if (!tmp->next)
+		return (init_first_child(shell, tmp, child));
 	tmp = tmp->next;
 	save = tmp;
-	child = malloc(sizeof(t_command)); //FREE IT
 	while (is_sep(tmp->args[0][0]))
 	{
 		if (tmp->args[0][0] == '|')
@@ -194,6 +199,7 @@ int	acorn_of_wisdom(t_mini *shell)
 			while (tmp && (tmp->args[0][0] == '<' || tmp->args[0][0] == '>'))
 			{
 				shell->current = tmp;
+				save = tmp;
 				tmp = tmp->next->next;
 				fill_child(shell, child, save);
 			}
@@ -215,6 +221,5 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!split_arg(shell, env_list))
 		return ;
 	shell->current = shell->first;
-	if (shell->first->next)
-		acorn_of_wisdom(shell);
+	acorn_of_wisdom(shell);
 }
