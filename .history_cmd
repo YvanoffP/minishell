@@ -1432,3 +1432,13 @@ ls > papa > mama -la -l > fiston
 ls > papa > mama -la -l > fiston
 ls > papa > mama -la -l > fiston
 ls > papa > mama -la -l > fiston -m
+echo mama cita lamaria
+ls -la mama
+ls -la -l mama
+ls > papa > mama -la -l > fiston mok
+ls > papa > mama -la -l > fiston mok
+ls -la -l mok
+ls > papa > mama -l -la > fiston mok
+ls -la >> papa -l < fiston
+ls -la >> papa mok < fiston
+ls -la >> papa < fiston mok
