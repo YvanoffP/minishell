@@ -112,12 +112,21 @@ int	fill_child(t_mini *shell, t_command *child)
 	child->redirection->file_name = ft_strdup(shell->current->args[0]);
 	while (shell->current->args[++i])
 	{
-		while (child->args->next)
+		if (child->args)
+		{
+			while (child->args->next)
+				child->args = child->args->next;
+			child->args->next = malloc(sizeof(t_built_args));
 			child->args = child->args->next;
-		child->args->next = malloc(sizeof(t_built_args));
-		child->args = child->args->next;
-		child->args->name = ft_strdup(shell->current->args[i]);
-		child->args->next = NULL;
+			child->args->name = ft_strdup(shell->current->args[i]);
+			child->args->next = NULL;
+		}
+		else
+		{
+			child->args = malloc(sizeof(t_built_args));
+			child->args->name = ft_strdup(shell->current->args[i]);
+			child->args->next = NULL;
+		}
 	}
 	child->args = temp;
 	return (0);
@@ -143,14 +152,14 @@ int	acorn_of_wisdom(t_mini *shell)
 			init_first_child(shell, tmp, child);
 			tmp = tmp->next->next;
 			fill_child(shell, child);
+			if (!tmp)
+				break ;
 			while (tmp->args[0][0] == '<' || tmp->args[0][0] == '>')
 			{
 				shell->current = tmp;
 				tmp = tmp->next->next;
 				fill_child(shell, child);
 			}
-			if (!tmp)
-				return (0);
 		}
 	}
 	shell->child = child;
