@@ -107,7 +107,8 @@ int	fill_child(t_mini *shell, t_command *child)
 	t_built_args	*temp;
 
 	i = 0;
-	temp = child->args;
+	if (child->args)
+		temp = child->args;
 	shell->current = shell->current->next;
 	child->redirection->file_name = ft_strdup(shell->current->args[0]);
 	while (shell->current->args[++i])
@@ -126,6 +127,7 @@ int	fill_child(t_mini *shell, t_command *child)
 			child->args = malloc(sizeof(t_built_args));
 			child->args->name = ft_strdup(shell->current->args[i]);
 			child->args->next = NULL;
+			temp = child->args;
 		}
 	}
 	child->args = temp;
