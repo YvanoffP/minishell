@@ -24,11 +24,15 @@
 
 typedef struct s_mini
 {
-    char            *mini_cwd;
-    char            *argv;
-	struct s_arg	*first;
-	struct s_arg	*current;
-	int		        fd_history;
+	//ADD TO SHELL : NEED TO BE SET
+	int					cmd_count;
+	struct s_command	*child;		
+	//
+    char            	*mini_cwd;
+    char            	*argv;
+	struct s_arg		*first;
+	struct s_arg		*current;
+	int		        	fd_history;
 }               t_mini;
 
 typedef struct s_arg
@@ -52,6 +56,37 @@ typedef struct s_dollvar
     char    *value;
     int     flag;
 }           t_dollvar;
+
+/////////PARSING REDIRECTION/////////////////
+
+typedef enum e_type{
+	GREAT,
+	DB_GREAT,
+	LESS,
+}			t_type;
+
+typedef struct s_redir
+{
+	char			*file_name;
+	t_type			type;
+	struct s_redir	*next;
+}				t_redir;
+
+typedef struct s_built_args
+{
+	char				*name;
+	struct s_built_args	*next;
+}				t_built_args;
+
+typedef struct s_command
+{
+	char				*cmd;
+	t_built_args		*args;
+	t_redir				*redirection;
+	struct s_command	*next;
+}				t_command;
+
+//////////////////////////////////////////////
 
 //FILSDEPUTE
 void rl_replace_line (const char *, int);
