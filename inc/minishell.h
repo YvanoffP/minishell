@@ -133,6 +133,8 @@ int		is_num(char c);
 int		check_only_num(char *str);
 
 // EXECUTION - execution.c
+int		print_error(char *str, char *msg, int ret);
+int		error_file(t_redir *redirection);
 char	**lst_to_array(t_env **env_list);
 int		find_file(t_env **env_list, t_command *child);
 char	*join_path_to_arg(char *path, char *arg);

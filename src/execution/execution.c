@@ -1,5 +1,28 @@
 #include "../../inc/minishell.h"
 
+int	print_error(char *str, char *msg, int ret)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (str != NULL)
+		ft_putstr_fd(str, 2);
+	ft_putendl_fd(msg, 2);
+	return (ret);
+}
+
+int	error_file(t_redir *redirection)
+{
+	struct stat	buf;
+
+	if (stat(redirection->file_name, &buf) == 0)
+	{
+		if (buf.st_mode & S_IFDIR)
+			return (print_error(redirection->file_name, ": Is a directory", 1));
+		else if ((buf.st_mode & S_IXUSR) == 0)
+			return (print_error(redirection->file_name, ": Permission denied", 1));
+	}
+	return (print_error(redirection->file_name, ": No such file or directory", 1));
+}
+
 char	**lst_to_array(t_env **env_list)
 {
 	char	**ret;
@@ -128,11 +151,13 @@ int	exec_program(t_command *child, t_env **env_list)
 	//Execve need our args stored in char ** and our list on char **, not on linked list
 	//NOTE : EXECVE HAD TO BE PROTECT : if it return -1, an error occurs and we have to track it
 	if (!pid)
-		execve(child->cmd, args_to_array(child), lst_to_array(env_list));
-	//ELSE IF : we want to protect the failed fork
+	{
+		if (execve(child->cmd, args_to_array(child), lst_to_array(env_list)) == -1)
+			print_error(child->cmd, "Execve failed", -1);
+		exit(0);
+	}
 	else if (pid == -1)
-		return (str_error("Fork failed", 0));
-	
+		return (print_error("fork: ", "Fork failed", -2));
 	//ELSE : Fork success, we have to run on child process and wait return of this child
 	// OPTIONS for waitpid is 0 : man tell that because waitpid behaviour is same as wait
 	//if option is set on 0
@@ -161,13 +186,13 @@ int	check_file(t_env **env_list, t_command *child)
 
 	//if stat() return -1, it means that the file was not found
 	if (stat(child->cmd, &buf) == -1)
-		return (str_error("no such file or directory", 0));
+		return (print_error(child->cmd, ": No such file or directory", 1));
 	//This line check if mode is stored with S_IFDIR, that means is not a file but a directory
 	else if (buf.st_mode & S_IFDIR)
-		return (str_error("Is a directory", 0));
+		return (print_error(child->cmd, ": Is a directory", 1));
 	//This line check if permissiom of execute and search is available
 	else if ((buf.st_mode & S_IXUSR) == 0)
-		return (str_error("Permission denied", 0));
+		return (print_error(child->cmd, ": Permission denied", 1));
 	return (exec_program(child, env_list));
 }
 
@@ -189,7 +214,7 @@ int	check_path(t_env **env_list, t_command *child)
 		status = find_file(env_list, child);
 		if (status != -100)
 			return (status);
-		return (str_error("command not found\n", 0));
+		return (print_error(child->cmd, ": command not found", -1));
 	}
 	return (0);
 }
@@ -310,8 +335,10 @@ int	execution(t_env **env_list, t_mini *shell)
 		}
 	}
 	if (shell->child->cmd == NULL && shell->child->redirection == NULL)
-		return (str_error("command not found\n", 0));
+		return (print_error("\0", "command not found", -1));
+
 	//On comptera le nb de cmd si > 1 alors on execute pipe
+
 	if (shell->child->cmd != NULL)
 		ret = is_builtins(env_list, shell->child);
 	backup(0);

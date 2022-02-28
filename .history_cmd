@@ -1471,3 +1471,15 @@ cd ..
 cd minishel
 cd minishell
 exit
+pwd
+exit
+./mama
+ls -m
+ls -mama
+ls cul
+ls > papa > fiston -l
+cat papa
+cat fiston
+rm fiston
+rm papa
+exit
