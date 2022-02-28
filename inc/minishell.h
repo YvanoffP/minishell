@@ -104,7 +104,7 @@ void	prompt_msg(t_mini *shell);
 void	working_history(t_mini *shell);
 
 // Builtins - echo.c
-void	echo_func(t_mini *shell);
+void	echo_func(t_built_args *args);
 
 // Builtins - env.c
 void	env_func(t_env **env_list);
@@ -126,21 +126,28 @@ void	replace_in_lst(t_env *new_node, t_env **env_list);
 void	add_var_to_list(t_env **env_list, char *args);
 void	print_export_list(t_env **env_list);
 char	**env_duplicate(char **envp);
-int		export_func(t_env **env_list, t_mini *shell);
+int		export_func(t_env **env_list, t_built_args *args);
 int		check_wrong_char(char *str);
-int		check_args(t_mini *shell, int i);
+int		check_args(char *name);
 int		is_num(char c);
 int		check_only_num(char *str);
 
 // EXECUTION - execution.c
 char	**lst_to_array(t_env **env_list);
-int		find_file(t_env **env_list, t_mini *shell);
+int		find_file(t_env **env_list, t_command *child);
 char	*join_path_to_arg(char *path, char *arg);
-void	exec_file(t_mini *shell, t_env **env_list, char *path, int *status);
-int		exec_program(t_mini *shell, t_env **env_list);
-int		check_file(t_env **env_list, t_mini *shell);
-int		check_path(t_env **env_list, t_mini *shell);
-int		is_builtins(t_env **env_list, t_mini *shell);
+void	exec_file(t_command *child, t_env **env_list, char *path, int *status);
+int		count_args(t_built_args *lst);
+char	**args_to_array(t_command *child);
+int		exec_program(t_command *child, t_env **env_list);
+int		check_file(t_env **env_list, t_command *child);
+int		check_path(t_env **env_list, t_command *child);
+void	backup(int flag);
+int		is_builtins(t_env **env_list, t_command *child);
+int		great_than(int *fd, t_redir *redirection);
+int		less_than(int *fd, t_redir *redirection);
+int		db_great_than(int *fd, t_redir *redirection);
+int		redirection(t_redir *redirection, int *my_fd);
 int		execution(t_env **env_list, t_mini *shell);
 
 // Signal - signal.c
@@ -219,6 +226,6 @@ char    *append(t_dollvar *data);
 void    pwd(void);
 
 // Builtins - unset.c
-void	unset(t_mini *shell, t_env **env_list);
+void	unset(t_built_args *args, t_env **env_list);
 
 #endif

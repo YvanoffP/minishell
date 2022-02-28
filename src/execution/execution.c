@@ -22,7 +22,7 @@ char	**lst_to_array(t_env **env_list)
 	return (ret);
 }
 
-int	find_file(t_env **env_list, t_mini *shell)
+int	find_file(t_env **env_list, t_command *child)
 {
 	t_env *tmp;
 	char	**path;
@@ -35,11 +35,11 @@ int	find_file(t_env **env_list, t_mini *shell)
 	status = -100;
 	tmp = get_in_lst("PATH", env_list);
 	if (tmp == NULL)
-		return (check_file(env_list, shell));
+		return (check_file(env_list, child));
 	path = ft_split(tmp->value, ':');
 	while (path[i] != NULL)
 	{
-		exec_file(shell, env_list, path[i], &status);
+		exec_file(child, env_list, path[i], &status);
 		free(path[i++]);
 	}
 	free(path);
@@ -57,7 +57,7 @@ char	*join_path_to_arg(char *path, char *arg)
 	return (full_path);
 }
 
-void	exec_file(t_mini *shell, t_env **env_list, char *path, int *status)
+void	exec_file(t_command *child, t_env **env_list, char *path, int *status)
 {
 	//Need to receive arguments too : ARG !
 
@@ -65,19 +65,55 @@ void	exec_file(t_mini *shell, t_env **env_list, char *path, int *status)
 	char		*joined_path;
 
 	buf.st_mode = 0;
-	joined_path = join_path_to_arg(path, shell->current->args[0]); 
+	joined_path = join_path_to_arg(path, child->cmd); 
 	stat(joined_path, &buf);
 	if ((buf.st_mode & S_IXUSR) > 0
 		&& (buf.st_mode & S_IFREG) > 0 && *status == -100)
 	{
-			free(shell->current->args[0]);
-			shell->current->args[0] = ft_strdup(joined_path);
-			*status = exec_program(shell, env_list);
+			free(child->cmd);
+			child->cmd = ft_strdup(joined_path);
+			*status = exec_program(child, env_list);
 	}
 	free(joined_path);
 }
 
-int	exec_program(t_mini *shell, t_env **env_list)
+int	count_args(t_built_args *lst)
+{
+	t_built_args	*tmp;
+	int				i;
+
+	tmp = lst;
+	i = 0;
+	while (tmp && tmp->next)
+	{
+		tmp = tmp->next;
+		i++;
+	
+	}
+	return (i);
+}
+
+char	**args_to_array(t_command *child)
+{
+	t_built_args	*tmp;
+	char			**arg;
+	int				i;
+
+	tmp = child->args;
+	i = count_args(tmp) + 1;
+	arg = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	arg[i++] = ft_strdup(child->cmd);
+	while (tmp != NULL)
+	{
+		arg[i++] = ft_strdup(tmp->name);
+		tmp = tmp->next;
+	}
+	arg[i] = NULL;
+	return (arg);
+}
+
+int	exec_program(t_command *child, t_env **env_list)
 {
 	int	pid;
 	int	status;
@@ -92,7 +128,7 @@ int	exec_program(t_mini *shell, t_env **env_list)
 	//Execve need our args stored in char ** and our list on char **, not on linked list
 	//NOTE : EXECVE HAD TO BE PROTECT : if it return -1, an error occurs and we have to track it
 	if (!pid)
-		execve(shell->current->args[0], shell->current->args, lst_to_array(env_list));
+		execve(child->cmd, args_to_array(child), lst_to_array(env_list));
 	//ELSE IF : we want to protect the failed fork
 	else if (pid == -1)
 		return (str_error("Fork failed", 0));
@@ -119,12 +155,12 @@ int	exec_program(t_mini *shell, t_env **env_list)
 	return (100);
 }
 
-int	check_file(t_env **env_list, t_mini *shell)
+int	check_file(t_env **env_list, t_command *child)
 {
 	struct stat	buf;
 
 	//if stat() return -1, it means that the file was not found
-	if (stat(shell->current->args[0], &buf) == -1)
+	if (stat(child->cmd, &buf) == -1)
 		return (str_error("no such file or directory", 0));
 	//This line check if mode is stored with S_IFDIR, that means is not a file but a directory
 	else if (buf.st_mode & S_IFDIR)
@@ -132,10 +168,10 @@ int	check_file(t_env **env_list, t_mini *shell)
 	//This line check if permissiom of execute and search is available
 	else if ((buf.st_mode & S_IXUSR) == 0)
 		return (str_error("Permission denied", 0));
-	return (exec_program(shell, env_list));
+	return (exec_program(child, env_list));
 }
 
-int	check_path(t_env **env_list, t_mini *shell)
+int	check_path(t_env **env_list, t_command *child)
 {
 	int	status;
 
@@ -144,13 +180,13 @@ int	check_path(t_env **env_list, t_mini *shell)
 
 	//IF we found "./", we have to check the file : path, permission, if the file
 	// already exist etc
-	if (ft_strchr(shell->current->args[0], '/') || shell->current->args[0][0] == '.')
-		return (check_file(env_list, shell));
+	if (ft_strchr(child->cmd, '/') || child->cmd[0] == '.')
+		return (check_file(env_list, child));
 	//ELSE : we have to find file using PATH environment variable 
 	// then execute file using all path present in PATH variable
 	else
 	{
-		status = find_file(env_list, shell);
+		status = find_file(env_list, child);
 		if (status != -100)
 			return (status);
 		return (str_error("command not found\n", 0));
@@ -178,30 +214,30 @@ void	backup(int flag)
 	}
 }
 
-int	is_builtins(t_env **env_list, t_mini *shell)
+int	is_builtins(t_env **env_list, t_command *child)
 {
-	if (!ft_strcmp(shell->current->args[0], EXPORT))
-		export_func(env_list, shell);
-	else if (!ft_strcmp(shell->current->args[0], ECHO_CMD))
-		echo_func(shell);
-	else if (!ft_strcmp(shell->current->args[0], UNSET))
-		unset(shell, env_list);
-	else if (!ft_strcmp(shell->current->args[0], CD))
-		cd(shell->current->args[1]);
-	else if (!ft_strcmp(shell->current->args[0], ENV))
+	if (!ft_strcmp(child->cmd, EXPORT))
+		export_func(env_list, child->args);
+	else if (!ft_strcmp(child->cmd, ECHO_CMD))
+		echo_func(child->args);
+	else if (!ft_strcmp(child->cmd, UNSET))
+		unset(child->args, env_list);
+	else if (!ft_strcmp(child->cmd, CD))
+		cd(child->args->name);
+	else if (!ft_strcmp(child->cmd, ENV))
 		env_func(env_list);
-	else if (!ft_strcmp(shell->current->args[0], PWD))
+	else if (!ft_strcmp(child->cmd, PWD))
 		pwd();
-	else if (!ft_strcmp(shell->current->args[0], EXIT))
+	else if (!ft_strcmp(child->cmd, EXIT))
 		exit(0);
 	else
-		return (check_path(env_list, shell));
+		return (check_path(env_list, child));
 	return (0);
 }
 
-int	great_than(int *fd, t_arg *tmp)
+int	great_than(int *fd, t_redir *redirection)
 {
-	*fd = open(tmp->next->args[0], O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
+	*fd = open(redirection->file_name, O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
 	if ((*fd) < 0)
 		return (1);
 	dup2((*fd), STDOUT_FILENO);
@@ -209,9 +245,9 @@ int	great_than(int *fd, t_arg *tmp)
 	return (0);
 }
 
-int	less_than(int *fd, t_arg *tmp)
+int	less_than(int *fd, t_redir *redirection)
 {
-	*fd = open(tmp->next->args[0], O_RDONLY);
+	*fd = open(redirection->file_name, O_RDONLY);
 	if ((*fd) < 0)
 		return (1);
 	dup2((*fd), STDIN_FILENO);
@@ -219,9 +255,9 @@ int	less_than(int *fd, t_arg *tmp)
 	return (0);
 }
 
-int	db_great_than(int *fd, t_arg *tmp)
+int	db_great_than(int *fd, t_redir *redirection)
 {
-	*fd = open(tmp->next->args[0], O_CREAT | O_RDONLY | O_WRONLY | O_APPEND, 0644);
+	*fd = open(redirection->file_name, O_CREAT | O_RDONLY | O_WRONLY | O_APPEND, 0644);
 	if ((*fd) < 0)
 		return (1);
 	dup2((*fd), STDOUT_FILENO);
@@ -229,29 +265,26 @@ int	db_great_than(int *fd, t_arg *tmp)
 	return (0);
 }
 
-int	redirection(t_mini *shell, int *my_fd)
+int	redirection(t_redir *redirection, int *my_fd)
 {
-	t_arg	*tmp;
-
-	tmp = shell->first->next;
-	while (tmp)
+	while (redirection != NULL)
 	{
-		if (!ft_strcmp(tmp->args[0], "<"))
+		if (redirection->type == LESS)
 		{
-			if (less_than(&my_fd[0], tmp))
+			if (less_than(&my_fd[0], redirection))
 				return (1);
 		}
-		else if (!ft_strcmp(tmp->args[0], ">"))
+		else if (redirection->type == GREAT)
 		{
-			if (great_than(&my_fd[1], tmp))
+			if (great_than(&my_fd[1], redirection))
 				return (1);
 		}
-		else if (!ft_strcmp(tmp->args[0], ">>"))
+		else if (redirection->type == DB_GREAT)
 		{
-			if (db_great_than(&my_fd[1], tmp))
+			if (db_great_than(&my_fd[1], redirection))
 				return (1);
 		}
-		tmp = tmp->next->next;
+		redirection = redirection->next;
 	}
 	return (0);
 }
@@ -261,28 +294,26 @@ int	execution(t_env **env_list, t_mini *shell)
 	int ret;
 	int	*my_fd;
 
-	//We have to adapt the code with redirection
-	//Once parsing is done, we have to treat args with those redirections
-	//and make back_up using dup and dup2 function
-
 	//All of our functions have to return int to track error or success operation
 
-	//do_backup ???
-
-	//treat redirection
+	ret = 0;
 	my_fd = malloc(sizeof(int) * 2);
 	my_fd[0] = 0;
 	my_fd[1] = 0;
 	backup(1);
-	if (shell->first->next)
+	if (shell->child->redirection)
 	{
-		if (redirection(shell, my_fd))
+		if (redirection(shell->child->redirection, my_fd))
 		{
 			backup(0);
 			return (1);
 		}
 	}
-	ret = is_builtins(env_list, shell);
+	if (shell->child->cmd == NULL && shell->child->redirection == NULL)
+		return (str_error("command not found\n", 0));
+	//On comptera le nb de cmd si > 1 alors on execute pipe
+	if (shell->child->cmd != NULL)
+		ret = is_builtins(env_list, shell->child);
 	backup(0);
 	return (ret);
 }

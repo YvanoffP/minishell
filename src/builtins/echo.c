@@ -1,51 +1,36 @@
 #include "minishell.h"
 
-/*void	echo_func(char *str, char *str2)
+void	echo_func(t_built_args *args)
 {
 	int	i;
 
 	i = 0;
-	if (!str && !str2)
-		return ;
-	if (str2 == NULL) // MEANS NO FLAG
+	if (!args)
 	{
-		while (str[i] != '\0')
-			write(1, &str[i++], 1);
 		write(1, "\n", 1);
 		return ;
 	}
-	else if (!ft_strcmp(str, "-n"))
+	if (!ft_strcmp(args->name, "-n"))
 	{
-		while (str2[i] != '\0')
-			write(1, &str2[i++], 1);
-		return ;
-	}
-	write(1, "\n", 1);
-}*/
-
-void	echo_func(t_mini *shell)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_strcmp(shell->current->args[1], "-n"))
-	{
-		i++;
-		while (shell->current->args[++i])
+		if (args->next)
+			args = args->next;
+		while (args)
 		{
-			write(1, shell->current->args[i], ft_strlen(shell->current->args[i]));
-			if (shell->current->args[i + 1] != NULL)
+			write(1, args->name, ft_strlen(args->name));
+			if (args->next)
 				write(1, " ", 1);
+			args = args->next;
 		}
 		return ;
 	}
 	else
 	{
-		while (shell->current->args[++i])
+		while (args)
 		{
-			write(1, shell->current->args[i], ft_strlen(shell->current->args[i]));
-			if (shell->current->args[i + 1] != NULL)
+			write(1, args->name, ft_strlen(args->name));
+			if (args->next)
 				write(1, " ", 1);
+			args = args->next;
 		}
 		write(1, "\n", 1);
 	}

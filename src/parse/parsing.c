@@ -137,6 +137,7 @@ int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
 		shell->current = shell->current->next;
 		break ;
 	}
+	shell->child = child;
 	return (0);
 }
 
