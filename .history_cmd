@@ -1483,3 +1483,20 @@ cat fiston
 rm fiston
 rm papa
 exit
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama
+ls > papa -l > fiston | echo mama | ls mescouilles
+ls papa | ls mescouilles
+ls papa | ls mescouilles | cat mama
+ls papa | cat mescouilles | echo mama
+ls papa | echo mama | cat mescouilles
+ls papa | ls > papa -l > fiston | echo mama
+ls papa | ls > papa -l > fiston | echo mama
+ls papa | ls > papa -l > fiston | echo mama

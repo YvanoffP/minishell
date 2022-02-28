@@ -137,7 +137,6 @@ int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
 		shell->current = shell->current->next;
 		break ;
 	}
-	shell->child = child;
 	return (0);
 }
 
@@ -172,6 +171,17 @@ int	fill_child(t_mini *shell, t_command *child, t_arg *save)
 	return (0);
 }
 
+void add_new_child(t_command *child)
+{
+	t_command *tmp;
+
+	tmp = malloc(sizeof(t_command));
+	if (!tmp)
+		return ;
+	tmp->cmd = NULL;
+	child->next = tmp;
+}
+
 int	acorn_of_wisdom(t_mini *shell)
 {
 	t_command	*child;
@@ -180,6 +190,8 @@ int	acorn_of_wisdom(t_mini *shell)
 
 	tmp = shell->current;
 	child = malloc(sizeof(t_command)); //FREE IT
+	child->cmd = NULL;
+	shell->child = child;
 	if (!tmp->next)
 		return (init_first_child(shell, tmp, child));
 	tmp = tmp->next;
@@ -188,12 +200,24 @@ int	acorn_of_wisdom(t_mini *shell)
 	{
 		if (tmp->args[0][0] == '|')
 		{
-			fill_child(shell, child, save);
+			if (!child->cmd)
+				init_first_child(shell, tmp, child);
 			shell->current = tmp;
+			shell->current = shell->current->next;
+			save = tmp;
+			add_new_child(child);
+			child = child->next;
+			tmp = tmp->next->next;
+			if (!tmp)
+			{
+				init_first_child(shell, tmp, child);
+				break ;
+			}
 		}
 		else
 		{
-			init_first_child(shell, tmp, child);
+			if (!child->cmd)
+				init_first_child(shell, tmp, child);
 			save = tmp;
 			tmp = tmp->next->next;
 			fill_child(shell, child, save);
@@ -208,7 +232,6 @@ int	acorn_of_wisdom(t_mini *shell)
 				break ;
 		}
 	}
-	shell->child = child;
 	return (0);
 }
 
