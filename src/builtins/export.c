@@ -85,34 +85,28 @@ int	check_only_num(char *str)
 	return (1);
 }
 
-int	check_args(t_mini *shell, int i)
+int	check_args(char *name)
 {
-//	int	i;
-
-//	i = 1;
-//	while (shell->current->args[i])
-//	{
-		if (!check_wrong_char(shell->current->args[i]))
-			return (0);
-		if (!check_only_num(shell->current->args[i]))
-			return (0);
-//		i++;
-//	}
+	if (!check_wrong_char(name))
+		return (0);
+	if (!check_only_num(name))
+		return (0);
 	return (1);
 }
 
-int	export_func(t_env **env_list, t_mini *shell)
+int	export_func(t_env **env_list, t_built_args *args)
 {
 	int	i;
 
 	i = 1;
-	if (shell->current->args[1])
+	if (args != NULL)
 	{
-		while (shell->current->args[i])
+		while (args != NULL)
 		{
-			if (!check_args(shell, i))
+			if (!check_args(args->name))
 				return (str_error("Export arguments wrong : expected identifier", 0));
-			add_var_to_list(env_list, shell->current->args[i++]);
+			add_var_to_list(env_list, args->name);
+			args = args->next;
 		}
 	}
 	else

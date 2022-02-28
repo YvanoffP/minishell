@@ -1442,3 +1442,32 @@ ls > papa > mama -l -la > fiston mok
 ls -la >> papa -l < fiston
 ls -la >> papa mok < fiston
 ls -la >> papa < fiston mok
+export
+export
+
+export
+export
+export
+export
+export mama=5
+export
+exit
+echo mama
+echo mama
+echo -n mama
+exit
+echo mama
+echo -n mama
+exit
+export mama=5
+echo $mama
+exit
+export mama=5
+export
+unset mama
+export
+exit
+cd ..
+cd minishel
+cd minishell
+exit
