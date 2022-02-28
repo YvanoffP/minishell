@@ -1500,3 +1500,6 @@ ls papa | echo mama | cat mescouilles
 ls papa | ls > papa -l > fiston | echo mama
 ls papa | ls > papa -l > fiston | echo mama
 ls papa | ls > papa -l > fiston | echo mama
+ls papa
+ls papa
+ls papa | echo mama

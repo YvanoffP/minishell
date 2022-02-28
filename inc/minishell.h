@@ -24,10 +24,8 @@
 
 typedef struct s_mini
 {
-	//ADD TO SHELL : NEED TO BE SET
 	int					cmd_count;
 	struct s_command	*child;		
-	//
     char            	*mini_cwd;
     char            	*argv;
 	struct s_arg		*first;

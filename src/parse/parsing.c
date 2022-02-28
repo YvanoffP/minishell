@@ -24,6 +24,19 @@ char *find_env_var(char *str, int *i, t_env **env_list)
 	return (name);
 }
 
+int	count_cmd(int *sep)
+{
+	int	i;
+	
+	i = 0;
+	while (*sep)
+	{
+		sep++;
+		i++;
+	}
+	return (i + 1);
+}
+
 int	split_arg(t_mini *shell, t_env **env_list)
 {
 	//TODO : free int*
@@ -42,6 +55,7 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	free(sep);
 	sep = parse_sep(shell->argv);
 	space = parse_space(shell->argv);
+	shell->cmd_count = count_cmd(sep);
 	init_args(shell);
 	ptr = sep;
 	while (*(ptr++))
