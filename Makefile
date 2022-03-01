@@ -31,6 +31,7 @@ BUILT_FILES = cd.c \
 			  chained_list.c \
 			  exit.c \
 			  export.c \
+			  export_2.c \
 			  pwd.c \
 			  unset.c
 
@@ -60,7 +61,10 @@ SIGNAL_FILES = signal.c
 # Exec files variable
 
 EXEC_FILES = execution.c \
-			 pipe.c
+			 pipe.c \
+			 exec_tools.c \
+			 redirection.c \
+			 file_func.c
 
 # Main file variable
 
@@ -109,7 +113,7 @@ libft:
 	@echo "$(BLUE)███████████████████████ Making minishell ███████████████████████$(RESET)"
 
 $(NAME): libft $(OBJS)
-	@$(CC) -I $(HEADERSDIR) -I $(LIBFT_FOLDER) $(OBJS) $(LIBFT_FOLDER)/$(LIBFT_LIB) $(LIBS) -o $@ -lreadline -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib
+	@$(CC) -I $(HEADERSDIR) -I $(LIBFT_FOLDER) $(OBJS) $(LIBFT_FOLDER)/$(LIBFT_LIB) $(LIBS) -o $@ -lreadline -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib
 
 	@echo "$(BLUE)███████████████████████ Compiling is DONE ██████████████████████$(RESET)"
 

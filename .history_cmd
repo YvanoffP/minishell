@@ -1503,3 +1503,10 @@ ls papa | ls > papa -l > fiston | echo mama
 ls papa
 ls papa
 ls papa | echo mama
+hello
+exit
+export
+exit
+echo mama | echo papa
+nice
+exit
