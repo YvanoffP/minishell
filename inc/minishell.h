@@ -84,6 +84,14 @@ typedef struct s_command
 	struct s_command	*next;
 }				t_command;
 
+typedef struct s_process
+{
+    int *fd;
+    int my_fd[2];
+    int *pid;
+    int cmd_count;
+    int ret;
+}               t_process;
 //////////////////////////////////////////////
 
 //FILSDEPUTE
@@ -147,8 +155,14 @@ int		is_builtins(t_env **env_list, t_command *child);
 int		great_than(int *fd, t_redir *redirection);
 int		less_than(int *fd, t_redir *redirection);
 int		db_great_than(int *fd, t_redir *redirection);
-int		redirection(t_redir *redirection, int *my_fd);
+int		redirection(t_redir *redirection, t_process *proc);
 int		execution(t_env **env_list, t_mini *shell);
+
+// EXECUTION - pipe.c
+int 	pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list);
+int 	close_fd(t_mini *shell, t_process *proc);
+int 	create_fd_pipe(t_mini *shell, t_process *proc);
+int		pipe_fork(t_command    *child, t_env **env_list, t_process *proc, int *cmd);
 
 // Signal - signal.c
 void	handler(int sig);
