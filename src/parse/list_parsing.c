@@ -1,14 +1,15 @@
 #include "../../inc/minishell.h"
 
-void	init_args(t_mini *shell)
+void	init_child(t_mini *shell)
 {
-	t_arg	*args;
+	t_command	*child;
 
-	args = malloc(sizeof(t_arg));
-	args->args = NULL;
-	args->next = NULL;
-	shell->first = args;
-	shell->current = args;
+	child = malloc(sizeof(t_command));
+	child->cmd = NULL;
+	child->args = NULL;
+	child->redirection = NULL;
+	child->next = NULL;
+	shell->child = child;
 }
 
 void	add_sep_to_lst(t_mini *shell, int *i)
@@ -49,16 +50,18 @@ char	*add_sep_to_node(t_mini *shell, int *i)
 	return (ret);
 }
 
-void	create_n_add_empty_node(t_mini *shell)
+void	create_n_add_empty_child(t_mini *shell)
 {
-	t_arg	*new;
-	t_arg	*lst;
+	t_command	*new;
+	t_command	*lst;
 
-	new = malloc(sizeof(t_arg));
-	lst = shell->first;
+	new = malloc(sizeof(t_command));
+	lst = shell->child;
 	if (new)
 	{
+		new->redirection = NULL;
 		new->args = NULL;
+		new->cmd = NULL;
 		new->next = NULL;
 		while (lst && lst->next)
 			lst = lst->next;

@@ -37,6 +37,109 @@ int	count_cmd(int *sep)
 	return (i + 1);
 }
 
+void	alloc_childs(t_mini *shell, int *sep, int *space)
+{
+	int	*ptr_sep;
+	int *ptr_space;
+	t_command	*child;
+	t_redir		*tmp;
+	t_built_args *temp;
+	int	i;
+
+	ptr_sep = sep;
+	ptr_space = space;
+	i = 0;
+	child = shell->child;
+	while (1)
+	{
+		child->cmd = ft_substr(shell->argv, i, *ptr_space - i);
+		i = *ptr_space + 1;
+		ptr_space++;
+		while (i != *ptr_sep && i != 1)
+		{
+			if (shell->argv[i] == '<' || shell->argv[i] == '>')
+			{
+				tmp = create_redir_node(shell, &ptr_space, &i);
+				add_redir_to_child(child, tmp);
+			}
+			else
+			{
+				temp = create_args_node(shell, &ptr_space, &i);
+				add_args_to_child(child, temp);
+			}
+		}
+		if (*ptr_sep == 0)
+			break ;
+		ptr_sep++;
+		child = child->next;
+		i = *ptr_space + 1;
+		ptr_space++;
+	}
+}
+
+t_built_args	*create_args_node(t_mini *shell, int **ptr_space, int *i)
+{
+	t_built_args	*new;
+
+	new = malloc(sizeof(t_built_args));
+	if (!new)
+		return (NULL);
+	new = malloc(sizeof(t_built_args));
+	new->name = ft_substr(shell->argv, *i, **ptr_space - *i);
+	new->next = NULL;
+	*i = **ptr_space + 1;
+	(*ptr_space)++;
+	return (new);
+}
+
+void	add_args_to_child(t_command *child, t_built_args *new)
+{
+	t_built_args	*tmp;
+
+	tmp = child->args;
+	if (!tmp)
+		child->args = new;
+	else
+	{
+		while (tmp && tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
+
+t_redir	*create_redir_node(t_mini *shell, int **ptr_space, int *i)
+{
+	t_redir *new;
+
+	new = malloc(sizeof(t_redir));
+	if (!new)
+		return (NULL);
+	new = malloc(sizeof(t_redir));
+	new->type = detect_sep(shell->argv, i);
+	*i = **ptr_space + 1;
+	(*ptr_space)++;
+	new->file_name = ft_substr(shell->argv, *i, **ptr_space - *i);
+	*i = **ptr_space + 1;
+	(*ptr_space)++;
+	new->next = NULL;
+	return (new);
+}
+
+void	add_redir_to_child(t_command *child, t_redir *new)
+{
+	t_redir	*tmp;
+
+	tmp = child->redirection;
+	if (!tmp)
+		child->redirection = new;
+	else
+	{
+		while (tmp && tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
+
 int	split_arg(t_mini *shell, t_env **env_list)
 {
 	//TODO : free int*
@@ -56,14 +159,14 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	sep = parse_sep(shell->argv);
 	space = parse_space(shell->argv);
 	shell->cmd_count = count_cmd(sep);
-	init_args(shell);
+	init_child(shell);
 	ptr = sep;
 	while (*(ptr++))
-	{
-		create_n_add_empty_node(shell);
-		create_n_add_empty_node(shell);
-	}
+		create_n_add_empty_child(shell);
+
+	alloc_childs(shell, sep, space);
 	alloc_args_tab(shell, sep, space);
+
 	shell->current = shell->first;
 	//destroy sep and space
 	dollar_out_quote(shell, env_list);
@@ -73,60 +176,28 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	return (1);
 }
 
-int	detect_sep(t_arg *tmp)
+int	detect_sep(char *str, int *start)
 {
-	if (!ft_strcmp(tmp->args[0], ">"))
+	if (str[*start] == '>')
+	{
+		if (str[*start + 1] == '>')
+		{
+			*start += 3;
+			return (DB_GREAT);
+		}
+		*start += 2;
 		return (GREAT);
-	else if (!ft_strcmp(tmp->args[0], ">>"))
-		return (DB_GREAT);
-	else if (!ft_strcmp(tmp->args[0], "<"))
+	}
+	else if (str[*start] == '<')
+	{
+		*start += 2;
 		return (LESS);
+	}
 	return (-1);
 }
 
-t_built_args	*create_args_node(t_mini *shell, int i)
-{
-	t_built_args	*new;
 
-	new = malloc(sizeof(t_built_args));
-	if (!new)
-		return (NULL);
-	new->name = ft_strdup(shell->current->args[i]);
-	new->next = NULL;
-	return (new);
-}
-
-void	add_to_child(t_command *child, t_built_args *new)
-{
-	t_built_args	*tmp;
-
-	tmp = child->args;
-	if (!tmp)
-		child->args = new;
-	else
-	{
-		while (tmp && tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}
-
-void	add_redir_to_child(t_command *child, t_redir *new)
-{
-	t_redir	*tmp;
-
-	tmp = child->redirection;
-	if (!tmp)
-		child->redirection = new;
-	else
-	{
-		while (tmp && tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}
-
-int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
+/*int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
 {
 	t_built_args	*temp;
 	int				i;
@@ -154,18 +225,6 @@ int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
 	return (0);
 }
 
-t_redir	*create_redir_node(t_mini *shell, t_arg *save)
-{
-	t_redir *new;
-
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (NULL);
-	new->file_name = ft_strdup(shell->current->args[0]);
-	new->type = detect_sep(save);
-	new->next = NULL;
-	return (new);
-}
 
 int	fill_child(t_mini *shell, t_command *child, t_arg *save)
 {
@@ -247,7 +306,7 @@ int	acorn_of_wisdom(t_mini *shell)
 		}
 	}
 	return (0);
-}
+}*/
 
 void	parsing(t_mini *shell, t_env **env_list)
 {
@@ -259,5 +318,5 @@ void	parsing(t_mini *shell, t_env **env_list)
 	if (!split_arg(shell, env_list))
 		return ;
 	shell->current = shell->first;
-	acorn_of_wisdom(shell);
+	//acorn_of_wisdom(shell);
 }

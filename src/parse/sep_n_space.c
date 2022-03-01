@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-int	count_sep(char *str)
+int	count_pipe(char *str)
 {
 	int	i;
 	int	nb_sep;
@@ -11,14 +11,10 @@ int	count_sep(char *str)
 	while (str[i])
 	{
 		skip_quote(str, &i);
-		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+		if (str[i] == '|')
 		{
 			nb_sep++;
 			c = str[i];
-			if (str[i + 1] == c && c != '|')
-				i++;
-			else if (is_sep(str[i + 1]))
-				return (-1);
 			if (is_sep(str[i + 1]))
 				return (-1);
 		}
@@ -36,7 +32,7 @@ int	*parse_sep(char *str)
 
 	i = 0;
 	j = 0;
-	nb_sep = count_sep(str);
+	nb_sep = count_pipe(str);
 	if (nb_sep == -1)
 		return (NULL);
 	ind_sep = malloc(sizeof(int) * nb_sep + 1);
@@ -45,12 +41,8 @@ int	*parse_sep(char *str)
 	while (str[i])
 	{
 		skip_quote(str, &i);
-		if (is_sep(str[i]))
-		{
+		if (str[i] == '|')
 			ind_sep[j++] = i;
-			while (is_sep(str[i + 1]))
-				i++;
-		}
 		i++;
 	}
 	ind_sep[j] = 0;
