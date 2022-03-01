@@ -27,7 +27,7 @@ char *find_env_var(char *str, int *i, t_env **env_list)
 int	count_cmd(int *sep)
 {
 	int	i;
-	
+
 	i = 0;
 	while (*sep)
 	{
