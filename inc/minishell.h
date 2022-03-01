@@ -182,13 +182,19 @@ int     cd(char *path);
 char    *find_env_var(char *str, int *i, t_env **env_list);
 int     split_arg(t_mini *shell, t_env **env_list);
 void	parsing(t_mini *shell, t_env **env_list);
+int     detect_sep(char *str, int *i);
+int count_cmd(int *sep);
+t_redir *create_redir_node(t_mini *shell, int **ptr_space, int *i);
+t_built_args    *create_args_node(t_mini *shell, int **ptr_space, int *i);
+void    add_args_to_child(t_command *child, t_built_args *new);
+void    add_redir_to_child(t_command *child, t_redir *new);
 
 // Parse - sep_n_space.c
 int	    count_nb_wrd(int *sep, int *space);
 int	    *parse_space(char *str);
 int	    count_space(char *str);
 int     *parse_sep(char *str);
-int     count_sep(char *str);
+int     count_pipe(char *str);
 
 // Parse - quote_treatment.c
 void	fill_array(t_mini *shell, int **sep, int **space, int *i);
@@ -218,10 +224,10 @@ void	delete_last_spaces(char **str);
 
 // Parse - list_parsing.c
 char	*add_sep_to_node(t_mini *shell, int *i);
-void	create_n_add_empty_node(t_mini *shell);
+void	create_n_add_empty_child(t_mini *shell);
 void	add_sep_to_lst(t_mini *shell, int *i);
 void	destroy_arg_lst(t_mini *shell);
-void	init_args(t_mini *shell);
+void	init_child(t_mini *shell);
 
 // Parse - parse_tools.c
 int     print_sep_error(char sep);
