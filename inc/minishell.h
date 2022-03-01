@@ -25,7 +25,7 @@
 typedef struct s_mini
 {
 	int					cmd_count;
-	struct s_command	*child;		
+	struct s_command	*child;
     char            	*mini_cwd;
     char            	*argv;
 	struct s_arg		*first;
@@ -92,6 +92,7 @@ typedef struct s_process
     int cmd_count;
     int ret;
 }               t_process;
+
 //////////////////////////////////////////////
 
 //FILSDEPUTE
@@ -127,36 +128,43 @@ int		is_in_lst(char	*var, t_env **env_list);
 t_env	*get_in_lst(char *var, t_env **env_list);
 void	replace_in_lst(t_env *new_node, t_env **env_list);
 
-
 // Builtins - export.c
-void	add_var_to_list(t_env **env_list, char *args);
-void	print_export_list(t_env **env_list);
-char	**env_duplicate(char **envp);
 int		export_func(t_env **env_list, t_built_args *args);
-int		check_wrong_char(char *str);
+int		check_only_num(char *str);
 int		check_args(char *name);
 int		is_num(char c);
-int		check_only_num(char *str);
+
+// Builtins - export_2.c
+int 	add_var_to_list(t_env **env_list, char *args);
+void	print_export_list(t_env **env_list);
+char	**env_duplicate(char **envp);
+int		check_wrong_char(char *str);
 
 // EXECUTION - execution.c
-int		print_error(char *str, char *msg, int ret);
-int		error_file(t_redir *redirection);
-char	**lst_to_array(t_env **env_list);
-int		find_file(t_env **env_list, t_command *child);
 char	*join_path_to_arg(char *path, char *arg);
-void	exec_file(t_command *child, t_env **env_list, char *path, int *status);
-int		count_args(t_built_args *lst);
-char	**args_to_array(t_command *child);
 int		exec_program(t_command *child, t_env **env_list);
-int		check_file(t_env **env_list, t_command *child);
-int		check_path(t_env **env_list, t_command *child);
-void	backup(int flag);
 int		is_builtins(t_env **env_list, t_command *child);
+int		execution(t_env **env_list, t_mini *shell);
+
+// EXECUTION - redirection.c
+int		redirection(t_redir *redirection, t_process *proc);
+int		db_great_than(int *fd, t_redir *redirection);
 int		great_than(int *fd, t_redir *redirection);
 int		less_than(int *fd, t_redir *redirection);
-int		db_great_than(int *fd, t_redir *redirection);
-int		redirection(t_redir *redirection, t_process *proc);
-int		execution(t_env **env_list, t_mini *shell);
+
+// EXCUTION - exec_tools.c
+int		print_error(char *str, char *msg, int ret);
+char	**args_to_array(t_command *child);
+char	**lst_to_array(t_env **env_list);
+int		count_args(t_built_args *lst);
+int 	backup(int flag);
+
+// EXECUTION - file_func.c
+void	exec_file(t_command *child, t_env **env_list, char *path, int *status);
+int		check_file(t_env **env_list, t_command *child);
+int		check_path(t_env **env_list, t_command *child);
+int		find_file(t_env **env_list, t_command *child);
+int		error_file(t_redir *redirection);
 
 // EXECUTION - pipe.c
 int 	pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list);
