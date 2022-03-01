@@ -88,7 +88,7 @@ void	exec_file(t_command *child, t_env **env_list, char *path, int *status)
 	char		*joined_path;
 
 	buf.st_mode = 0;
-	joined_path = join_path_to_arg(path, child->cmd); 
+	joined_path = join_path_to_arg(path, child->cmd);
 	stat(joined_path, &buf);
 	if ((buf.st_mode & S_IXUSR) > 0
 		&& (buf.st_mode & S_IFREG) > 0 && *status == -100)
@@ -111,7 +111,7 @@ int	count_args(t_built_args *lst)
 	{
 		tmp = tmp->next;
 		i++;
-	
+
 	}
 	return (i);
 }
@@ -207,7 +207,7 @@ int	check_path(t_env **env_list, t_command *child)
 	// already exist etc
 	if (ft_strchr(child->cmd, '/') || child->cmd[0] == '.')
 		return (check_file(env_list, child));
-	//ELSE : we have to find file using PATH environment variable 
+	//ELSE : we have to find file using PATH environment variable
 	// then execute file using all path present in PATH variable
 	else
 	{
@@ -290,23 +290,23 @@ int	db_great_than(int *fd, t_redir *redirection)
 	return (0);
 }
 
-int	redirection(t_redir *redirection, int *my_fd)
+int	redirection(t_redir *redirection, t_process *proc)
 {
 	while (redirection != NULL)
 	{
 		if (redirection->type == LESS)
 		{
-			if (less_than(&my_fd[0], redirection))
+			if (less_than(&proc->my_fd[0], redirection))
 				return (1);
 		}
 		else if (redirection->type == GREAT)
 		{
-			if (great_than(&my_fd[1], redirection))
+			if (great_than(&proc->my_fd[1], redirection))
 				return (1);
 		}
 		else if (redirection->type == DB_GREAT)
 		{
-			if (db_great_than(&my_fd[1], redirection))
+			if (db_great_than(&proc->my_fd[1], redirection))
 				return (1);
 		}
 		redirection = redirection->next;
@@ -317,18 +317,18 @@ int	redirection(t_redir *redirection, int *my_fd)
 int	execution(t_env **env_list, t_mini *shell)
 {
 	int ret;
-	int	*my_fd;
+	t_process *proc;
 
 	//All of our functions have to return int to track error or success operation
 
 	ret = 0;
-	my_fd = malloc(sizeof(int) * 2);
-	my_fd[0] = 0;
-	my_fd[1] = 0;
+	proc = malloc(sizeof(t_process));	// BRING IT BABE
+	proc->my_fd[0] = 0;
+	proc->my_fd[1] = 0;
 	backup(1);
 	if (shell->child->redirection)
 	{
-		if (redirection(shell->child->redirection, my_fd))
+		if (redirection(shell->child->redirection, proc))
 		{
 			backup(0);
 			return (1);
@@ -336,11 +336,9 @@ int	execution(t_env **env_list, t_mini *shell)
 	}
 	if (shell->child->cmd == NULL && shell->child->redirection == NULL)
 		return (print_error("\0", "command not found", -1));
-
-	//On comptera le nb de cmd si > 1 alors on execute pipe
-	//start
-
-	if (shell->child->cmd != NULL)
+	if (shell->cmd_count > 1)
+		pipe_my_ride(shell, proc, env_list);
+	else if (shell->child->cmd != NULL)
 		ret = is_builtins(env_list, shell->child);
 	backup(0);
 	return (ret);
