@@ -338,6 +338,7 @@ int	execution(t_env **env_list, t_mini *shell)
 		return (print_error("\0", "command not found", -1));
 
 	//On comptera le nb de cmd si > 1 alors on execute pipe
+	//start
 
 	if (shell->child->cmd != NULL)
 		ret = is_builtins(env_list, shell->child);
