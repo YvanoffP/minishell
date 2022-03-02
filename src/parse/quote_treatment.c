@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	quote_remover(t_mini *shell, t_env **env_list, int i)
+/*void	quote_remover(t_mini *shell, t_env **env_list, int i)
 {
 	int	j;
 
@@ -57,7 +57,7 @@ void	delete_quote(t_mini *shell, int i, int *j)
 	free(shell->current->args[i]);
 	shell->current->args[i] = ft_strdup(ret);
 	free(ret);
-}
+}*/
 
 /*void	dollar_out_quote(t_mini *shell, t_env **env_list)
 {
@@ -84,7 +84,7 @@ void	delete_quote(t_mini *shell, int i, int *j)
 	}
 }*/
 
-void	quotes_cleaner(t_mini *shell, t_env **env_list)
+/*void	quotes_cleaner(t_mini *shell, t_env **env_list)
 {
 	int	i;
 
@@ -106,4 +106,4 @@ void	quotes_cleaner(t_mini *shell, t_env **env_list)
 			quote_remover(shell, env_list, i);
 		i++;
 	}
-}
+}*/
