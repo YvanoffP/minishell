@@ -59,7 +59,7 @@ void	delete_quote(t_mini *shell, int i, int *j)
 	free(ret);
 }
 
-void	dollar_out_quote(t_mini *shell, t_env **env_list)
+/*void	dollar_out_quote(t_mini *shell, t_env **env_list)
 {
 	int	i;
 	int	dollar_index;
@@ -82,7 +82,7 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 		}
 		shell->current = shell->current->next;
 	}
-}
+}*/
 
 void	quotes_cleaner(t_mini *shell, t_env **env_list)
 {

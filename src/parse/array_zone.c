@@ -79,7 +79,7 @@ void	fill_array(t_mini *shell, int **sep, int **space, int *i)
 	}
 }
 
-int	realloc_string(t_mini *shell, int i, char *s2)
+/*int	realloc_string(t_mini *shell, int i, char *s2)
 {
 	free(shell->current->args[i]);
 	shell->current->args[i] = NULL;
@@ -87,4 +87,4 @@ int	realloc_string(t_mini *shell, int i, char *s2)
 	free(s2);
 	s2 = NULL;
 	return (1);
-}
+}*/
