@@ -70,7 +70,7 @@ int	is_builtins(t_env **env_list, t_command *child)
 	else if (!ft_strcmp(child->cmd, PWD))
 		pwd();
 	else if (!ft_strcmp(child->cmd, EXIT))
-		exit(0);
+		exit_func(child->args);
 	else
 		return (check_path(env_list, child));
 	return (0);
@@ -94,7 +94,7 @@ int	execution(t_env **env_list, t_mini *shell)
 	if (shell->child->cmd == NULL && shell->child->redirection == NULL)
 	{
 		free(proc);
-		return (print_error("\0", "command not found", -1));
+		return (print_error("\0", "command not found", 127));
 	}
 	if (shell->cmd_count > 1)
 		pipe_my_ride(shell, proc, env_list);
