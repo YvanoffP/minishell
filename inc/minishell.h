@@ -21,6 +21,10 @@
 # define EXIT "exit"
 # define PWD "pwd"
 # define UNSET "unset"
+# define YES 1
+# define NO 0
+
+int	infork;
 
 typedef struct s_mini
 {
@@ -252,5 +256,10 @@ void    pwd(void);
 
 // Builtins - unset.c
 void	unset(t_built_args *args, t_env **env_list);
+
+// Builtins - exit.c
+void	check_digit(char *arg);
+int		check_exit(char *arg);
+void	exit_func(t_built_args *args);
 
 #endif

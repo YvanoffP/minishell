@@ -23,6 +23,7 @@ int	pipe_fork(t_command	*child, t_env **env_list, t_process *proc, int *cmd)
 	int	i;
 
 	i = 0;
+	infork = YES;
 	if (child->next)
 		if (dup2(proc->fd[*cmd + 1], STDOUT_FILENO) < 0)
 			exit(print_error("dup2", "could not Claude (kekw) the fd", 1));

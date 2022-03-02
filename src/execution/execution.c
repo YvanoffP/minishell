@@ -37,7 +37,7 @@ int	exec_program(t_command *child, t_env **env_list)
 			ret_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
-			ret_status =  WTERMSIG(status);
+			ret_status =  128 + WTERMSIG(status);
 			if (WTERMSIG(status) == SIGQUIT)
 				write(1, "Quit : 3\n", 8);
 		}
@@ -61,7 +61,7 @@ int	is_builtins(t_env **env_list, t_command *child)
 	else if (!ft_strcmp(child->cmd, PWD))
 		pwd();
 	else if (!ft_strcmp(child->cmd, EXIT))
-		exit(0);
+		exit_func(child->args);
 	else
 		return (check_path(env_list, child));
 	return (0);
@@ -69,11 +69,10 @@ int	is_builtins(t_env **env_list, t_command *child)
 
 int	execution(t_env **env_list, t_mini *shell)
 {
-	int ret;
 	t_process *proc;
 
-	ret = 0;
 	proc = malloc(sizeof(t_process));	// BRING IT BABE
+	proc->ret = 0;
 	proc->my_fd[0] = 0;
 	proc->my_fd[1] = 0;
 	backup(1);
@@ -85,13 +84,13 @@ int	execution(t_env **env_list, t_mini *shell)
 	if (shell->child->cmd == NULL && shell->child->redirection == NULL)
 	{
 		free(proc);
-		return (print_error("\0", "command not found", -1));
+		return (print_error("\0", "command not found", 127));
 	}
 	if (shell->cmd_count > 1)
-		pipe_my_ride(shell, proc, env_list);
+		proc->ret = pipe_my_ride(shell, proc, env_list);
 	else if (shell->child->cmd != NULL)
-		ret = is_builtins(env_list, shell->child);
+		proc->ret = is_builtins(env_list, shell->child);
 	backup(0);
-	free(proc);
-	return (ret);
+//	free(proc);
+	return (proc->ret);
 }

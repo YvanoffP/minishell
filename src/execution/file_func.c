@@ -25,11 +25,11 @@ int	error_file(t_redir *redirection)
 	if (stat(redirection->file_name, &buf) == 0)
 	{
 		if (buf.st_mode & S_IFDIR)
-			return (print_error(redirection->file_name, ": Is a directory", 1));
+			return (print_error(redirection->file_name, ": Is a directory", 21));
 		else if ((buf.st_mode & S_IXUSR) == 0)
 			return (print_error(redirection->file_name, ": Permission denied", 1));
 	}
-	return (print_error(redirection->file_name, ": No such file or directory", 1));
+	return (print_error(redirection->file_name, ": No such file or directory", 2));
 }
 
 int	check_path(t_env **env_list, t_command *child)
@@ -43,7 +43,7 @@ int	check_path(t_env **env_list, t_command *child)
 		status = find_file(env_list, child);
 		if (status != -100)
 			return (status);
-		return (print_error(child->cmd, ": command not found", -1));
+		return (print_error(child->cmd, ": command not found", 127));
 	}
 	return (0);
 }
