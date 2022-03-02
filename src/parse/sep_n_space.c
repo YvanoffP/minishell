@@ -77,31 +77,6 @@ int	*parse_space(char *str)
 	return (ind_space);
 }
 
-int	count_nb_wrd(int *sep, int *space)
-{
-	int	i;
-
-	i = 0;
-	if (*sep == 0)
-	{
-		while (*space)
-		{
-			space++;
-			i++;
-		}
-		return (i + 1);
-	}
-	else
-	{
-		while (*space < *sep)
-		{
-			i++;
-			space++;
-		}
-		return (i);
-	}
-}
-
 int	count_space(char *str)
 {
 	int	i;

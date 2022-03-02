@@ -12,8 +12,6 @@ void	init_mini(t_mini *shell, t_env **env)
 	shell->argv = NULL;
 	shell->cmd_count = 0;
 	shell->child = NULL;
-	shell->first = NULL;
-	shell->current = NULL;
 	*env = NULL;
 	shell->fd_history = 0;
 }

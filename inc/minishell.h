@@ -28,16 +28,8 @@ typedef struct s_mini
 	struct s_command	*child;
     char            	*mini_cwd;
     char            	*argv;
-	struct s_arg		*first;
-	struct s_arg		*current;
 	int		        	fd_history;
 }               t_mini;
-
-typedef struct s_arg
-{
-    char            **args;
-    struct s_arg    *next;
-}           t_arg;
 
 typedef struct s_env
 {
@@ -196,25 +188,14 @@ int				detect_sep(char *str, int *start);
 void			parsing(t_mini *shell, t_env **env_list);
 
 // Parse - sep_n_space.c
-int	    count_nb_wrd(int *sep, int *space);
 int	    *parse_space(char *str);
 int	    count_space(char *str);
 int     *parse_sep(char *str);
 int     count_pipe(char *str);
 
 // Parse - quote_treatment.c
-void	fill_array(t_mini *shell, int **sep, int **space, int *i);
-char	*quote_remover(char *str, t_env **env_list);
-void	dollar_out_quote(t_mini *shell, t_env **env_list);
-void	quotes_cleaner(t_mini *shell, t_env **env_list);
-char	*delete_quote(char *str, int *j);
 
 // Parse - array_zone.c
-void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);
-void	alloc_args_tab(t_mini *shell, int *sep, int *space);
-void	create_sep_node(t_mini *shell, int *i, int **space);
-char	*realloc_string(char *str, char *s2);
-int	    split_arg(t_mini *shell, t_env **env_list);
 
 // Parse - error_parse.c
 int     str_error(char *str, int ret);
@@ -229,10 +210,7 @@ void    work_nb_n_len(int *nb_space, int *len);
 void	delete_last_spaces(char **str);
 
 // Parse - list_parsing.c
-char	*add_sep_to_node(t_mini *shell, int *i);
 void	create_n_add_empty_child(t_mini *shell);
-void	add_sep_to_lst(t_mini *shell, int *i);
-void	destroy_arg_lst(t_mini *shell);
 void	init_child(t_mini *shell);
 
 // Parse - parse_tools.c
