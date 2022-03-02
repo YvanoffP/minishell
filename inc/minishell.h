@@ -179,15 +179,21 @@ void	handler(int sig);
 int     cd(char *path);
 
 // Parse - parsing.c
-char    *find_env_var(char *str, int *i, t_env **env_list);
-int     split_arg(t_mini *shell, t_env **env_list);
-void	parsing(t_mini *shell, t_env **env_list);
-int     detect_sep(char *str, int *i);
-int count_cmd(int *sep);
-t_redir *create_redir_node(t_mini *shell, int **ptr_space, int *i);
-t_built_args    *create_args_node(t_mini *shell, int **ptr_space, int *i);
-void    add_args_to_child(t_command *child, t_built_args *new);
-void    add_redir_to_child(t_command *child, t_redir *new);
+char 			*find_env_var(char *str, int *i, t_env **env_list);
+int				count_cmd(int *sep);
+void			alloc_childs(t_mini *shell, int *sep, int *space);
+t_built_args	*create_args_node(t_mini *shell, int **ptr_space, int *i);
+void			add_args_to_child(t_command *child, t_built_args *new);
+t_redir			*create_redir_node(t_mini *shell, int **ptr_space, int *i);
+void			add_redir_to_child(t_command *child, t_redir *new);
+char			*realloc_string(char *str, char *s2);
+void			dollar_out_quote(t_mini *shell, t_env **env_list);
+char			*delete_quote(char *str, int *j);
+char			*quote_remover(char *str, t_env **env_list);
+void			quotes_cleaner(t_mini *shell, t_env **env_list);
+int				split_arg(t_mini *shell, t_env **env_list);
+int				detect_sep(char *str, int *start);
+void			parsing(t_mini *shell, t_env **env_list);
 
 // Parse - sep_n_space.c
 int	    count_nb_wrd(int *sep, int *space);
