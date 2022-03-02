@@ -198,10 +198,10 @@ int     count_pipe(char *str);
 
 // Parse - quote_treatment.c
 void	fill_array(t_mini *shell, int **sep, int **space, int *i);
-void	quote_remover(t_mini *shell, t_env **env_list, int i);
+char	*quote_remover(char *str, t_env **env_list);
 void	dollar_out_quote(t_mini *shell, t_env **env_list);
 void	quotes_cleaner(t_mini *shell, t_env **env_list);
-void	delete_quote(t_mini *shell, int i, int *j);
+char	*delete_quote(char *str, int *j);
 
 // Parse - array_zone.c
 void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);

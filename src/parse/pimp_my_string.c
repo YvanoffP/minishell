@@ -4,7 +4,8 @@ char	*check_around_n_cpy(t_mini *shell, int *ptr, int i, int j)
 {
 	char	*ret;
 
-	ret = (char *)malloc(sizeof(char) * (ft_strlen(shell->argv) + count_missing_space(shell->argv, ptr) + 1));
+	skip_w_space(shell->argv, &i);
+	ret = (char *)malloc(sizeof(char) * (ft_strlen(shell->argv) + count_missing_space(shell->argv, ptr - i) + 1));
 	if (!ret)
 		return (NULL);
 	while (shell->argv[i])

@@ -50,6 +50,11 @@ void	alloc_childs(t_mini *shell, int *sep, int *space)
 	ptr_space = space;
 	i = 0;
 	child = shell->child;
+	if (!*ptr_space)
+	{
+		child->cmd = ft_substr(shell->argv, i, ft_strlen(shell->argv));
+		return ;
+	}
 	while (1)
 	{
 		child->cmd = ft_substr(shell->argv, i, *ptr_space - i);
@@ -153,92 +158,140 @@ char	*realloc_string(char *str, char *s2)
 void	dollar_out_quote(t_mini *shell, t_env **env_list)
 {
 	int	i;
-	t_command	*tmp;
+	t_command		*child;
+	t_built_args	*tmp;
+	t_redir			*temp;
 	int	dollar_index;
 	char *ret;
 
-	tmp = shell->child;
-	while (tmp)
+	child = shell->child;
+	while (child)
 	{
+		tmp = child->args;
+		temp = child->redirection;
 		i = 0;
 		dollar_index = 0;
-		dollar_index = have_a_dollar_out_q(tmp->cmd);
+		dollar_index = have_a_dollar_out_q(child->cmd);
 		if (dollar_index != -1)
 		{
-			ret = replace_dollars(tmp->cmd, env_list, dollar_index, 1);
-			tmp->cmd = realloc_string(tmp->cmd, ret);
+			ret = replace_dollars(child->cmd, env_list, dollar_index, 1);
+			child->cmd = realloc_string(child->cmd, ret);
 		}
-		while (tmp->args)
+		while (tmp)
 		{
-			dollar_index = have_a_dollar_out_q(tmp->args->name);
+			dollar_index = have_a_dollar_out_q(tmp->name);
 			if (dollar_index != -1)
 			{
-				ret = replace_dollars(tmp->args->name, env_list, dollar_index, 1);
-				tmp->args->name = realloc_string(tmp->args->name, ret);
+				ret = replace_dollars(tmp->name, env_list, dollar_index, 1);
+				tmp->name = realloc_string(tmp->name, ret);
 			}
 			else
-				tmp->args = tmp->args->next;
+				tmp = tmp->next;
 		}
-		while (tmp->redirection)
+		while (temp)
 		{
-			dollar_index = have_a_dollar_out_q(tmp->redirection->file_name);
+			dollar_index = have_a_dollar_out_q(temp->file_name);
 			if (dollar_index != -1)
 			{
-				ret = replace_dollars(tmp->redirection->file_name, env_list, dollar_index, 1);
-				tmp->redirection->file_name = realloc_string(tmp->redirection->file_name, ret);
+				ret = replace_dollars(temp->file_name, env_list, dollar_index, 1);
+				temp->file_name = realloc_string(temp->file_name, ret);
 			}
 			else
-				tmp->redirection = tmp->redirection->next;
+				temp = temp->next;
 		}
-		tmp = tmp->next;
+		child = child->next;
 	}
 }
 
-void	quote_remover(t_mini *shell, t_env **env_list, int i)
+char	*delete_quote(char *str, int *j)
 {
-	int	j;
+	int		index;
+	int		k;
+	char	*ret;
+
+	index = 0;
+	k = 0;
+	ret = malloc(sizeof(char) * (ft_strlen(str) - 2));
+	if (!ret)
+		return (NULL); // ERROR MALLOC
+	while (str[k])
+	{
+		if (k == *j)
+			k++;
+		if (str[k] == str[*j] && k > *j)
+		{
+			k++;
+			*j = k - 2;
+			break ;
+		}
+		ret[index] = str[k];
+		index++;
+		k++;
+	}
+	while (str[k])
+	{
+		ret[index] = str[k];
+		index++;
+		k++;
+	}
+	ret[index] = 0;
+	free(str);
+	return (ret);
+}
+
+char	*quote_remover(char *str, t_env **env_list)
+{
+	char	*ret;
+	int		j;
 
 	j = 0;
-	while (shell->current->args[i][j])
+	while (str[j])
 	{
-		if (shell->current->args[i][j] == 34)
+		if (str[j] == 34)
 		{
-			if (have_a_dollar(shell->current->args[i], j + 1))
-				realloc_args(shell, env_list, j, i);
-			delete_quote(shell, i, &j);
+			if (have_a_dollar(str, j + 1))
+			{
+				ret = replace_dollars(str, env_list, j + 1, 1);
+				str = realloc_string(str, ret);
+			}
+			str = delete_quote(str, &j);
 		}
-		if (shell->current->args[i][j] == 39)
+		if (str[j] == 39)
 		{
-			delete_quote(shell, i, &j);
+			str = delete_quote(str, &j);
 			j--;
 		}
 		j++;
 	}
+	return (str);
 }
 
 void	quotes_cleaner(t_mini *shell, t_env **env_list)
 {
-	t_command	*tmp;
-	int	i = 0;
+	t_command		*child;
+	t_built_args	*tmp;
+	t_redir			*temp;
 
-	tmp = shell->child;
-	while (tmp)
+	child = shell->child;
+	while (child)
 	{
-		if (detect_quote(tmp->cmd))
-			quote_remover(shell, env_list, i); //tmp->cmd
-		while (tmp->args)
+		tmp = child->args;
+		temp = child->redirection;
+		if (detect_quote(child->cmd))
+			child->cmd = quote_remover(child->cmd, env_list);
+		while (tmp)
 		{
-			if (detect_quote(tmp->args->name))
-				quote_remover(shell, env_list, i); //tmp->args->name
-			tmp->args = tmp->args->next;
+			if (detect_quote(tmp->name))
+				tmp->name = quote_remover(tmp->name, env_list);
+			tmp = tmp->next;
 		}
-		while (tmp->redirection)
+		while (temp)
 		{
-			if (detect_quote(tmp->redirection->file_name))
-				quote_remover(shell, env_list, i); //tmp->redirection->file_name
-			tmp->redirection = tmp->redirection->next;
+			if (detect_quote(temp->file_name))
+				temp->file_name = quote_remover(temp->file_name, env_list);
+			temp = temp->next;
 		}
-		tmp = tmp->next;
+		child = child->next;
 	}
 }
 
