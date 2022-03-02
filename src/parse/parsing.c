@@ -318,15 +318,10 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	ptr = sep;
 	while (*(ptr++))
 		create_n_add_empty_child(shell);
-
 	alloc_childs(shell, sep, space);
-
-	shell->current = shell->first;
 	//destroy sep and space
 	dollar_out_quote(shell, env_list);
-	shell->current = shell->first;
 	quotes_cleaner(shell, env_list);
-	shell->current = shell->first;
 	return (1);
 }
 
@@ -350,118 +345,6 @@ int	detect_sep(char *str, int *start)
 	return (-1);
 }
 
-
-/*int	init_first_child(t_mini *shell, t_arg *tmp, t_command *child)
-{
-	t_built_args	*temp;
-	int				i;
-
-	(void)tmp;
-	i = 1;
-	child->redirection = NULL;
-	child->args = NULL;
-	child->next = NULL;
-	while (1)
-	{
-		child->cmd = ft_strdup(shell->current->args[0]);
-		if (shell->current->args[i])
-		{
-			child->args = create_args_node(shell, i);
-			while (shell->current->args[++i])
-			{
-				temp = create_args_node(shell, i);
-				add_to_child(child, temp);
-			}
-		}
-		shell->current = shell->current->next;
-		break ;
-	}
-	return (0);
-}
-
-
-int	fill_child(t_mini *shell, t_command *child, t_arg *save)
-{
-	int				i;
-	t_built_args	*temp;
-	t_redir			*tmp;
-
-	i = 0;
-	shell->current = shell->current->next;
-	tmp = create_redir_node(shell, save);
-	add_redir_to_child(child, tmp);
-	while (shell->current->args[++i])
-	{
-		temp = create_args_node(shell, i);
-		add_to_child(child, temp);
-	}
-	return (0);
-}
-
-void add_new_child(t_command *child)
-{
-	t_command *tmp;
-
-	tmp = malloc(sizeof(t_command));
-	if (!tmp)
-		return ;
-	tmp->cmd = NULL;
-	child->next = tmp;
-}
-
-int	acorn_of_wisdom(t_mini *shell)
-{
-	t_command	*child;
-	t_arg		*tmp;
-	t_arg		*save;
-
-	tmp = shell->current;
-	child = malloc(sizeof(t_command)); //FREE IT
-	child->cmd = NULL;
-	shell->child = child;
-	if (!tmp->next)
-		return (init_first_child(shell, tmp, child));
-	tmp = tmp->next;
-	save = tmp;
-	while (is_sep(tmp->args[0][0]))
-	{
-		if (tmp->args[0][0] == '|')
-		{
-			if (!child->cmd)
-				init_first_child(shell, tmp, child);
-			shell->current = tmp;
-			shell->current = shell->current->next;
-			save = tmp;
-			add_new_child(child);
-			child = child->next;
-			tmp = tmp->next->next;
-			if (!tmp)
-			{
-				init_first_child(shell, tmp, child);
-				break ;
-			}
-		}
-		else
-		{
-			if (!child->cmd)
-				init_first_child(shell, tmp, child);
-			save = tmp;
-			tmp = tmp->next->next;
-			fill_child(shell, child, save);
-			while (tmp && (tmp->args[0][0] == '<' || tmp->args[0][0] == '>'))
-			{
-				shell->current = tmp;
-				save = tmp;
-				tmp = tmp->next->next;
-				fill_child(shell, child, save);
-			}
-			if (!tmp)
-				break ;
-		}
-	}
-	return (0);
-}*/
-
 void	parsing(t_mini *shell, t_env **env_list)
 {
 	// Notre maniere d'appeler echo est mauvaise puisquil faut boucler lappel a echo pour le
@@ -471,6 +354,4 @@ void	parsing(t_mini *shell, t_env **env_list)
 		return ;
 	if (!split_arg(shell, env_list))
 		return ;
-	shell->current = shell->first;
-	//acorn_of_wisdom(shell);
 }
