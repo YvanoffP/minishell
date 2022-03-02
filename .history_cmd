@@ -1755,3 +1755,7 @@ echo           mama       >          bite
 cat bite
 ls
 exit
+echo mama ||
+echo mama ||
+echo mama || echo papa
+exit

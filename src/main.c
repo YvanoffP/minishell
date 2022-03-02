@@ -49,8 +49,8 @@ int main(int argc, char **argv, char **envp)
 		working_history(&shell);
 		if (ft_strcmp(shell.argv, ""))
 		{
-			parsing(&shell, &env_list);
-			execution(&env_list, &shell);
+			if (parsing(&shell, &env_list))
+				execution(&env_list, &shell);
 			destroy(&shell);
 		}
 	}
