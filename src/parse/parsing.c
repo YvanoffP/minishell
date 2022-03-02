@@ -350,8 +350,6 @@ void	parsing(t_mini *shell, t_env **env_list)
 	// Notre maniere d'appeler echo est mauvaise puisquil faut boucler lappel a echo pour le
 	// nb darguments que notre node contient
 
-	if (!ft_strcmp(shell->argv, ""))
-		return ;
 	if (!split_arg(shell, env_list))
 		return ;
 }

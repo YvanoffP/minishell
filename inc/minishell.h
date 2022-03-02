@@ -208,6 +208,8 @@ char	*pimp_my_string(t_mini *shell, int *sep);
 int	    count_missing_space(char *str, int *sep);
 void    work_nb_n_len(int *nb_space, int *len);
 void	delete_last_spaces(char **str);
+int     spaces_to_del(char *str);
+void    delete_mid_spaces(char **ret);
 
 // Parse - list_parsing.c
 void	create_n_add_empty_child(t_mini *shell);
