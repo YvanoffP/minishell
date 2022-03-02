@@ -53,6 +53,15 @@ typedef struct s_dollvar
 
 /////////PARSING REDIRECTION/////////////////
 
+typedef struct s_alloc
+{
+    int *ptr_sep;
+    int *ptr_space;
+    int i;
+    struct s_command   *child;
+    struct s_redir     *tmp;
+    struct s_built_args *temp;
+}           t_alloc;
 typedef enum e_type{
 	GREAT,
 	DB_GREAT,
@@ -113,16 +122,18 @@ void	echo_func(t_built_args *args);
 void	env_func(t_env **env_list);
 
 // Builtins - chained_list.c
-void	add_to_list(t_env **env_list, t_env *new_node);
+void	replace_in_lst(t_env *new_node, t_env **env_list);
+t_env	*get_in_lst(char *var, t_env **env_list);
+int		is_in_lst(char	*var, t_env **env_list);
 t_env	*sort_list_export(t_env **env_list);
+void	delete_list(t_env *env_list);
+
+// Builtins - chained_list_2.c
+void	add_to_list(t_env **env_list, t_env *new_node);
 t_env	*dup_node(char *name, char *value);
 t_env	*duplicate_list(t_env **env_list);
 t_env	*create_node(char *var_array);
-void	delete_list(t_env *env_list);
 int		count_list(t_env **list);
-int		is_in_lst(char	*var, t_env **env_list);
-t_env	*get_in_lst(char *var, t_env **env_list);
-void	replace_in_lst(t_env *new_node, t_env **env_list);
 
 // Builtins - export.c
 int		export_func(t_env **env_list, t_built_args *args);

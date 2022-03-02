@@ -53,6 +53,7 @@ int main(int argc, char **argv, char **envp)
 				execution(&env_list, &shell);
 			destroy(&shell);
 		}
+		// when wxit is catch find a way to break the while loop :)
 	}
 	exit_shell(&shell);
 	return (0);

@@ -11,6 +11,13 @@ char	*join_path_to_arg(char *path, char *arg)
 	return (full_path);
 }
 
+static void	execve_call(t_command *child, t_env **env_list)
+{
+	if (execve(child->cmd, args_to_array(child), lst_to_array(env_list)) == -1)
+		print_error(child->cmd, "Execve failed", -1);
+	exit(0);
+}
+
 int	exec_program(t_command *child, t_env **env_list)
 {
 	int	pid;
@@ -19,39 +26,23 @@ int	exec_program(t_command *child, t_env **env_list)
 
 	pid = fork();
 	ret_status = 0;
-
-	//THINK ABOUT TRACKING ERROR !!!!!
-
-	//We want to call execve if pid is == 0
-	//Execve need our args stored in char ** and our list on char **, not on linked list
-	//NOTE : EXECVE HAD TO BE PROTECT : if it return -1, an error occurs and we have to track it
 	if (!pid)
-	{
-		if (execve(child->cmd, args_to_array(child), lst_to_array(env_list)) == -1)
-			print_error(child->cmd, "Execve failed", -1);
-		exit(0);
-	}
+		execve_call(child, env_list);
 	else if (pid == -1)
 		return (print_error("fork: ", "Fork failed", -2));
-	//ELSE : Fork success, we have to run on child process and wait return of this child
-	// OPTIONS for waitpid is 0 : man tell that because waitpid behaviour is same as wait
-	//if option is set on 0
 	else
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			ret_status = WEXITSTATUS(status);
-		//Find a way to deal with different error, to stock the value of an error_int in f_status to return him
 		else if (WIFSIGNALED(status))
 		{
-			//Here is saw a guy who add 128 + WTERMSIG but idk why for the moment
 			ret_status =  128 + WTERMSIG(status);
 			if (WTERMSIG(status) == SIGQUIT)
 				write(1, "Quit : 3\n", 8);
 		}
 		return (ret_status);
 	}
-	//We have to track success too, so we can define SUCCESS on an int or just return an int but both of them know the value of this int
 	return (100);
 }
 

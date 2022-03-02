@@ -1759,6 +1759,19 @@ echo mama ||
 echo mama ||
 echo mama || echo papa
 exit
+echo mama         
+echo                mama         
+echo                mama         
+echo                mama         
+echo                mama         
+echo                mama         
+echo                mama         
+
+echo                mama         
+echo                mama         
+echo                mama         
+
+echo                mama         
 exit
 exit
 exit
@@ -1785,6 +1798,88 @@ cat | ls
 
 
 
+
+
+echo                mama         
+ok
+exit moi
+echo mama
+echo mama
+echo mamq
+echo mamq papa bite
+echo mamq papa bite trouduc
+exit
+echo mama
+echo mama | echo papa
+exit
+echo mama
+echo mama | echo papa
+echo mama > bite -la > guit | echo mama
+vim guit
+exit
+echo mama > bite -la > guit | echo mama
+cat guit
+cat bite
+ls
+rm guit bite
+ls
+exit
+echo mAMA
+echo mama > bite -la > guit | echo mama
+cat mama
+cat bite
+cat guit
+make
+make
+exit
+echo mama > bite -la > guit | echo mama
+rm bite guit
+echo mama > bite -la > guit | echo mama
+rm bite guit
+ls
+exit
+echo mama
+echo bite
+echo mama > papa | echo bite
+cat papa
+rm mama
+rm papa
+exit
+echo mama
+cat mama
+cat mama
+echo mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+cat mama
+echo mama > papa | echo > papa -la
+cat papa
+echo mama > papa | echo > papoose -la
+cat papoose
+echo mama > papa | ls > papoose -la
+cat papoose
 
 exit
 cat | ls
