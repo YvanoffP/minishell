@@ -42,5 +42,4 @@ void	exit_shell(t_mini *shell)
 	free(shell->mini_cwd);
 	if (shell->argv)
 		free(shell->argv);
-	//Check to free t_arg struct
 }

@@ -37,51 +37,6 @@ int	count_cmd(int *sep)
 	return (i + 1);
 }
 
-void	alloc_childs(t_mini *shell, int *sep, int *space)
-{
-	int	*ptr_sep;
-	int *ptr_space;
-	t_command	*child;
-	t_redir		*tmp;
-	t_built_args *temp;
-	int	i;
-
-	ptr_sep = sep;
-	ptr_space = space;
-	i = 0;
-	child = shell->child;
-	if (!*ptr_space)
-	{
-		child->cmd = ft_substr(shell->argv, i, ft_strlen(shell->argv));
-		return ;
-	}
-	while (1)
-	{
-		child->cmd = ft_substr(shell->argv, i, *ptr_space - i);
-		i = *ptr_space + 1;
-		ptr_space++;
-		while (i != *ptr_sep && i != 1)
-		{
-			if (shell->argv[i] == '<' || shell->argv[i] == '>')
-			{
-				tmp = create_redir_node(shell, &ptr_space, &i);
-				add_redir_to_child(child, tmp);
-			}
-			else
-			{
-				temp = create_args_node(shell, &ptr_space, &i);
-				add_args_to_child(child, temp);
-			}
-		}
-		if (*ptr_sep == 0)
-			break ;
-		ptr_sep++;
-		child = child->next;
-		i = *ptr_space + 1;
-		ptr_space++;
-	}
-}
-
 t_built_args	*create_args_node(t_mini *shell, int **ptr_space, int *i)
 {
 	t_built_args	*new;

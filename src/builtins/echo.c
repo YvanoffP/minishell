@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+static void	echo_func_ext(t_built_args *args)
+{
+	while (args)
+	{
+		write(1, args->name, ft_strlen(args->name));
+		if (args->next)
+			write(1, " ", 1);
+		args = args->next;
+	}
+}
+
 void	echo_func(t_built_args *args)
 {
 	int	i;
@@ -14,24 +25,13 @@ void	echo_func(t_built_args *args)
 	{
 		if (args->next)
 			args = args->next;
-		while (args)
-		{
-			write(1, args->name, ft_strlen(args->name));
-			if (args->next)
-				write(1, " ", 1);
-			args = args->next;
-		}
+			echo_func_ext(args);
+		echo_func_ext(args);
 		return ;
 	}
 	else
 	{
-		while (args)
-		{
-			write(1, args->name, ft_strlen(args->name));
-			if (args->next)
-				write(1, " ", 1);
-			args = args->next;
-		}
+		echo_func_ext(args);
 		write(1, "\n", 1);
 	}
 }
