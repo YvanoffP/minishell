@@ -345,11 +345,9 @@ int	detect_sep(char *str, int *start)
 	return (-1);
 }
 
-void	parsing(t_mini *shell, t_env **env_list)
+int	parsing(t_mini *shell, t_env **env_list)
 {
-	// Notre maniere d'appeler echo est mauvaise puisquil faut boucler lappel a echo pour le
-	// nb darguments que notre node contient
-
 	if (!split_arg(shell, env_list))
-		return ;
+		return (0);
+	return (1);
 }

@@ -185,7 +185,7 @@ char			*quote_remover(char *str, t_env **env_list);
 void			quotes_cleaner(t_mini *shell, t_env **env_list);
 int				split_arg(t_mini *shell, t_env **env_list);
 int				detect_sep(char *str, int *start);
-void			parsing(t_mini *shell, t_env **env_list);
+int	    		parsing(t_mini *shell, t_env **env_list);
 
 // Parse - sep_n_space.c
 int	    *parse_space(char *str);
