@@ -18,7 +18,7 @@ void	exec_file(t_command *child, t_env **env_list, char *path, int *status)
 	free(joined_path);
 }
 
-int	error_file(t_redir *redirection)
+/*int	error_file(t_redir *redirection)
 {
 	struct stat	buf;
 
@@ -30,7 +30,7 @@ int	error_file(t_redir *redirection)
 			return (print_error(redirection->file_name, ": Permission denied", 1));
 	}
 	return (print_error(redirection->file_name, ": No such file or directory", 2));
-}
+}*/
 
 int	check_path(t_env **env_list, t_command *child)
 {

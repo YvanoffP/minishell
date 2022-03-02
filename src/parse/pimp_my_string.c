@@ -45,8 +45,12 @@ int	spaces_to_del(char *str)
 		}
 		else if (str[i] == 32)
 		{
-			total++;
-			skip_w_space(str, &i);
+			i++;
+			while (str[i] == 32 && str[i])
+			{
+				total++;
+				i++;
+			}
 		}
 	}
 	return (total);
@@ -61,22 +65,24 @@ void	delete_mid_spaces(char **ret)
 
 	k = 0;
 	i = 0;
-	final = malloc(sizeof(char) * (ft_strlen(*ret) + spaces_to_del(*ret)));
+	final = malloc(sizeof(char) * (ft_strlen(*ret) + spaces_to_del(*ret)) + 1);
 	while ((*ret)[i])
 	{
 		if ((*ret)[i] == 39 || (*ret)[i] == 34)
 		{
 			final[k++] = (*ret)[i];
-			quote = (*ret)[i];
-			while ((*ret)[++i] != quote)
-				final[k++] = (*ret)[i];
+			quote = (*ret)[i++];
+			while ((*ret)[i] != quote)
+				final[k++] = (*ret)[i++];
+			i++;
 		}
 		else if ((*ret)[i] == 32)
 		{
 			final[k++] = (*ret)[i++];
 			skip_w_space(*ret, &i);
 		}
-		final[k++] = (*ret)[i++];
+		else
+			final[k++] = (*ret)[i++];
 	}
 	final[k] = '\0';
 	free(*ret);
