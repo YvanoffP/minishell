@@ -140,6 +140,108 @@ void	add_redir_to_child(t_command *child, t_redir *new)
 	}
 }
 
+char	*realloc_string(char *str, char *s2)
+{
+	free(str);
+	str = NULL;
+	str = ft_strdup(s2);
+	free(s2);
+	s2 = NULL;
+	return (str);
+}
+
+void	dollar_out_quote(t_mini *shell, t_env **env_list)
+{
+	int	i;
+	t_command	*tmp;
+	int	dollar_index;
+	char *ret;
+
+	tmp = shell->child;
+	while (tmp)
+	{
+		i = 0;
+		dollar_index = 0;
+		dollar_index = have_a_dollar_out_q(tmp->cmd);
+		if (dollar_index != -1)
+		{
+			ret = replace_dollars(tmp->cmd, env_list, dollar_index, 1);
+			tmp->cmd = realloc_string(tmp->cmd, ret);
+		}
+		while (tmp->args)
+		{
+			dollar_index = have_a_dollar_out_q(tmp->args->name);
+			if (dollar_index != -1)
+			{
+				ret = replace_dollars(tmp->args->name, env_list, dollar_index, 1);
+				tmp->args->name = realloc_string(tmp->args->name, ret);
+			}
+			else
+				tmp->args = tmp->args->next;
+		}
+		while (tmp->redirection)
+		{
+			dollar_index = have_a_dollar_out_q(tmp->redirection->file_name);
+			if (dollar_index != -1)
+			{
+				ret = replace_dollars(tmp->redirection->file_name, env_list, dollar_index, 1);
+				tmp->redirection->file_name = realloc_string(tmp->redirection->file_name, ret);
+			}
+			else
+				tmp->redirection = tmp->redirection->next;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	quote_remover(t_mini *shell, t_env **env_list, int i)
+{
+	int	j;
+
+	j = 0;
+	while (shell->current->args[i][j])
+	{
+		if (shell->current->args[i][j] == 34)
+		{
+			if (have_a_dollar(shell->current->args[i], j + 1))
+				realloc_args(shell, env_list, j, i);
+			delete_quote(shell, i, &j);
+		}
+		if (shell->current->args[i][j] == 39)
+		{
+			delete_quote(shell, i, &j);
+			j--;
+		}
+		j++;
+	}
+}
+
+void	quotes_cleaner(t_mini *shell, t_env **env_list)
+{
+	t_command	*tmp;
+	int	i = 0;
+
+	tmp = shell->child;
+	while (tmp)
+	{
+		if (detect_quote(tmp->cmd))
+			quote_remover(shell, env_list, i); //tmp->cmd
+		while (tmp->args)
+		{
+			if (detect_quote(tmp->args->name))
+				quote_remover(shell, env_list, i); //tmp->args->name
+			tmp->args = tmp->args->next;
+		}
+		while (tmp->redirection)
+		{
+			if (detect_quote(tmp->redirection->file_name))
+				quote_remover(shell, env_list, i); //tmp->redirection->file_name
+			tmp->redirection = tmp->redirection->next;
+		}
+		tmp = tmp->next;
+	}
+}
+
 int	split_arg(t_mini *shell, t_env **env_list)
 {
 	//TODO : free int*
@@ -165,7 +267,6 @@ int	split_arg(t_mini *shell, t_env **env_list)
 		create_n_add_empty_child(shell);
 
 	alloc_childs(shell, sep, space);
-	alloc_args_tab(shell, sep, space);
 
 	shell->current = shell->first;
 	//destroy sep and space

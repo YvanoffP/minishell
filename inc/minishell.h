@@ -207,7 +207,7 @@ void	delete_quote(t_mini *shell, int i, int *j);
 void	realloc_args(t_mini *shell, t_env **env_list, int j, int i);
 void	alloc_args_tab(t_mini *shell, int *sep, int *space);
 void	create_sep_node(t_mini *shell, int *i, int **space);
-int	    realloc_string(t_mini *shell, int i, char *s2);
+char	*realloc_string(char *str, char *s2);
 int	    split_arg(t_mini *shell, t_env **env_list);
 
 // Parse - error_parse.c
