@@ -47,7 +47,7 @@ void	add_redir_to_child(t_command *child, t_redir *new)
 
 t_redir	*create_redir_node(t_mini *shell, int **ptr_space, int *i)
 {
-	t_redir *new;
+	t_redir	*new;
 
 	new = malloc(sizeof(t_redir));
 	if (!new)

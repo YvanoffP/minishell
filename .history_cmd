@@ -2533,3 +2533,12 @@ exit
 echo mama
 echo mama | echo bite
 exit
+echo bite > mama > papa
+cat mama
+cat papa
+rm papa mama
+exit
+export mama=6
+echo $mama
+echo $mama"$ma"ma
+exit
