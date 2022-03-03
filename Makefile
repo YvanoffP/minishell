@@ -52,6 +52,7 @@ PARSE_FILES =	parsing.c \
 				pimp_my_string.c \
 				replace_dollars.c \
 				alloc_childs.c \
+				dollar_out_quote.c \
 				list_parsing.c
 
 # SIGNAL files variable
