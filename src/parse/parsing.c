@@ -162,6 +162,8 @@ char	*quote_remover(char *str, t_env **env_list)
 				str = realloc_string(str, ret);
 			}
 			str = delete_quote(str, &j);
+			if (str == NULL)
+				return (str);
 		}
 		if (str[j] == 39)
 		{
