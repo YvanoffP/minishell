@@ -1,32 +1,35 @@
 #include "minishell.h"
 
-void	destroy(t_mini *shell)
+static void	destroy_childs(t_mini *shell)
 {
-	t_built_args	*tmp;
-	t_redir			*temp;
-	t_command		*tempo;
+	t_alloc	var;
 
 	while (shell->child)
 	{
-		tempo = shell->child->next;
+		var.child = shell->child->next;
 		while (shell->child->args)
 		{
-			tmp = shell->child->args->next;
+			var.temp = shell->child->args->next;
 			free(shell->child->args->name);
 			free(shell->child->args);
-			shell->child->args = tmp;
+			shell->child->args = var.temp;
 		}
 		while (shell->child->redirection)
 		{
-			temp = shell->child->redirection->next;
+			var.tmp = shell->child->redirection->next;
 			free(shell->child->redirection->file_name);
 			free(shell->child->redirection);
-			shell->child->redirection = temp;
+			shell->child->redirection = var.tmp;
 		}
 		free(shell->child->cmd);
 		free(shell->child);
-		shell->child = tempo;
+		shell->child = var.child;
 	}
+}
+
+static void	destroy(t_mini *shell)
+{
+	destroy_childs(shell);
 	if (shell->argv)
 		free(shell->argv);
 	shell->argv = NULL;
