@@ -39,7 +39,7 @@ int	exec_program(t_command *child, t_env **env_list)
 		{
 			ret_status =  128 + WTERMSIG(status);
 			if (WTERMSIG(status) == SIGQUIT)
-				write(1, "Quit : 3\n", 8);
+				write(1, "Quit : 3\n", 9);
 		}
 		return (ret_status);
 	}
