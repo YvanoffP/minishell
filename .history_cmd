@@ -2510,3 +2510,19 @@ cat
 exit
 cat
 exit
+echo "mama" pa'pa      '
+echo "mama" pa'pa      ' bite
+echo "$USER" pa'pa      ' bite
+echo "$USER" pa'pa      ' bite
+exit
+echo "mama" pa'pa      ' bite
+echo "$USER" pa'pa      ' bite
+echo "$USER" pa'pa      ' bite
+exit
+echo "$USER" pa'pa      ' bite
+echo mama
+echo mama
+echo mama           papa
+echo mama           papa "lolilol pizza          "
+echo mama           papa "lolilol pizza          " caca
+exit

@@ -120,27 +120,20 @@ char	*delete_quote(char *str, int *j)
 	k = 0;
 	ret = malloc(sizeof(char) * (ft_strlen(str) - 2));
 	if (!ret)
-		return (NULL); // ERROR MALLOC
+		return (NULL);
 	while (str[k])
 	{
 		if (k == *j)
 			k++;
 		if (str[k] == str[*j] && k > *j)
 		{
-			k++;
-			*j = k - 2;
+			*j = k++ - 2;
 			break ;
 		}
-		ret[index] = str[k];
-		index++;
-		k++;
+		ret[index++] = str[k++];
 	}
 	while (str[k])
-	{
-		ret[index] = str[k];
-		index++;
-		k++;
-	}
+		ret[index++] = str[k++];
 	ret[index] = 0;
 	free(str);
 	return (ret);
@@ -204,9 +197,14 @@ void	quotes_cleaner(t_mini *shell, t_env **env_list)
 	}
 }
 
+void	destroy_sep_n_space(int **sep, int **space)
+{
+	free(*sep);
+	free(*space);
+}
+
 int	split_arg(t_mini *shell, t_env **env_list)
 {
-	//TODO : free int*
 	int	*sep;
 	int	*space;
 	int	*ptr;
@@ -228,7 +226,7 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	while (*(ptr++))
 		create_n_add_empty_child(shell);
 	alloc_childs(shell, sep, space);
-	//destroy sep and space
+	destroy_sep_n_space(&sep, &space);
 	dollar_out_quote(shell, env_list);
 	quotes_cleaner(shell, env_list);
 	return (1);
