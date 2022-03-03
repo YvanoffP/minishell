@@ -40,7 +40,7 @@ int	spaces_to_del(char *str)
 		if (str[i] == 39 || str[i] == 34)
 		{
 			quote = str[i++];
-			while (str[i] != quote)
+			while (str[i] != quote && str[i])
 				i++;
 		}
 		else if (str[i] == 32)

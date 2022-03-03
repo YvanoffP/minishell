@@ -110,54 +110,6 @@ char	*realloc_string(char *str, char *s2)
 	return (str);
 }
 
-void	dollar_out_quote(t_mini *shell, t_env **env_list)
-{
-	int	i;
-	t_command		*child;
-	t_built_args	*tmp;
-	t_redir			*temp;
-	int	dollar_index;
-	char *ret;
-
-	child = shell->child;
-	while (child)
-	{
-		tmp = child->args;
-		temp = child->redirection;
-		i = 0;
-		dollar_index = 0;
-		dollar_index = have_a_dollar_out_q(child->cmd);
-		if (dollar_index != -1)
-		{
-			ret = replace_dollars(child->cmd, env_list, dollar_index, 1);
-			child->cmd = realloc_string(child->cmd, ret);
-		}
-		while (tmp)
-		{
-			dollar_index = have_a_dollar_out_q(tmp->name);
-			if (dollar_index != -1)
-			{
-				ret = replace_dollars(tmp->name, env_list, dollar_index, 1);
-				tmp->name = realloc_string(tmp->name, ret);
-			}
-			else
-				tmp = tmp->next;
-		}
-		while (temp)
-		{
-			dollar_index = have_a_dollar_out_q(temp->file_name);
-			if (dollar_index != -1)
-			{
-				ret = replace_dollars(temp->file_name, env_list, dollar_index, 1);
-				temp->file_name = realloc_string(temp->file_name, ret);
-			}
-			else
-				temp = temp->next;
-		}
-		child = child->next;
-	}
-}
-
 char	*delete_quote(char *str, int *j)
 {
 	int		index;

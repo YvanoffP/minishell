@@ -2113,3 +2113,33 @@ grep "mama"
 
 echo "mama bison            mama"                   ouwuwuwuwuwu
 exit
+echo mama
+exit
+echo mama
+export mama=5
+echo &
+$
+export mama=5
+echo $mama
+exit
+export mama=5
+echo $mama
+echo "$mama"
+echo "$mama"'$mama'
+echo "$mama"'$mama'
+echo "$mama"'$mama'
+echo "$mama"'$mama'
+echo "$mama"'$mama'
+echo "$mama"'$mama'
+echo "$mama"'$mama''
+echo "$mama"'$mama'
+export mama=5
+echo "$mama"'$mama'
+exit
+export mama=5
+export papa=mama
+export
+export papa=$mama
+export
+echo '$mama' $'mama' "$pa"pa
+exit

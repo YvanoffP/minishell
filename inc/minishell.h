@@ -58,10 +58,13 @@ typedef struct s_alloc
     int *ptr_sep;
     int *ptr_space;
     int i;
+    int dollar_index;
     struct s_command   *child;
     struct s_redir     *tmp;
     struct s_built_args *temp;
+    char                *ret;
 }           t_alloc;
+
 typedef enum e_type{
 	GREAT,
 	DB_GREAT,
@@ -207,10 +210,6 @@ int	    *parse_space(char *str);
 int	    count_space(char *str);
 int     *parse_sep(char *str);
 int     count_pipe(char *str);
-
-// Parse - quote_treatment.c
-
-// Parse - array_zone.c
 
 // Parse - error_parse.c
 int     str_error(char *str, int ret);
