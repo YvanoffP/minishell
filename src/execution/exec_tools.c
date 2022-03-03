@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_tools.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   And: tpauvret                                 +#+   +:+      +#+         */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 23:13:46 by ypetruzz          #+#    #+#             */
+/*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	**args_to_array(t_command *child)
@@ -52,7 +65,6 @@ int	count_args(t_built_args *lst)
 	{
 		tmp = tmp->next;
 		i++;
-
 	}
 	return (i);
 }

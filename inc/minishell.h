@@ -139,6 +139,9 @@ t_env	*duplicate_list(t_env **env_list);
 t_env	*create_node(char *var_array);
 int		count_list(t_env **list);
 
+// Builtins - swap_nodes.c
+void    swap_nodes(t_env *tmp);
+
 // Builtins - export.c
 int		export_func(t_env **env_list, t_built_args *args);
 int		check_only_num(char *str);

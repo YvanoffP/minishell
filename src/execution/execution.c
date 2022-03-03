@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   And: tpauvret                                 +#+   +:+      +#+         */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 23:13:46 by ypetruzz          #+#    #+#             */
+/*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
 char	*join_path_to_arg(char *path, char *arg)
@@ -38,7 +50,7 @@ int	exec_program(t_command *child, t_env **env_list)
 			ret_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
-			ret_status =  128 + WTERMSIG(status);
+			ret_status = 128 + WTERMSIG(status);
 			if (WTERMSIG(status) == SIGQUIT)
 				write(1, "Quit : 3\n", 9);
 		}
@@ -70,9 +82,9 @@ int	is_builtins(t_env **env_list, t_command *child)
 
 int	execution(t_env **env_list, t_mini *shell)
 {
-	t_process *proc;
+	t_process	*proc;
 
-	proc = malloc(sizeof(t_process));	// BRING IT BABE
+	proc = malloc(sizeof(t_process));
 	proc->ret = 0;
 	proc->my_fd[0] = 0;
 	proc->my_fd[1] = 0;
