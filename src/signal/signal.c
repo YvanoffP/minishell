@@ -36,6 +36,5 @@ void	ctrl_c(int sig)
 
 void	back_slash(int sig)
 {
-	printf("Quit (core dumped)\n");
 	(void)sig;
 }

@@ -72,6 +72,7 @@ int	pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list)
 	tmp = shell->child;
 	shell->cmd_count--;
 	proc->cmd_count = shell->cmd_count;
+	run_signals(2);
 	if (create_fd_pipe(shell, proc))
 		return (1);
 	while (tmp)
