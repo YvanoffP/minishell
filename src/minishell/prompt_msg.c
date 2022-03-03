@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt_msg.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   And: tpauvret                                 +#+   +:+      +#+         */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 23:13:46 by ypetruzz          #+#    #+#             */
+/*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-char *sub_path(char *path)
+char	*sub_path(char *path)
 {
 	int		str_len;
 	int		i;

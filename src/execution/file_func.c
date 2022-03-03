@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_func.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   And: tpauvret                                 +#+   +:+      +#+         */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 23:13:46 by ypetruzz          #+#    #+#             */
+/*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	exec_file(t_command *child, t_env **env_list, char *path, int *status)
@@ -11,26 +24,12 @@ void	exec_file(t_command *child, t_env **env_list, char *path, int *status)
 	if ((buf.st_mode & S_IXUSR) > 0
 		&& (buf.st_mode & S_IFREG) > 0 && *status == -100)
 	{
-			free(child->cmd);
-			child->cmd = ft_strdup(joined_path);
-			*status = exec_program(child, env_list);
+		free(child->cmd);
+		child->cmd = ft_strdup(joined_path);
+		*status = exec_program(child, env_list);
 	}
 	free(joined_path);
 }
-
-/*int	error_file(t_redir *redirection)
-{
-	struct stat	buf;
-
-	if (stat(redirection->file_name, &buf) == 0)
-	{
-		if (buf.st_mode & S_IFDIR)
-			return (print_error(redirection->file_name, ": Is a directory", 21));
-		else if ((buf.st_mode & S_IXUSR) == 0)
-			return (print_error(redirection->file_name, ": Permission denied", 1));
-	}
-	return (print_error(redirection->file_name, ": No such file or directory", 2));
-}*/
 
 int	check_path(t_env **env_list, t_command *child)
 {
@@ -63,7 +62,7 @@ int	check_file(t_env **env_list, t_command *child)
 
 int	find_file(t_env **env_list, t_command *child)
 {
-	t_env *tmp;
+	t_env	*tmp;
 	char	**path;
 	int		status;
 	int		i;

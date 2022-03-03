@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   swap_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*   And: tpauvret                                 +#+   +:+      +#+         */
@@ -11,20 +11,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../inc/minishell.h"
 
-void	pwd(void)
+void	swap_nodes(t_env *tmp)
 {
-	char	*cwd;
-	char	*parsed_cwd;
-	char	buff[4096];
+	char	*name;
+	char	*value;
 
-	cwd = getcwd(buff, 4096);
-	if (cwd == NULL)
-		write(1, "pwd command failed\n", 19);
-	parsed_cwd = sub_path(cwd);
-	write(1, parsed_cwd, ft_strlen(parsed_cwd));
-	write(1, "\n", 1);
-	if (parsed_cwd)
-		free(parsed_cwd);
+	if (ft_strcmp(tmp->var, tmp->next->var) > 0)
+	{
+		name = ft_strdup(tmp->next->var);
+		value = ft_strdup(tmp->next->value);
+		free(tmp->next->var);
+		free(tmp->next->value);
+		tmp->next->var = ft_strdup(tmp->var);
+		tmp->next->value = ft_strdup(tmp->value);
+		free(tmp->var);
+		free(tmp->value);
+		tmp->var = ft_strdup(name);
+		tmp->value = ft_strdup(value);
+		free(name);
+		free(value);
+	}
 }

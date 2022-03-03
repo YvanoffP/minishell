@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arg_redir_nodes.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   And: tpauvret                                 +#+   +:+      +#+         */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 23:13:46 by ypetruzz          #+#    #+#             */
+/*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 t_built_args	*create_args_node(t_mini *shell, int **ptr_space, int *i)

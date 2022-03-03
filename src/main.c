@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ypetruzz <2befreed@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   And: tpauvret                                 +#+   +:+      +#+         */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 23:13:46 by ypetruzz          #+#    #+#             */
+/*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	destroy_childs(t_mini *shell)
@@ -37,13 +50,13 @@ static void	destroy(t_mini *shell)
 		free(shell->exec);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_mini	shell;
 	t_env	*env_list;
+
 	(void)argc;
 	(void)argv;
-
 	init_mini(&shell, &env_list);
 	init_env(&env_list, envp);
 	while (1)
@@ -57,7 +70,6 @@ int main(int argc, char **argv, char **envp)
 				execution(&env_list, &shell);
 			destroy(&shell);
 		}
-		// when wxit is catch find a way to break the while loop :)
 	}
 	exit_shell(&shell);
 	return (0);
