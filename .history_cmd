@@ -2530,3 +2530,6 @@ export mama=5
 echo '$mama'"$mama" '    couc"$mama"$mam lol'
 echo '$mama'"$mam"a '    couc"$mama"$mam lol'
 exit
+echo mama
+echo mama | echo bite
+exit
