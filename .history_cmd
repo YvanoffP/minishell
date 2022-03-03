@@ -2542,3 +2542,4 @@ export mama=6
 echo $mama
 echo $mama"$ma"ma
 exit
+
