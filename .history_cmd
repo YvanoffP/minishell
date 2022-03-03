@@ -2448,6 +2448,13 @@ cat | ls
 cat | ls
 
 
+cat
+
+exit
+cat
+exit
+cat
+
 
 exit
 exit
@@ -2472,5 +2479,9 @@ cat
 
 exit
 cat
+cat
+exit
 
+
+cat
 exit

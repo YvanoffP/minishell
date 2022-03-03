@@ -184,7 +184,10 @@ int 	create_fd_pipe(t_mini *shell, t_process *proc);
 int		pipe_fork(t_command    *child, t_env **env_list, t_process *proc, int *cmd);
 
 // Signal - signal.c
-void	handler(int sig);
+void    run_signals(int sig);
+void    restore_prompt(int sig);
+void    ctrl_c(int sig);
+void    back_slash(int sig);
 
 // Builtins - cd.c
 int     cd(char *path);

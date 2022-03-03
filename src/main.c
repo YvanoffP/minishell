@@ -43,10 +43,9 @@ int main(int argc, char **argv, char **envp)
 
 	init_mini(&shell, &env_list);
 	init_env(&env_list, envp);
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
 	while (1)
 	{
+		run_signals(1);
 		prompt_msg(&shell);
 		working_history(&shell);
 		if (ft_strcmp(shell.argv, ""))

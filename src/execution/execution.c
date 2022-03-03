@@ -25,6 +25,7 @@ int	exec_program(t_command *child, t_env **env_list)
 	int	ret_status;
 
 	pid = fork();
+	run_signals(2);
 	ret_status = 0;
 	if (!pid)
 		execve_call(child, env_list);
