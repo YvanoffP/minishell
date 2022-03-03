@@ -75,6 +75,7 @@ int	execution(t_env **env_list, t_mini *shell)
 	proc->ret = 0;
 	proc->my_fd[0] = 0;
 	proc->my_fd[1] = 0;
+	shell->exec = proc;
 	backup(1);
 	if (shell->child->redirection)
 	{
@@ -91,6 +92,5 @@ int	execution(t_env **env_list, t_mini *shell)
 	else if (shell->child->cmd != NULL)
 		proc->ret = is_builtins(env_list, shell->child);
 	backup(0);
-//	free(proc);
 	return (proc->ret);
 }

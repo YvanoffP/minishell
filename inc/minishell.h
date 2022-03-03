@@ -30,6 +30,7 @@ typedef struct s_mini
 {
 	int					cmd_count;
 	struct s_command	*child;
+	struct s_process	*exec;
     char            	*mini_cwd;
     char            	*argv;
 	int		        	fd_history;
