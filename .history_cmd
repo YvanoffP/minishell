@@ -31,9 +31,9 @@ mama
 mama
 mama
 mama
-mama 
-mama 
-mama 
+mama
+mama
+mama
 mama bite
 mama bite
 mama bitepoilue
@@ -109,7 +109,7 @@ mama papa
 mama papa pa
 mama papa pa
 mama papa papa papa mdkewl
-mama papa papap nckeew 
+mama papa papap nckeew
 mama papa papa papa papa
 mama papa kdemkw kdmelw mlew
 mama papa maamam mama mama
@@ -544,25 +544,25 @@ echo mamacita         |ahah "chien     delacasse|"         |eoho
 echo mamacita         |ahah "chien     delacasse|"         |eoho
 echo mamacita         |ahah "chien     delacasse|"         |eoho
 echo mamacita | echo mescouilles            o
-echo mamacita                  
-echo mamacita                          
-echo mamaciat                   
-echo mamacita               
-echo mamacita              
-echo mamacita                 
-echo mamacita                   
-echo mamaciat      
-echo mamacita         
-echo mamacita    
-echo mamacita    
-echo mamacita    
-echo mamacita    
-echo mamaciat    
-echo mamacita    
-echo mamacita     
-echo mamacita    
-echo mamacita    
-echo mamacita     
+echo mamacita
+echo mamacita
+echo mamaciat
+echo mamacita
+echo mamacita
+echo mamacita
+echo mamacita
+echo mamaciat
+echo mamacita
+echo mamacita
+echo mamacita
+echo mamacita
+echo mamacita
+echo mamaciat
+echo mamacita
+echo mamacita
+echo mamacita
+echo mamacita
+echo mamacita
 echo mama | echo ououou
 echo mama | echo mama
 echo mama | echo mama | echo mama
@@ -969,9 +969,9 @@ echo mama |      | echo papa
 exit
 echo mama |
 echo mama
-echo mama 
+echo mama
 echo mama ||
-echo mama ||   
+echo mama ||
 echo mama ||  echo papa
 echo mama |  echo papa
 
@@ -985,14 +985,14 @@ echo bonjour
 echo bonjour | echo papa
 echo bonjour| echo papa
 echo bonjour|echo papa
-echo bonjour|echo papa          
+echo bonjour|echo papa
 eot
 exit
 echo papa
 echo papa " echo amma
 echo papa | echo amma
 echo papa|echo amma
-echo papa|echo amma          
+echo papa|echo amma
 exit
 echo "         " mamapute | echo yolesqueezos
 echo "         " mamapute | echo yolesqueezos
@@ -1072,28 +1072,28 @@ ls
 ls
 ls -la
 cd ..
-cd push_swap 
+cd push_swap
 ./push_swap 1 2 3
 ./push_swap 8 3 74 9 1
 echo MAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 cd ..
-cd minishell 
+cd minishell
 lsa
 ./mama
 .mama
 /mama
 exit
 export mama="90 2 63 8 921 74"
-cd ../push_swap 
+cd ../push_swap
 .//push_swap
 ./push_swap $mama
 exit
 ls
 cd ..
-cd push_swap 
+cd push_swap
 ./push_swap "5678 93 74 028 84"
 cd ..
-cd push_swap 
+cd push_swap
 make
 echo mama
 export mama=5
@@ -1759,19 +1759,19 @@ echo mama ||
 echo mama ||
 echo mama || echo papa
 exit
-echo mama         
-echo                mama         
-echo                mama         
-echo                mama         
-echo                mama         
-echo                mama         
-echo                mama         
+echo mama
+echo                mama
+echo                mama
+echo                mama
+echo                mama
+echo                mama
+echo                mama
 
-echo                mama         
-echo                mama         
-echo                mama         
+echo                mama
+echo                mama
+echo                mama
 
-echo                mama         
+echo                mama
 exit
 exit
 exit
@@ -1800,7 +1800,7 @@ cat | ls
 
 
 
-echo                mama         
+echo                mama
 ok
 exit moi
 echo mama
@@ -1983,7 +1983,7 @@ cat papa
 cat papa
 cat papa
 cat papa
-cat 
+cat
 
 cat mama
 cat mama
@@ -2375,4 +2375,41 @@ cat | cat | ls
 cat | cat | ls
 cat | cat | ls
 cat | cat | ls
+export
+export mama=5
+echo '$mama' $'mama' "$pa"pa
+exit
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+ft_strlen(str)
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+exit
+echo '$mama' $'mama' "$pa"pa
+exit
+echo '$mama' $'mama' "$pa"pa
+exit
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+exit
+ft_substr(shell->argv, *i, **ptr_space - *i)
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+echo '$mama' $'mama' "$pa"pa
+export mama=5
+echo '$mama' $'mama' "$pa"pa
 exit

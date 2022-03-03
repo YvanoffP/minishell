@@ -59,7 +59,7 @@ int	have_a_dollar_out_q(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == 34 || str[i] == 39)
+		if (str[i] == 39)
 		{
 			skip_quote(str, &i);
 			i++;

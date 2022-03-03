@@ -74,7 +74,7 @@ void	delete_mid_spaces(char **ret)
 			quote = (*ret)[i++];
 			while ((*ret)[i] != quote)
 				final[k++] = (*ret)[i++];
-			i++;
+			final[k++] = (*ret)[i++];
 		}
 		else if ((*ret)[i] == 32)
 		{
