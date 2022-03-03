@@ -1,15 +1,16 @@
 #include "../../inc/minishell.h"
 
-char *find_env_var(char *str, int *i, t_env **env_list)
+char	*find_env_var(char *str, int *i, t_env **env_list)
 {
-	char *name;
-	int	j;
+	char	*name;
+	int		j;
 	t_env	*list;
 
 	*i += 1;
 	j = *i;
 	list = *env_list;
-	while (!is_w_space(str[*i]) && str[*i] && str[*i] != '$' && str[*i] != 34 && str[*i] != 39)
+	while (!is_w_space(str[*i]) && str[*i] && str[*i] != '$'
+		&& str[*i] != 34 && str[*i] != 39)
 		*i += 1;
 	name = ft_substr(str, j, (*i - j));
 	while (ft_strcmp(name, list->var) && list->next != NULL)

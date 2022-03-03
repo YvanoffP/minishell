@@ -22,8 +22,8 @@ int	detect_sep(char *str, int *start)
 
 int	count_pipe(char *str)
 {
-	int	i;
-	int	nb_sep;
+	int		i;
+	int		nb_sep;
 	char	c;
 
 	i = 0;

@@ -7,20 +7,24 @@ static void	alloc_struct_init(t_alloc *var, int **ptrsep, int **ptrspace)
 	var->ptr_sep = *ptrsep;
 }
 
+static void	alloc_childs_redir(t_alloc *var, t_mini *shell)
+{
+	var->tmp = create_redir_node(shell, &var->ptr_space, &var->i);
+	add_redir_to_child(var->child, var->tmp);
+}
+
 static void	alloc_childs_ext(t_alloc *var, t_mini *shell)
 {
 	while (1)
 	{
-		var->child->cmd = ft_substr(shell->argv, var->i, *var->ptr_space - var->i);
+		var->child->cmd = ft_substr(shell->argv,
+				var->i, *var->ptr_space - var->i);
 		var->i = *var->ptr_space + 1;
 		var->ptr_space++;
 		while (var->i != *var->ptr_sep && var->i != 1)
 		{
 			if (shell->argv[var->i] == '<' || shell->argv[var->i] == '>')
-			{
-				var->tmp = create_redir_node(shell, &var->ptr_space, &var->i);
-				add_redir_to_child(var->child, var->tmp);
-			}
+				alloc_childs_redir(var, shell);
 			else
 			{
 				var->temp = create_args_node(shell, &var->ptr_space, &var->i);

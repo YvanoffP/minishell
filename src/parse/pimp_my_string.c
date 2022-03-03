@@ -5,7 +5,8 @@ char	*check_around_n_cpy(t_mini *shell, int *ptr, int i, int j)
 	char	*ret;
 
 	skip_w_space(shell->argv, &i);
-	ret = (char *)malloc(sizeof(char) * (ft_strlen(shell->argv) + count_missing_space(shell->argv, ptr - i) + 1));
+	ret = (char *)malloc(sizeof(char) * (ft_strlen(shell->argv)
+				+ count_missing_space(shell->argv, ptr - i) + 1));
 	if (!ret)
 		return (NULL);
 	while (shell->argv[i])
@@ -16,7 +17,8 @@ char	*check_around_n_cpy(t_mini *shell, int *ptr, int i, int j)
 			if (!is_w_space(shell->argv[i - 1]))
 				ret[j++] = 32;
 		}
-		else if (is_sep(shell->argv[i - 1]) && shell->argv[i] && ((i - 1) == *ptr || (i - 2) == *ptr) && !is_sep(shell->argv[i]))
+		else if (is_sep(shell->argv[i - 1]) && shell->argv[i]
+			&& ((i - 1) == *ptr || (i - 2) == *ptr) && !is_sep(shell->argv[i]))
 		{
 			if (!is_w_space(shell->argv[i]))
 				ret[j++] = 32;
@@ -112,7 +114,7 @@ void	delete_last_spaces(char **str)
 {
 	int		len;
 	int		i;
-	int	nb_space;
+	int		nb_space;
 	char	*tmp;
 
 	len = ft_strlen(*str) - 1;

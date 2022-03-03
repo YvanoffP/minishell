@@ -3,12 +3,12 @@
 int	is_w_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\r'
-			|| c == '\n' || c == '\v' || c == '\f')
+		|| c == '\n' || c == '\v' || c == '\f')
 		return (1);
 	return (0);
 }
 
-int print_sep_error(char sep)
+int	print_sep_error(char sep)
 {
 	write(1, "parse error near '", 18);
 	write(1, &sep, 1);
