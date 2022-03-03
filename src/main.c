@@ -30,6 +30,8 @@ void	destroy(t_mini *shell)
 	if (shell->argv)
 		free(shell->argv);
 	shell->argv = NULL;
+	if (shell->exec)
+		free(shell->exec);
 }
 
 int main(int argc, char **argv, char **envp)
