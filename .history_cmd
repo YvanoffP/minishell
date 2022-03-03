@@ -2543,3 +2543,10 @@ echo $mama
 echo $mama"$ma"ma
 exit
 
+echo mama
+echo -n
+exit
+echo mama
+echo -n
+echo -n mama
+exit

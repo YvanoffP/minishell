@@ -30,7 +30,7 @@ int	check_exit(char *arg)
 	if (arg[i] == '-')
 		i++;
 	check_digit(arg + i);
-	exit_status = ft_atoi(arg  + i);
+	exit_status = ft_atoi(arg + i);
 	if (exit_status < 0)
 	{
 		error = ft_strjoin(arg, ": numeric argument required");

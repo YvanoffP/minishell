@@ -23,9 +23,9 @@ void	echo_func(t_built_args *args)
 	}
 	if (!ft_strcmp(args->name, "-n"))
 	{
-		if (args->next)
-			args = args->next;
-			echo_func_ext(args);
+		if (!args->next)
+			return ;
+		args = args->next;
 		echo_func_ext(args);
 		return ;
 	}

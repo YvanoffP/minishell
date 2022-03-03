@@ -4,7 +4,7 @@ void	pwd(void)
 {
 	char	*cwd;
 	char	*parsed_cwd;
-	char    buff[4096];
+	char	buff[4096];
 
 	cwd = getcwd(buff, 4096);
 	if (cwd == NULL)

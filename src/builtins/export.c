@@ -35,9 +35,9 @@ int	export_func(t_env **env_list, t_built_args *args)
 		while (args != NULL)
 		{
 			if (!check_args(args->name))
-				return (str_error("Export arguments wrong : expected identifier", 0));
+				return (str_error("Export arguments: expected identifier", 0));
 			if (!add_var_to_list(env_list, args->name))
-				return (str_error("Error malloc in the malloc of func add_var_to_list", 0));
+				return (str_error("Error malloc", 0));
 			args = args->next;
 		}
 	}
