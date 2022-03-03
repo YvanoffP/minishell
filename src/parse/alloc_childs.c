@@ -1,13 +1,13 @@
 #include "../../inc/minishell.h"
 
-void	alloc_struct_init(t_alloc *var, int **ptrsep, int **ptrspace)
+static void	alloc_struct_init(t_alloc *var, int **ptrsep, int **ptrspace)
 {
 	var->i = 0;
 	var->ptr_space = *ptrspace;
 	var->ptr_sep = *ptrsep;
 }
 
-void	alloc_childs_ext(t_alloc *var, t_mini *shell)
+static void	alloc_childs_ext(t_alloc *var, t_mini *shell)
 {
 	while (1)
 	{

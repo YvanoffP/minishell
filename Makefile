@@ -53,6 +53,8 @@ PARSE_FILES =	parsing.c \
 				replace_dollars.c \
 				alloc_childs.c \
 				dollar_out_quote.c \
+				arg_redir_nodes.c \
+				quote_treatment.c \
 				list_parsing.c
 
 # SIGNAL files variable

@@ -1,5 +1,25 @@
 #include "../../inc/minishell.h"
 
+int	detect_sep(char *str, int *start)
+{
+	if (str[*start] == '>')
+	{
+		if (str[*start + 1] == '>')
+		{
+			*start += 3;
+			return (DB_GREAT);
+		}
+		*start += 2;
+		return (GREAT);
+	}
+	else if (str[*start] == '<')
+	{
+		*start += 2;
+		return (LESS);
+	}
+	return (-1);
+}
+
 int	count_pipe(char *str)
 {
 	int	i;

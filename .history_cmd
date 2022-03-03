@@ -2526,3 +2526,7 @@ echo mama           papa
 echo mama           papa "lolilol pizza          "
 echo mama           papa "lolilol pizza          " caca
 exit
+export mama=5
+echo '$mama'"$mama" '    couc"$mama"$mam lol'
+echo '$mama'"$mam"a '    couc"$mama"$mam lol'
+exit
