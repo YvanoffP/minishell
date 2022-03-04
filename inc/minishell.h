@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
+/*   Updated: 2022/03/04 02:08:47 by tpauvret         ###   ########.fr       */
+/*																			*/
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -24,17 +36,17 @@
 # define YES 1
 # define NO 0
 
-int	infork;
+int	g_infork;
 
 typedef struct s_mini
 {
 	int					cmd_count;
 	struct s_command	*child;
 	struct s_process	*exec;
-    char            	*mini_cwd;
-    char            	*argv;
-	int		        	fd_history;
-}               t_mini;
+	char				*mini_cwd;
+	char				*argv;
+	int					fd_history;
+}			t_mini;
 
 typedef struct s_env
 {
@@ -45,28 +57,28 @@ typedef struct s_env
 
 typedef struct s_dollvar
 {
-    int     j;
-    char    *ret;
-    char    *tmp;
-    char    *value;
-    int     flag;
-}           t_dollvar;
+	int		j;
+	char	*ret;
+	char	*tmp;
+	char	*value;
+	int		flag;
+}			t_dollvar;
 
 /////////PARSING REDIRECTION/////////////////
 
 typedef struct s_alloc
 {
-    int *ptr_sep;
-    int *ptr_space;
-    int i;
-    int k;
-    int dollar_index;
-    struct s_command   *child;
-    struct s_redir     *tmp;
-    struct s_built_args *temp;
-    char                *ret;
-    char                quote;
-}           t_alloc;
+	int					*ptr_sep;
+	int					*ptr_space;
+	int					i;
+	int					k;
+	int					dollar_index;
+	struct s_command	*child;
+	struct s_redir		*tmp;
+	struct s_built_args	*temp;
+	char				*ret;
+	char				quote;
+}			t_alloc;
 
 typedef enum e_type{
 	GREAT,
@@ -97,112 +109,114 @@ typedef struct s_command
 
 typedef struct s_process
 {
-    int *fd;
-    int my_fd[2];
-    int *pid;
-    int cmd_count;
-    int ret;
-}               t_process;
+	int	*fd;
+	int	my_fd[2];
+	int	*pid;
+	int	cmd_count;
+	int	ret;
+}			t_process;
 
 //////////////////////////////////////////////
 
 //FILSDEPUTE
-void rl_replace_line (const char *, int);
+void			rl_replace_line(const char *str, int i);
 
 // MiniShell - minishell.c
-void	init_mini(t_mini *shell, t_env **env);
-void	init_env(t_env **env_list, char **env);
-void	exit_shell(t_mini *shell);
+void			init_mini(t_mini *shell, t_env **env);
+void			init_env(t_env **env_list, char **env);
+void			exit_shell(t_mini *shell);
 
 // MiniShell - prompt_msg.c
-char    *sub_path(char *path);
-void	prompt_msg(t_mini *shell);
+char			*sub_path(char *path);
+void			prompt_msg(t_mini *shell);
 
 // MiniShell - working_history.c
-void	working_history(t_mini *shell);
+void			working_history(t_mini *shell);
 
 // Builtins - echo.c
-void	echo_func(t_built_args *args);
+void			echo_func(t_built_args *args);
 
 // Builtins - env.c
-void	env_func(t_env **env_list);
+void			env_func(t_env **env_list);
 
 // Builtins - chained_list.c
-void	replace_in_lst(t_env *new_node, t_env **env_list);
-t_env	*get_in_lst(char *var, t_env **env_list);
-int		is_in_lst(char	*var, t_env **env_list);
-t_env	*sort_list_export(t_env **env_list);
-void	delete_list(t_env *env_list);
+void			replace_in_lst(t_env *new_node, t_env **env_list);
+t_env			*get_in_lst(char *var, t_env **env_list);
+int				is_in_lst(char	*var, t_env **env_list);
+t_env			*sort_list_export(t_env **env_list);
+void			delete_list(t_env *env_list);
 
 // Builtins - chained_list_2.c
-void	add_to_list(t_env **env_list, t_env *new_node);
-t_env	*dup_node(char *name, char *value);
-t_env	*duplicate_list(t_env **env_list);
-t_env	*create_node(char *var_array);
-int		count_list(t_env **list);
+void			add_to_list(t_env **env_list, t_env *new_node);
+t_env			*dup_node(char *name, char *value);
+t_env			*duplicate_list(t_env **env_list);
+t_env			*create_node(char *var_array);
+int				count_list(t_env **list);
 
 // Builtins - swap_nodes.c
-void    swap_nodes(t_env *tmp);
+void			swap_nodes(t_env *tmp);
 
 // Builtins - export.c
-int		export_func(t_env **env_list, t_built_args *args);
-int		check_only_num(char *str);
-int		check_args(char *name);
-int		is_num(char c);
+int				export_func(t_env **env_list, t_built_args *args);
+int				check_only_num(char *str);
+int				check_args(char *name);
+int				is_num(char c);
 
 // Builtins - export_2.c
-int 	add_var_to_list(t_env **env_list, char *args);
-void	print_export_list(t_env **env_list);
-char	**env_duplicate(char **envp);
-int		check_wrong_char(char *str);
+int				add_var_to_list(t_env **env_list, char *args);
+void			print_export_list(t_env **env_list);
+char			**env_duplicate(char **envp);
+int				check_wrong_char(char *str);
 
 // EXECUTION - execution.c
-char	*join_path_to_arg(char *path, char *arg);
-int		exec_program(t_command *child, t_env **env_list);
-int		is_builtins(t_env **env_list, t_command *child);
-int		execution(t_env **env_list, t_mini *shell);
+char			*join_path_to_arg(char *path, char *arg);
+int				exec_program(t_command *child, t_env **env_list);
+int				is_builtins(t_env **env_list, t_command *child);
+int				execution(t_env **env_list, t_mini *shell);
 
 // EXECUTION - redirection.c
-int		redirection(t_redir *redirection, t_process *proc);
-int		db_great_than(int *fd, t_redir *redirection);
-int		great_than(int *fd, t_redir *redirection);
-int		less_than(int *fd, t_redir *redirection);
+int				redirection(t_redir *redirection, t_process *proc);
+int				db_great_than(int *fd, t_redir *redirection);
+int				great_than(int *fd, t_redir *redirection);
+int				less_than(int *fd, t_redir *redirection);
 
 // EXCUTION - exec_tools.c
-int		print_error(char *str, char *msg, int ret);
-char	**args_to_array(t_command *child);
-char	**lst_to_array(t_env **env_list);
-int		count_args(t_built_args *lst);
-int 	backup(int flag);
+int				print_error(char *str, char *msg, int ret);
+char			**args_to_array(t_command *child);
+char			**lst_to_array(t_env **env_list);
+int				count_args(t_built_args *lst);
+int				backup(int flag);
 
 // EXECUTION - file_func.c
-void	exec_file(t_command *child, t_env **env_list, char *path, int *status);
-int		check_file(t_env **env_list, t_command *child);
-int		check_path(t_env **env_list, t_command *child);
-int		find_file(t_env **env_list, t_command *child);
-int		error_file(t_redir *redirection);
+void			exec_file(t_command *child, t_env **env_list,
+					char *path, int *status);
+int				check_file(t_env **env_list, t_command *child);
+int				check_path(t_env **env_list, t_command *child);
+int				find_file(t_env **env_list, t_command *child);
+int				error_file(t_redir *redirection);
 
 // EXECUTION - pipe.c
-int 	pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list);
-int 	close_fd(t_mini *shell, t_process *proc);
-int 	create_fd_pipe(t_mini *shell, t_process *proc);
-int		pipe_fork(t_command    *child, t_env **env_list, t_process *proc, int *cmd);
+int				pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list);
+int				close_fd(t_mini *shell, t_process *proc);
+int				create_fd_pipe(t_mini *shell, t_process *proc);
+int				pipe_fork(t_command	*child, t_env **env_list,
+					t_process *proc, int *cmd);
 
 // Signal - signal.c
-void    run_signals(int sig);
-void    restore_prompt(int sig);
-void    ctrl_c(int sig);
-void    back_slash(int sig);
+void			run_signals(int sig);
+void			restore_prompt(int sig);
+void			ctrl_c(int sig);
+void			back_slash(int sig);
 
 // Builtins - cd.c
-int     cd(char *path);
+int				cd(char *path);
 
 // Parse - parsing.c
-char 			*find_env_var(char *str, int *i, t_env **env_list);
+char			*find_env_var(char *str, int *i, t_env **env_list);
 int				count_cmd(int *sep);
 int				split_arg(t_mini *shell, t_env **env_list);
-int	    		parsing(t_mini *shell, t_env **env_list);
-void            destroy_sep_n_space(int **sep, int **space);
+int				parsing(t_mini *shell, t_env **env_list);
+void			destroy_sep_n_space(int **sep, int **space);
 
 // Parse - alloc_childs.c
 void			alloc_childs(t_mini *shell, int *sep, int *space);
@@ -220,65 +234,67 @@ t_redir			*create_redir_node(t_mini *shell, int **ptr_space, int *i);
 void			add_redir_to_child(t_command *child, t_redir *new);
 
 // Parse - dollar_out_quote.c
-void	        dollar_out_quote(t_mini *shell, t_env **env_list);
+void			dollar_out_quote(t_mini *shell, t_env **env_list);
 
 // Parse - sep_n_space.c
 int				detect_sep(char *str, int *start);
-int             *parse_space(char *str);
-int             count_space(char *str);
-int             *parse_sep(char *str);
-int             count_pipe(char *str);
+int				*parse_space(char *str);
+int				count_space(char *str);
+int				*parse_sep(char *str);
+int				count_pipe(char *str);
 
 // Parse - error_parse.c
-int     str_error(char *str, int ret);
-int     check_args_error(char *str);
-int	    check_quote_err(char *str);
+int				str_error(char *str, int ret);
+int				check_args_error(char *str);
+int				check_quote_err(char *str);
 
 // Parse - pimp_my_string.c
-char	*pimp_my_string(t_mini *shell, int *sep);
-void	delete_last_spaces(char **str);
-int     spaces_to_del(char *str);
-void    delete_mid_spaces(char **ret, t_alloc var);
+char			*pimp_my_string(t_mini *shell, int *sep);
+void			delete_last_spaces(char **str);
+int				spaces_to_del(char *str);
+void			delete_mid_spaces(char **ret, t_alloc var);
 
 // Parse - pimp_my_string.c
-int	    count_missing_space(char *str, int *sep);
-void    work_nb_n_len(int *nb_space, int *len);
-char    *check_around_n_cpy(t_mini *shell, int *ptr, int i, int j);
+int				count_missing_space(char *str, int *sep);
+void			work_nb_n_len(int *nb_space, int *len);
+char			*check_around_n_cpy(t_mini *shell, int *ptr, int i, int j);
 
 // Parse - list_parsing.c
-void	create_n_add_empty_child(t_mini *shell);
-void	init_child(t_mini *shell);
+void			create_n_add_empty_child(t_mini *shell);
+void			init_child(t_mini *shell);
 
 // Parse - parse_tools.c
-int     print_sep_error(char sep);
-int	    print_quote_err(void);
-int	    count_arr(char **tab);
-int     is_w_space(char c);
-int	    is_sep(char c);
+int				print_sep_error(char sep);
+int				print_quote_err(void);
+int				count_arr(char **tab);
+int				is_w_space(char c);
+int				is_sep(char c);
 
 // Parse - parse_tools_2.c
-void	skip_w_space(char *str, int *i);
-int     have_a_dollar(char *str, int i);
-int	    have_a_dollar_out_q(char *str);
-void	skip_quote(char *str, int *i);
-int     detect_quote(char *str);
+void			skip_w_space(char *str, int *i);
+int				have_a_dollar(char *str, int i);
+int				have_a_dollar_out_q(char *str);
+void			skip_quote(char *str, int *i);
+int				detect_quote(char *str);
 
 // Parse - replace_dollars.c
-int     get_value_in_str(char *str, int *i, t_dollvar *data, t_env **env_list);
-int     find_dollars_str(char *str, int *i, t_dollvar *data, t_env **env_list);
-char    *replace_dollars(char *str, t_env **env_list, int i, int flag);
-void    init_dollvar(t_dollvar *data, int i, int flag);
-char    *append(t_dollvar *data);
+int				get_value_in_str(char *str, int *i,
+					t_dollvar *data, t_env **env_list);
+int				find_dollars_str(char *str, int *i,
+					t_dollvar *data, t_env **env_list);
+char			*replace_dollars(char *str, t_env **env_list, int i, int flag);
+void			init_dollvar(t_dollvar *data, int i, int flag);
+char			*append(t_dollvar *data);
 
 // Builtins - pwd.c
-void    pwd(void);
+void			pwd(void);
 
 // Builtins - unset.c
-void	unset(t_built_args *args, t_env **env_list);
+void			unset(t_built_args *args, t_env **env_list);
 
 // Builtins - exit.c
-void	check_digit(char *arg);
-int		check_exit(char *arg);
-void	exit_func(t_built_args *args);
+void			check_digit(char *arg);
+int				check_exit(char *arg);
+void			exit_func(t_built_args *args);
 
 #endif
