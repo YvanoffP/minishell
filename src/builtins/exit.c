@@ -72,4 +72,5 @@ void	exit_func(t_built_args *args)
 	if (args->next != NULL)
 		return (print_error("exit", ": too many arguments", 1));
 	exit(i);
+	return (0);
 }
