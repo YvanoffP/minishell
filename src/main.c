@@ -13,6 +13,26 @@
 
 #include "minishell.h"
 
+static void	write_inputrc(void)
+{
+	int		fd;
+	int		ret;
+	char	*buf;
+	char	*home;
+
+	ret = 0;
+	fd = 0;
+	buf = NULL;
+	home = getenv("HOME");
+	home = ft_strjoin(home, "/.inputrc");
+	fd = open(home, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	ret = read(fd, buf, 100);
+	if (ret == 0)
+		write(fd, "set echo-control-characters Off",
+			ft_strlen("set echo-control-characters Off"));
+	free(home);
+}
+
 static void	destroy_childs(t_mini *shell)
 {
 	t_alloc	var;
@@ -60,6 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_mini(&shell, &env_list);
 	init_env(&env_list, envp);
+	write_inputrc();
 	while (1)
 	{
 		run_signals(1);

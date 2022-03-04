@@ -2591,3 +2591,14 @@ exit 9223372036854775808
 exit +3
 exit -1
 exit coucou
+exit
+echo mama
+exit
+exit
+mama
+exit
+mama
+exit
+exit
+echo mama
+exit
