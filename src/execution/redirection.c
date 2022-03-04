@@ -18,7 +18,7 @@ int	great_than(int *fd, t_redir *redirection)
 	*fd = open(redirection->file_name,
 			O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
 	if ((*fd) < 0)
-		return (1);
+		return (file_error(redirection));
 	dup2((*fd), STDOUT_FILENO);
 	close((*fd));
 	return (0);
@@ -28,7 +28,7 @@ int	less_than(int *fd, t_redir *redirection)
 {
 	*fd = open(redirection->file_name, O_RDONLY);
 	if ((*fd) < 0)
-		return (1);
+		return (file_error(redirection));
 	dup2((*fd), STDIN_FILENO);
 	close((*fd));
 	return (0);
@@ -39,7 +39,7 @@ int	db_great_than(int *fd, t_redir *redirection)
 	*fd = open(redirection->file_name,
 			O_CREAT | O_RDONLY | O_WRONLY | O_APPEND, 0644);
 	if ((*fd) < 0)
-		return (1);
+		return (file_error(redirection));
 	dup2((*fd), STDOUT_FILENO);
 	close((*fd));
 	return (0);

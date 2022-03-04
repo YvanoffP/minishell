@@ -25,9 +25,15 @@ char	*join_path_to_arg(char *path, char *arg)
 
 static void	execve_call(t_command *child, t_env **env_list)
 {
+	char	*error;
+
 	if (execve(child->cmd, args_to_array(child), lst_to_array(env_list)) == -1)
-		print_error(child->cmd, "Execve failed", -1);
-	exit(0);
+	{
+		error = ft_strjoin(": ", strerror(errno));
+		print_error(child->cmd, error, errno);
+		free(error);
+		exit(errno);
+	}
 }
 
 int	exec_program(t_command *child, t_env **env_list)
@@ -42,7 +48,7 @@ int	exec_program(t_command *child, t_env **env_list)
 	if (!pid)
 		execve_call(child, env_list);
 	else if (pid == -1)
-		return (print_error("fork: ", "Fork failed", -2));
+		return (print_error("fork: ", "Fork failed", errno));
 	else
 	{
 		waitpid(pid, &status, 0);
@@ -56,28 +62,35 @@ int	exec_program(t_command *child, t_env **env_list)
 		}
 		return (ret_status);
 	}
-	return (100);
+	return (77);
 }
 
 int	is_builtins(t_env **env_list, t_command *child)
 {
-	if (!ft_strcmp(child->cmd, EXPORT))
+	if (!(ft_strcmp(child->cmd, EXPORT))
+		|| !(ft_strcmp(child->cmd, "EXPORT")))
 		export_func(env_list, child->args);
-	else if (!ft_strcmp(child->cmd, ECHO_CMD))
+	else if (!(ft_strcmp(child->cmd, ECHO_CMD))
+		|| !(ft_strcmp(child->cmd, "ECHO")))
 		echo_func(child->args);
-	else if (!ft_strcmp(child->cmd, UNSET))
+	else if (!(ft_strcmp(child->cmd, UNSET))
+		|| !(ft_strcmp(child->cmd, "UNSET")))
 		unset(child->args, env_list);
-	else if (!ft_strcmp(child->cmd, CD))
+	else if (!(ft_strcmp(child->cmd, CD))
+		|| !(ft_strcmp(child->cmd, "CD")))
 		cd(child->args->name);
-	else if (!ft_strcmp(child->cmd, ENV))
+	else if (!(ft_strcmp(child->cmd, ENV))
+		|| !(ft_strcmp(child->cmd, "ENV")))
 		env_func(env_list);
-	else if (!ft_strcmp(child->cmd, PWD))
+	else if (!(ft_strcmp(child->cmd, PWD))
+		|| !(ft_strcmp(child->cmd, "PWD")))
 		pwd();
-	else if (!ft_strcmp(child->cmd, EXIT))
+	else if (!(ft_strcmp(child->cmd, EXIT))
+		|| !(ft_strcmp(child->cmd, "EXIT")))
 		exit_func(child->args);
 	else
 		return (check_path(env_list, child));
-	return (0);
+	return (1);
 }
 
 int	execution(t_env **env_list, t_mini *shell)

@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/04 02:08:47 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:58:46 by tpauvret         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
@@ -193,7 +194,7 @@ void			exec_file(t_command *child, t_env **env_list,
 int				check_file(t_env **env_list, t_command *child);
 int				check_path(t_env **env_list, t_command *child);
 int				find_file(t_env **env_list, t_command *child);
-int				error_file(t_redir *redirection);
+int				file_error(t_redir *redirection);
 
 // EXECUTION - pipe.c
 int				pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list);

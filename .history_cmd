@@ -2567,3 +2567,7 @@ cat
 cat
 cat
 exit
+
+ECHO mama
+export
+exit
