@@ -2574,3 +2574,10 @@ export
 exit
 =======
 >>>>>>> 082aed0 (fixed ctrl=d)
+wc -l src/parse/*.c
+ls
+wc -l src/parse/*.c
+wc -l src/main.c
+wc -l src/parse/alloc_childs.c 
+wc -l src/parse/*.c
+exit

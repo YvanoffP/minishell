@@ -69,9 +69,11 @@ int	file_error(t_redir *redirection)
 		if (buf.st_mode & S_IFDIR)
 			return (print_error(redirection->file_name, ": Is a directory", 1));
 		else if ((buf.st_mode & S_IXUSR) == 0)
-			return (print_error(redirection->file_name, ": Permission denied", 1));
+			return (print_error(redirection->file_name,
+					": Permission denied", 1));
 	}
-	return (print_error(redirection->file_name, ": No such file or directory", 1));
+	return (print_error(redirection->file_name,
+			": No such file or directory", 1));
 }
 
 int	find_file(t_env **env_list, t_command *child)
