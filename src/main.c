@@ -63,6 +63,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		run_signals(1);
 		prompt_msg(&shell);
+		if (shell.argv == NULL)
+			break ;
 		working_history(&shell);
 		if (ft_strcmp(shell.argv, ""))
 		{

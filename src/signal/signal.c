@@ -25,11 +25,6 @@ void	run_signals(int sig)
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, back_slash);
 	}
-	if (sig == 3)
-	{
-		printf("exit\n");
-		exit(0);
-	}
 }
 
 void	restore_prompt(int sig)

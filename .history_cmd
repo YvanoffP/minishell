@@ -2568,6 +2568,9 @@ cat
 cat
 exit
 
+<<<<<<< HEAD
 ECHO mama
 export
 exit
+=======
+>>>>>>> 082aed0 (fixed ctrl=d)
