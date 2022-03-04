@@ -56,7 +56,7 @@ int	check_exit(char *arg)
 	return (exit_status * -1);
 }
 
-void	exit_func(t_built_args *args)
+int	exit_func(t_built_args *args)
 {
 	int	i;
 

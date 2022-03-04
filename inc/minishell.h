@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/04 12:58:46 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:14:33 by tpauvret         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -296,6 +296,6 @@ void			unset(t_built_args *args, t_env **env_list);
 // Builtins - exit.c
 void			check_digit(char *arg);
 int				check_exit(char *arg);
-void			exit_func(t_built_args *args);
+int				exit_func(t_built_args *args);
 
 #endif
