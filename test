@@ -12,6 +12,8 @@ export papa=$mama
 export test
 
 Test :
+	./minishell 2>lol (redirection de stderr, aucuns messages d'erreurs ne doivent s'imprimer dans le terminal)
+	./minishell coucou
 	echo $mama
 	echo $mama$papa
 	echo '$'mama"$papa"
@@ -31,3 +33,13 @@ Test :
 
 	rm file file2
 	ls > file -l < file2 -a
+
+	exit ' 3'
+	exit -1
+	exit -9223372036854775808
+	exit 9223372036854775807
+	exit +3 
+	exit 2000000
+	exit -2147483649
+	exit coucou
+	exit 0 bonjour

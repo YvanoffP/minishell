@@ -55,7 +55,8 @@ int	main(int argc, char **argv, char **envp)
 	t_mini	shell;
 	t_env	*env_list;
 
-	(void)argc;
+	if (argc > 1)
+		return (str_error("Too many arguments", 0));
 	(void)argv;
 	init_mini(&shell, &env_list);
 	init_env(&env_list, envp);

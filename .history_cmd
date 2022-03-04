@@ -2581,3 +2581,13 @@ wc -l src/main.c
 wc -l src/parse/alloc_childs.c 
 wc -l src/parse/*.c
 exit
+exit
+echa
+q
+y
+exit
+exit -9223372036854775808
+exit 9223372036854775808
+exit +3
+exit -1
+exit coucou

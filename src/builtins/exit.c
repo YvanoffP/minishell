@@ -35,9 +35,9 @@ void	check_digit(char *arg)
 
 int	check_exit(char *arg)
 {
-	int		i;
-	char	*error;
-	int		exit_status;
+	int				i;
+	char			*error;
+	long long		exit_status;
 
 	i = 0;
 	if (arg[i] == '-')
