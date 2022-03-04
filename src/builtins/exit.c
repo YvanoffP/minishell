@@ -69,4 +69,7 @@ void	exit_func(t_built_args *args)
 	if (g_infork == NO)
 		ft_putendl_fd("exit", 1);
 	i = check_exit(args->name);
+	if (args->next != NULL)
+		return (print_error("exit", ": too many arguments", 1));
+	exit(i);
 }
