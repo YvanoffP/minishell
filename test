@@ -21,3 +21,13 @@ Test :
 	cat | ls
 	cat | cat | ls
 
+	grep | ls
+	echo mama > file
+	ls > file -l > file2 -a | echo coucou >> file2
+
+	unset mama
+	export
+	export mama=5
+
+	rm file file2
+	ls > file -l < file2 -a
