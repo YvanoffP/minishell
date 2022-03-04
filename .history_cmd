@@ -2559,3 +2559,11 @@ echo mama
 echo "$mama"
 echo "$mama"
 exit
+
+
+ehco mama
+echo mama
+cat
+cat
+cat
+exit

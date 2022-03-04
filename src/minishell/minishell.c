@@ -28,7 +28,7 @@ void	init_mini(t_mini *shell, t_env **env)
 	shell->child = NULL;
 	*env = NULL;
 	shell->fd_history = 0;
-	infork = NO;
+	g_infork = NO;
 }
 
 void	init_env(t_env **env_list, char **env)
