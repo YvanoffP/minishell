@@ -1,0 +1,23 @@
+///////////////////////////////////////////////////////////
+/														  /
+/														  /
+/						TEST TO DO						  /
+/														  /
+/														  /
+///////////////////////////////////////////////////////////
+
+Before testing : 
+export mama=5
+export papa=$mama
+export test
+
+Test :
+	echo $mama
+	echo $mama$papa
+	echo '$'mama"$papa"
+	echo '$mama'"$"papa
+	echo "coucou'$test'coucou"
+
+	cat | ls
+	cat | cat | ls
+
