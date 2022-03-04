@@ -13,35 +13,6 @@
 
 #include "../../inc/minishell.h"
 
-char	*check_around_n_cpy(t_mini *shell, int *ptr, int i, int j)
-{
-	char	*ret;
-
-	skip_w_space(shell->argv, &i);
-	ret = (char *)malloc(sizeof(char) * (ft_strlen(shell->argv)
-				+ count_missing_space(shell->argv, ptr - i) + 1));
-	if (!ret)
-		return (NULL);
-	while (shell->argv[i])
-	{
-		ret[j++] = shell->argv[i++];
-		if (is_sep(shell->argv[i]) && shell->argv[i] && i == *ptr)
-		{
-			if (!is_w_space(shell->argv[i - 1]))
-				ret[j++] = 32;
-		}
-		else if (is_sep(shell->argv[i - 1]) && shell->argv[i]
-			&& ((i - 1) == *ptr || (i - 2) == *ptr) && !is_sep(shell->argv[i]))
-		{
-			if (!is_w_space(shell->argv[i]))
-				ret[j++] = 32;
-			ptr++;
-		}
-	}
-	ret[j] = 0;
-	return (ret);
-}
-
 int	spaces_to_del(char *str)
 {
 	int		i;
@@ -71,56 +42,53 @@ int	spaces_to_del(char *str)
 	return (total);
 }
 
-void	delete_mid_spaces(char **ret)
-{
-	int		i;
-	int		k;
-	char	quote;
-	char	*final;
-
-	k = 0;
-	i = 0;
-	final = malloc(sizeof(char) * (ft_strlen(*ret) + spaces_to_del(*ret)) + 1);
-	while ((*ret)[i])
-	{
-		if ((*ret)[i] == 39 || (*ret)[i] == 34)
-		{
-			final[k++] = (*ret)[i];
-			quote = (*ret)[i++];
-			while ((*ret)[i] != quote)
-				final[k++] = (*ret)[i++];
-			final[k++] = (*ret)[i++];
-		}
-		else if ((*ret)[i] == 32)
-		{
-			final[k++] = (*ret)[i++];
-			skip_w_space(*ret, &i);
-		}
-		else
-			final[k++] = (*ret)[i++];
-	}
-	final[k] = '\0';
-	free(*ret);
-	*ret = final;
-}
-
 char	*pimp_my_string(t_mini *shell, int *sep)
 {
 	int		*ptr;
 	char	*ret;
+	t_alloc	var;
 
+	var.i = 0;
 	ptr = sep;
 	ret = check_around_n_cpy(shell, ptr, 0, 0);
 	delete_last_spaces(&ret);
-	delete_mid_spaces(&ret);
+	delete_mid_spaces(&ret, var);
 	free(shell->argv);
 	return (ret);
 }
 
-void	work_nb_n_len(int *nb_space, int *len)
+static void	init_alloc_var(t_alloc *var)
 {
-	*nb_space += 1;
-	*len -= 1;
+	var->i = 0;
+	var->k = 0;
+}
+
+void	delete_mid_spaces(char **ret, t_alloc var)
+{
+	init_alloc_var(&var);
+	var.ret = malloc(sizeof(char)
+			* (ft_strlen(*ret) + spaces_to_del(*ret)) + 1);
+	while ((*ret)[var.i])
+	{
+		if ((*ret)[var.i] == 39 || (*ret)[var.i] == 34)
+		{
+			var.ret[var.k++] = (*ret)[var.i];
+			var.quote = (*ret)[var.i++];
+			while ((*ret)[var.i] != var.quote)
+				var.ret[var.k++] = (*ret)[var.i++];
+			var.ret[var.k++] = (*ret)[var.i++];
+		}
+		else if ((*ret)[var.i] == 32)
+		{
+			var.ret[var.k++] = (*ret)[var.i++];
+			skip_w_space(*ret, &var.i);
+		}
+		else
+			var.ret[var.k++] = (*ret)[var.i++];
+	}
+	var.ret[var.k] = '\0';
+	free(*ret);
+	*ret = var.ret;
 }
 
 void	delete_last_spaces(char **str)
@@ -148,25 +116,4 @@ void	delete_last_spaces(char **str)
 		*str = ft_strdup(tmp);
 		free(tmp);
 	}
-}
-
-int	count_missing_space(char *str, int *sep)
-{
-	int	i;
-	int	*ptr;
-	int	missing_space;
-
-	missing_space = 0;
-	i = 0;
-	ptr = sep;
-	while (*ptr)
-	{
-		i = *ptr;
-		if (is_w_space(str[i - 1]))
-			missing_space++;
-		if (is_w_space(str[i + 1]))
-			missing_space++;
-		ptr++;
-	}
-	return (missing_space);
 }

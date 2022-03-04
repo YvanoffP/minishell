@@ -51,6 +51,7 @@ PARSE_FILES =	parsing.c \
 				sep_n_space.c \
 				parse_tools_2.c \
 				pimp_my_string.c \
+				pimp_my_string_2.c \
 				replace_dollars.c \
 				alloc_childs.c \
 				dollar_out_quote.c \

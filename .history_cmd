@@ -2550,3 +2550,12 @@ echo mama
 echo -n
 echo -n mama
 exit
+cat | ls
+exit
+echo mama
+echo mama | echo papa
+exit
+echo mama
+echo "$mama"
+echo "$mama"
+exit

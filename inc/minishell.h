@@ -59,11 +59,13 @@ typedef struct s_alloc
     int *ptr_sep;
     int *ptr_space;
     int i;
+    int k;
     int dollar_index;
     struct s_command   *child;
     struct s_redir     *tmp;
     struct s_built_args *temp;
     char                *ret;
+    char                quote;
 }           t_alloc;
 
 typedef enum e_type{
@@ -233,13 +235,15 @@ int     check_args_error(char *str);
 int	    check_quote_err(char *str);
 
 // Parse - pimp_my_string.c
-char    *check_around_n_cpy(t_mini *shell, int *ptr, int i, int j);
 char	*pimp_my_string(t_mini *shell, int *sep);
-int	    count_missing_space(char *str, int *sep);
-void    work_nb_n_len(int *nb_space, int *len);
 void	delete_last_spaces(char **str);
 int     spaces_to_del(char *str);
-void    delete_mid_spaces(char **ret);
+void    delete_mid_spaces(char **ret, t_alloc var);
+
+// Parse - pimp_my_string.c
+int	    count_missing_space(char *str, int *sep);
+void    work_nb_n_len(int *nb_space, int *len);
+char    *check_around_n_cpy(t_mini *shell, int *ptr, int i, int j);
 
 // Parse - list_parsing.c
 void	create_n_add_empty_child(t_mini *shell);
