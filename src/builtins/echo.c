@@ -13,9 +13,25 @@
 
 #include "minishell.h"
 
+static int	acorn_of_wisdom(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+	{
+		i++;
+		while (str[i] == 'n' && str[i])
+			i++;
+		if (str[i] == '\0')
+			return (0);
+	}
+	return (1);
+}
+
 static void	echo_func_ext(t_built_args *args)
 {
-	while (!ft_strcmp(args->name, "-n") && args)
+	while (!acorn_of_wisdom(args->name))
 		args = args->next;
 	while (args)
 	{
@@ -36,7 +52,7 @@ void	echo_func(t_built_args *args)
 		write(1, "\n", 1);
 		return ;
 	}
-	if (!ft_strcmp(args->name, "-n"))
+	if (!acorn_of_wisdom(args->name))
 	{
 		if (!args->next)
 			return ;

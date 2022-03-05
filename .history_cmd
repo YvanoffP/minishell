@@ -2578,7 +2578,7 @@ wc -l src/parse/*.c
 ls
 wc -l src/parse/*.c
 wc -l src/main.c
-wc -l src/parse/alloc_childs.c 
+wc -l src/parse/alloc_childs.c
 wc -l src/parse/*.c
 exit
 exit
@@ -2602,6 +2602,7 @@ exit
 exit
 echo mama
 exit
+<<<<<<< HEAD
 exit
 export mama=5
 export papa=$mama
@@ -2644,7 +2645,7 @@ exit ' 3'
 exit -1
 exit -9223372036854775808
 exit 9223372036854775807
-exit +3 
+exit +3
 exit 0 bonjour
 Echo -n -n -n bonjour
 echo -n -n -n bonjour
@@ -2652,44 +2653,44 @@ echo ~
 echo ~mama
 exit
 exit
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-n
-echo '$mama'"$"papa 
-dollar_out_quote_ext
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
 echo '$mama'"$"papa
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+n
+echo '$mama'"$"papa
+dollar_out_quote_ext
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
 export mama=5
-echo '$mama'"$"papa 
+echo '$mama'"$"papa
 echo '$mama'
-echo '$mama'"$"papa 
+echo '$mama'"$"papa
 exit
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
-echo '$mama'"$"papa 
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo '$mama'"$"papa
 echo '$mama'
-echo "coucou'$test'coucou" 
+echo "coucou'$test'coucou"
 exit
-echo "coucou'$test'coucou" 
-echo "coucou'$test'coucou" 
+echo "coucou'$test'coucou"
+echo "coucou'$test'coucou"
 non
 exit
 echo "coucou'$test'coucou"
@@ -2724,7 +2725,7 @@ echo $papa
 echo $mama
 echo $mama
 cd $pwd
-cd 
+cd
 exit
 cd $pwd
 exit
@@ -2733,7 +2734,7 @@ exit
 cd $caca
 pwd
 ls
-cd 
+cd
 ls
 exit
 cd ""
@@ -2758,4 +2759,16 @@ echo -n -n -n mama
 exit
 echo -n -n -n mama
 echo -n -n -n mama -n
+cd "dosntexist"
+cd "doesntexist"
+cd '\etc'
+cd bark bark
+echo "-nnnn" bonjour
+make
+exit
+echo -nnnnnnnnnnnnnnnn -nnnnnnnnnnnnnnn bonjour
+git add -p
+echo "-nnnnnnnnnnnnnnnan" mama
+echo "-nnnnnnnnnnnnnnn an" mama
+echo "-nnnnnnnnnnnnnnn      " mama
 exit
