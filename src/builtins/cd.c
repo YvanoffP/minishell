@@ -29,7 +29,12 @@ int	cd(t_built_args *args)
 
 	ret = 0;
 	if (args)
-		ret = chdir(args->name);
+	{
+		if (ft_strlen(args->name))
+			ret = chdir(args->name);
+		else
+			return (0);
+	}
 	else
 		chdir(getenv("HOME"));
 	if (ret)

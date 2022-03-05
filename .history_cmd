@@ -2715,3 +2715,47 @@ exit
 cd ?
 exi
 exit
+d $pwd/
+cd $pwd/
+cd $PWD
+cd $pwd
+cd $pwd
+echo $papa
+echo $mama
+echo $mama
+cd $pwd
+cd 
+exit
+cd $pwd
+exit
+cd ""
+exit
+cd $caca
+pwd
+ls
+cd 
+ls
+exit
+cd ""
+pwd
+exit
+cd "$bite"
+""
+exit +3
+exit -3
+exit +3
+' 3'
+exit ' 3'
+exit ' 3'
+exit '         3       '
+exit '      3       3     '
+exit 9999999999999999999999999999999999999999999999999999
+echo $bite=mama
+exit
+echo -n -n -n mama
+Echo -n -n -n mama
+echo -n -n -n mama
+exit
+echo -n -n -n mama
+echo -n -n -n mama -n
+exit
