@@ -2705,3 +2705,13 @@ echo "coucou'$test'coucou"
 export test=5
 echo "coucou'$test'coucou"
 exit
+cd
+cd
+cd Documents/
+ls
+exit
+cd ?
+exit
+cd ?
+exi
+exit

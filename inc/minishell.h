@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/05 22:08:05 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:15:33 by ypetruzz         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void			ctrl_c(int sig);
 void			back_slash(int sig);
 
 // Builtins - cd.c
-int				cd(char *path);
+int				cd(t_built_args *args);
 
 // Parse - parsing.c
 char			*find_env_var(char *str, int *i, t_env **env_list);
