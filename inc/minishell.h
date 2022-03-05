@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/04 13:14:33 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:15:33 by ypetruzz         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void			ctrl_c(int sig);
 void			back_slash(int sig);
 
 // Builtins - cd.c
-int				cd(char *path);
+int				cd(t_built_args *args);
 
 // Parse - parsing.c
 char			*find_env_var(char *str, int *i, t_env **env_list);
@@ -274,7 +274,7 @@ int				is_sep(char c);
 // Parse - parse_tools_2.c
 void			skip_w_space(char *str, int *i);
 int				have_a_dollar(char *str, int i);
-int				have_a_dollar_out_q(char *str);
+int				have_a_dollar_out_q(char *str, int i);
 void			skip_quote(char *str, int *i);
 int				detect_quote(char *str);
 

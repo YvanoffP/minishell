@@ -15,6 +15,8 @@
 
 static void	echo_func_ext(t_built_args *args)
 {
+	while (!ft_strcmp(args->name, "-n") && args)
+		args = args->next;
 	while (args)
 	{
 		write(1, args->name, ft_strlen(args->name));

@@ -13,12 +13,31 @@
 
 #include "minishell.h"
 
-int	cd(char *path)
+static int	print_error_cd(char *str, char *msg, char *error, int ret)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (str != NULL)
+		ft_putstr_fd(str, 2);
+	ft_putstr_fd(msg, 2);
+	ft_putendl_fd(error, 2);
+	return (ret);
+}
+
+int	cd(t_built_args *args)
 {
 	int	ret;
 
-	ret = chdir(path);
+	ret = 0;
+	if (args)
+	{
+		if (ft_strlen(args->name))
+			ret = chdir(args->name);
+		else
+			return (0);
+	}
+	else
+		chdir(getenv("HOME"));
 	if (ret)
-		return (print_error("cd: no such file or directory: ", path, 1));
+		return (print_error_cd("cd: ", args->name, ": No such file or directory", 1));
 	return (0);
 }

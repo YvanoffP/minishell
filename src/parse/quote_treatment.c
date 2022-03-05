@@ -104,8 +104,13 @@ char	*realloc_string(char *str, char *s2)
 {
 	free(str);
 	str = NULL;
-	str = ft_strdup(s2);
-	free(s2);
-	s2 = NULL;
+	if (s2)
+	{
+		str = ft_strdup(s2);
+		free(s2);
+		s2 = NULL;
+	}
+	else
+		str = ft_strdup("");
 	return (str);
 }

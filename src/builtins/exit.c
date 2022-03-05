@@ -30,6 +30,17 @@ void	check_digit(char *arg)
 			exit(exit_status);
 		}
 		i++;
+		if (arg[i] == 32)
+		{
+			skip_w_space(arg, &i);
+			if (arg[i] != '\0')
+			{
+				error = ft_strjoin(arg, ": numeric argument required");
+				exit_status = print_error("exit: ", error, 255);
+				free(error);
+				exit(exit_status);
+			}
+		}
 	}
 }
 
@@ -40,7 +51,8 @@ int	check_exit(char *arg)
 	long long		exit_status;
 
 	i = 0;
-	if (arg[i] == '-')
+	skip_w_space(arg, &i);
+	if (arg[i] == '-' || arg[i] == '+')
 		i++;
 	check_digit(arg + i);
 	exit_status = ft_atoi(arg + i);

@@ -65,14 +65,25 @@ int	detect_quote(char *str)
 	return (0);
 }
 
-int	have_a_dollar_out_q(char *str)
+int	have_a_dollar_out_q(char *str, int i)
 {
-	int	i;
-
-	i = 0;
+	if (i != 0)
+		i = i + 1;
+	else
+		i = 0;
 	while (str[i])
 	{
-		if (str[i] == 39)
+		if (str[i] == 34)
+		{
+			i++;
+			while (str[i] != 34 && str[i])
+			{
+				if (str[i] == '$')
+					return (i);
+				i++;
+			}
+		}
+		else if (str[i] == 39)
 		{
 			skip_quote(str, &i);
 			i++;

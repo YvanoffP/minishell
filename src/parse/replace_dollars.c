@@ -98,11 +98,17 @@ char	*replace_dollars(char *str, t_env **env_list, int i, int flag)
 	while (str[i] != 34 && str[i])
 	{
 		if (!find_dollars_str(str, &i, &data, env_list))
+		{
+			data.ret = ft_strdup("");
 			break ;
+		}
 	}
 	if (i < (int)ft_strlen(str))
 	{
-		data.tmp = ft_strdup(data.ret);
+		if (data.ret && data.tmp)
+			data.tmp = ft_strjoin(data.tmp, data.ret);
+		else
+			data.tmp = ft_strdup(data.ret);
 		data.value = ft_substr(str, i, ft_strlen(str) - i);
 		free(data.ret);
 		data.ret = NULL;

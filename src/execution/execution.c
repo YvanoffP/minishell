@@ -78,7 +78,7 @@ int	is_builtins(t_env **env_list, t_command *child)
 		unset(child->args, env_list);
 	else if (!(ft_strcmp(child->cmd, CD))
 		|| !(ft_strcmp(child->cmd, "CD")))
-		cd(child->args->name);
+		cd(child->args);
 	else if (!(ft_strcmp(child->cmd, ENV))
 		|| !(ft_strcmp(child->cmd, "ENV")))
 		env_func(env_list);
