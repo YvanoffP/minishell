@@ -40,7 +40,7 @@ void	dollar_out_quote_ext(t_alloc *var, t_env **env_list)
 	}
 	while (var->temp)
 	{
-		var->dollar_index = have_a_dollar_out_q(var->temp->name);
+		var->dollar_index = have_a_dollar_out_q(var->temp->name, var->dollar_index);
 		if (var->dollar_index != -1)
 		{
 			var->ret = replace_dollars(var->temp->name,
@@ -64,11 +64,11 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 		var.tmp = var.child->redirection;
 		var.i = 0;
 		var.dollar_index = 0;
-		var.dollar_index = have_a_dollar_out_q(var.child->cmd);
+		var.dollar_index = have_a_dollar_out_q(var.child->cmd, 0);
 		dollar_out_quote_ext(&var, env_list);
 		while (var.tmp)
 		{
-			var.dollar_index = have_a_dollar_out_q(var.tmp->file_name);
+			var.dollar_index = have_a_dollar_out_q(var.tmp->file_name, 0);
 			if (var.dollar_index != -1)
 				dollar_out_quote_replace(&var, env_list);
 			else

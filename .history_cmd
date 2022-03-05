@@ -2602,3 +2602,106 @@ exit
 exit
 echo mama
 exit
+exit
+export mama=5
+export papa=$mama
+export test
+
+esport
+export
+cho $mama$papa
+echo $mama$papa
+echo '$'mama"$papa"
+echo '$mama'"$"papa
+echo '$mama'"$"papa
+echo "coucou'$test'coucou"
+cat | ls
+cat | cat | ls
+rep | ls
+grep | ls
+echo mama > file
+cat file
+rm file
+ls > file -l > file2 -a | echo coucou >> file2
+cat file
+cat file
+rm file
+ls > file -l > file2 -a | echo coucou >> file2
+cat file
+cat file2
+rm file
+rm file 2
+rm file2
+unset mama
+ecport
+export
+export mama=5
+export
+unset mama
+export
+export mama=5
+exit ' 3'
+exit -1
+exit -9223372036854775808
+exit 9223372036854775807
+exit +3 
+exit 0 bonjour
+Echo -n -n -n bonjour
+echo -n -n -n bonjour
+echo ~
+echo ~mama
+exit
+exit
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+n
+echo '$mama'"$"papa 
+dollar_out_quote_ext
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+export mama=5
+echo '$mama'"$"papa 
+echo '$mama'
+echo '$mama'"$"papa 
+exit
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'"$"papa 
+echo '$mama'
+echo "coucou'$test'coucou" 
+exit
+echo "coucou'$test'coucou" 
+echo "coucou'$test'coucou" 
+non
+exit
+echo "coucou'$test'coucou"
+exit
+echo "coucou'$test'coucou"
+echo "coucou'$test'coucou"
+echo "coucou'$test'coucou"
+echo "coucou'$test'coucou"
+exit
+[200~echo "coucou'$test'coucou"~
+echo "coucou'$test'coucou"
+echo "coucou'$test'coucou"
+export test=5
+echo "coucou'$test'coucou"
+exit
