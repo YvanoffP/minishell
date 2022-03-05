@@ -2772,3 +2772,22 @@ echo "-nnnnnnnnnnnnnnnan" mama
 echo "-nnnnnnnnnnnnnnn an" mama
 echo "-nnnnnnnnnnnnnnn      " mama
 exit
+echo $mama
+echo "$mama"
+echo -nnnnnnnnnnnnnnnnnnn mama
+cd $PWD
+ls
+cd $pwd
+cd $mama
+cd "$mama"
+cd ""
+cd 
+exit
+echo $USER $9999USER $8888USER $7777USER
+vim inc/minishell.h 
+exit
+echo $USER $9999USER $8888USER $7777USER
+make
+exit
+echo $USER $9999USER $8888USER $7777USER
+exit
