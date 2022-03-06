@@ -42,9 +42,8 @@ char	*delete_quote(char *str, int *j)
 	return (ret);
 }
 
-char	*quote_remover(char *str, t_env **env_list, t_mini *shell)
+char	*quote_remover(char *str)
 {
-	char	*ret;
 	int		j;
 
 	j = 0;
@@ -52,11 +51,6 @@ char	*quote_remover(char *str, t_env **env_list, t_mini *shell)
 	{
 		if (str[j] == 34)
 		{
-			if (have_a_dollar(str, j + 1))
-			{
-				ret = replace_dollars(str, env_list, j + 1, shell);
-				str = realloc_string(str, ret);
-			}
 			str = delete_quote(str, &j);
 			if (str == NULL)
 				return (str);
@@ -71,7 +65,7 @@ char	*quote_remover(char *str, t_env **env_list, t_mini *shell)
 	return (str);
 }
 
-void	quotes_cleaner(t_mini *shell, t_env **env_list)
+void	quotes_cleaner(t_mini *shell)
 {
 	t_command		*child;
 	t_built_args	*tmp;
@@ -83,17 +77,17 @@ void	quotes_cleaner(t_mini *shell, t_env **env_list)
 		tmp = child->args;
 		t = child->redirection;
 		if (detect_quote(child->cmd))
-			child->cmd = quote_remover(child->cmd, env_list, shell);
+			child->cmd = quote_remover(child->cmd);
 		while (tmp)
 		{
 			if (detect_quote(tmp->name))
-				tmp->name = quote_remover(tmp->name, env_list, shell);
+				tmp->name = quote_remover(tmp->name);
 			tmp = tmp->next;
 		}
 		while (t)
 		{
 			if (detect_quote(t->file_name))
-				t->file_name = quote_remover(t->file_name, env_list, shell);
+				t->file_name = quote_remover(t->file_name);
 			t = t->next;
 		}
 		child = child->next;

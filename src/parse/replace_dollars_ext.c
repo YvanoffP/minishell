@@ -13,9 +13,9 @@
 
 #include "../../inc/minishell.h"
 
-void	replace_dollars_ext(t_dollvar *data, char *str, int i)
+void	replace_dollars_ext(t_dollvar *data, char *str, int *i)
 {
-	data->value = ft_substr(str, i, ft_strlen(str) - i);
+	data->value = ft_substr(str, *i, ft_strlen(str) - *i);
 	free(data->ret);
 	data->ret = NULL;
 	data->ret = ft_strjoin(data->tmp, data->value);

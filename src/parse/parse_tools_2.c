@@ -65,29 +65,50 @@ int	detect_quote(char *str)
 	return (0);
 }
 
-int	have_a_dollar_out_q(char *str, int i)
+static int	check_dollar_validity(char *str, int i)
 {
-	if (i != 0)
-		i = i + 1;
+	int	init_i;
+
+	init_i = i;
+	if (ft_isdigit(str[i + 1]))
+		return (1);
+	i++;
+	while (!is_w_space(str[i]) && str[i] != '=' && str[i]
+			&& str[i] != 34 && str[i] != 39 && str[i] != '$')
+		i++;
+	if (init_i == i - 1)
+		return (0);
 	else
-		i = 0;
+		return (1);
+}
+
+void fill_ret(int **ret)
+{
+	int k;
+
+	k = -1;
+	while (++k < 100)
+		*(*(ret) + k) = -1;
+}
+
+int	*have_a_dollar_out_q(char *str, int i)
+{
+	int	*ret;
+	int	k;
+
+	ret = malloc(sizeof(int) * 100);
+	k = 0;
+	fill_ret(&ret);
 	while (str[i])
 	{
-		if (str[i] == 34)
+		if (str[i] == '$')
 		{
-			while (str[++i] != 34 && str[i])
-				if (str[i] == '$')
-					return (i);
+			if (check_dollar_validity(str, i))
+				ret[k++] = i;
 		}
 		else if (str[i] == 39)
-		{
 			skip_quote(str, &i);
-			i++;
-		}
-		else if (str[i] == '$')
-			return (i);
-		else
-			i++;
+		i++;
 	}
-	return (-1);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/06 16:20:57 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/06 21:48:33 by ypetruzz         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_alloc
 	int					*ptr_space;
 	int					i;
 	int					k;
-	int					dollar_index;
+	int					*dollar_index;
 	struct s_command	*child;
 	struct s_redir		*tmp;
 	struct s_built_args	*temp;
@@ -225,8 +225,8 @@ void			destroy_sep_n_space(int **sep, int **space);
 void			alloc_childs(t_mini *shell, int *sep, int *space);
 
 // Parse - quote_treatment.c
-void			quotes_cleaner(t_mini *shell, t_env **env_list);
-char			*quote_remover(char *str, t_env **env_list, t_mini *shell);
+void			quotes_cleaner(t_mini *shell);
+char			*quote_remover(char *str);
 char			*delete_quote(char *str, int *j);
 char			*realloc_string(char *str, char *s2);
 
@@ -276,7 +276,7 @@ int				is_sep(char c);
 // Parse - parse_tools_2.c
 void			skip_w_space(char *str, int *i);
 int				have_a_dollar(char *str, int i);
-int				have_a_dollar_out_q(char *str, int i);
+int				*have_a_dollar_out_q(char *str, int i);
 void			skip_quote(char *str, int *i);
 int				detect_quote(char *str);
 
@@ -285,12 +285,12 @@ int				get_value_in_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
 int				find_dollars_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
-char			*replace_dollars(char *str, t_env **env_list, int i, t_mini *shell);
+char			*replace_dollars(char *str, t_env **env_list, int *i, t_mini *shell);
 void			init_dollvar(t_dollvar *data, int i, t_mini *shell);
 char			*append(t_dollvar *data);
 
 // Parse - replace_dollars_ext.c
-void            replace_dollars_ext(t_dollvar *data, char *str, int i);
+void            replace_dollars_ext(t_dollvar *data, char *str, int *i);
 
 // Builtins - pwd.c
 void			pwd(void);

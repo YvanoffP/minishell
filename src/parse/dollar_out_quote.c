@@ -19,7 +19,7 @@ static void	init_var(t_mini *shell, t_alloc *var)
 	var->ret = NULL;
 	var->tmp = shell->child->redirection;
 	var->temp = shell->child->args;
-	var->dollar_index = 0;
+	var->dollar_index = NULL;
 }
 
 static void	dollar_out_quote_replace(t_alloc *var,
@@ -33,7 +33,7 @@ static void	dollar_out_quote_replace(t_alloc *var,
 
 static void	dollar_out_quote_ext(t_alloc *var, t_env **env_list, t_mini *shell)
 {
-	if (var->dollar_index != -1)
+	if (var->dollar_index[0] != -1)
 	{
 		var->ret = replace_dollars(var->child->cmd,
 				env_list, var->dollar_index, shell);
@@ -42,8 +42,8 @@ static void	dollar_out_quote_ext(t_alloc *var, t_env **env_list, t_mini *shell)
 	while (var->temp)
 	{
 		var->dollar_index = have_a_dollar_out_q(var->temp->name,
-				var->dollar_index);
-		if (var->dollar_index != -1)
+				0);
+		if (var->dollar_index[0] != -1)
 		{
 			var->ret = replace_dollars(var->temp->name,
 					env_list, var->dollar_index, shell);
@@ -71,7 +71,7 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 		while (var.tmp)
 		{
 			var.dollar_index = have_a_dollar_out_q(var.tmp->file_name, 0);
-			if (var.dollar_index != -1)
+			if (var.dollar_index[0] != -1)
 				dollar_out_quote_replace(&var, env_list, shell);
 			else
 				var.tmp = var.tmp->next;

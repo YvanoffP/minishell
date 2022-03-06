@@ -18,6 +18,8 @@ static int	acorn_of_wisdom(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (1);
 	if (str[i] == '-')
 	{
 		i++;

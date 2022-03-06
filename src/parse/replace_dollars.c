@@ -95,22 +95,23 @@ int	find_dollars_str(char *str, int *i, t_dollvar *data, t_env **env_list)
 	return (1);
 }
 
-char	*replace_dollars(char *str, t_env **env_list, int i, t_mini *shell)
+char	*replace_dollars(char *str, t_env **env_list, int *i, t_mini *shell)
 {
 	t_dollvar	data;
 
-	init_dollvar(&data, i, shell);
-	if (i != 0)
-		data.tmp = ft_substr(str, 0, i);
-	while (str[i] != 34 && str[i])
+	init_dollvar(&data, *i, shell);
+	if (*i != 0)
+		data.tmp = ft_substr(str, 0, *i);
+	while (str[*i] != 34 && str[*i])
 	{
-		if (!find_dollars_str(str, &i, &data, env_list))
+		if (!find_dollars_str(str, i, &data, env_list))
 		{
 			data.ret = ft_strdup("");
+			*i = -10;
 			break ;
 		}
 	}
-	if (i < (int)ft_strlen(str))
+	if (*i < (int)ft_strlen(str))
 	{
 		if (data.ret && data.tmp)
 			data.tmp = ft_strjoin(data.tmp, data.ret);
