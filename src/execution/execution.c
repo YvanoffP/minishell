@@ -90,7 +90,7 @@ int	is_builtins(t_env **env_list, t_command *child)
 		exit_func(child->args);
 	else
 		return (check_path(env_list, child));
-	return (1);
+	return (0);
 }
 
 int	execution(t_env **env_list, t_mini *shell)
