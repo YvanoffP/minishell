@@ -2826,3 +2826,11 @@ echo $?
 echo $?
 echo $?
 exit
+echo $mama
+export mama=5
+echo $mama
+echo $mama $papa
+echo "$mama $papa"
+echo "$mama $papa bite"
+echo "$mama $?$papa bite"
+exit

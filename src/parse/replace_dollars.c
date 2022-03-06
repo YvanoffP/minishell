@@ -116,14 +116,7 @@ char	*replace_dollars(char *str, t_env **env_list, int i, t_mini *shell)
 			data.tmp = ft_strjoin(data.tmp, data.ret);
 		else
 			data.tmp = ft_strdup(data.ret);
-		data.value = ft_substr(str, i, ft_strlen(str) - i);
-		free(data.ret);
-		data.ret = NULL;
-		data.ret = ft_strjoin(data.tmp, data.value);
-		free(data.tmp);
-		free(data.value);
-		data.tmp = NULL;
-		data.value = NULL;
+		replace_dollars_ext(&data, str, i);
 	}
 	return (data.ret);
 }

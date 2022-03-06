@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/06 15:49:51 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:20:57 by ypetruzz         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -288,6 +288,9 @@ int				find_dollars_str(char *str, int *i,
 char			*replace_dollars(char *str, t_env **env_list, int i, t_mini *shell);
 void			init_dollvar(t_dollvar *data, int i, t_mini *shell);
 char			*append(t_dollvar *data);
+
+// Parse - replace_dollars_ext.c
+void            replace_dollars_ext(t_dollvar *data, char *str, int i);
 
 // Builtins - pwd.c
 void			pwd(void);
