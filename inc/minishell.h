@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/06 22:02:07 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/06 22:04:16 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,10 +275,10 @@ int				is_w_space(char c);
 int				is_sep(char c);
 
 // Parse - parse_tools_2.c
-int             check_dollar_validity(char *str, int i);
+int				check_dollar_validity(char *str, int i);
 int				have_a_dollar(char *str, int i);
 int				detect_quote(char *str);
-void            fill_ret(int **ret);
+void			fill_ret(int **ret);
 
 // Parse - parse_tools_3.c
 int				*have_a_dollar_out_q(char *str, int i);
