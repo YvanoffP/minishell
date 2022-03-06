@@ -2814,3 +2814,10 @@ echo $?
 echa
 echo $?
 exit
+echo $?$PATH
+echo $?$PATH
+exit
+echo $?
+echo $?
+echo $?
+exit
