@@ -3034,3 +3034,19 @@ export TES-T=123
 exit
 
 exit
+echo $mama
+echo $mama$
+echo '$'mama$
+echo "$"mama$
+echo "$"mama$ | echo mama$path
+echo "$"mama$ | echo mama$PATH
+echo $PATH
+echo mama$PATH
+echo "$"mama$ | echo mama$PATH
+exit
+echo "$"mama$ | echo mama$PATH
+echo "$"mama$ | echo mama$PATH
+exit
+echo "$"mama$ | echo mama$PATH
+echo "$"mama$ | echo mama$PATH
+exit

@@ -48,8 +48,9 @@ MINISHELL_FILES = minishell.c \
 PARSE_FILES =	parsing.c \
 				error_parse.c \
 				parse_tools.c \
-				sep_n_space.c \
 				parse_tools_2.c \
+				parse_tools_3.c \
+				sep_n_space.c \
 				pimp_my_string.c \
 				pimp_my_string_2.c \
 				replace_dollars.c \
