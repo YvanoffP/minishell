@@ -30,6 +30,7 @@ BUILT_FILES = cd.c \
 			  env.c \
 			  chained_list.c \
 			  chained_list_2.c \
+			  chained_list_3.c \
 			  exit.c \
 			  export.c \
 			  export_utils.c \

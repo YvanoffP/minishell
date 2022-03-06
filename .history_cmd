@@ -3050,3 +3050,11 @@ exit
 echo "$"mama$ | echo mama$PATH
 echo "$"mama$ | echo mama$PATH
 exit
+export mama=5
+export
+export mama+=5
+export
+export test+=cul
+export
+export test+mama=kekchose
+exit

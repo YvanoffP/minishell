@@ -109,22 +109,12 @@ void	replace_in_lst(t_env *new_node, t_env **env_list)
 		if (tmp)
 		{
 			t = ft_strjoin(tmp->value, new_node->value);
-			free(tmp->value);
-			tmp->value = ft_strdup(t);
-			free(new_node->var);
-			free(new_node->value);
-			free(new_node);
+			free_node(new_node, tmp, t);
 			free(t);
 		}
 		return ;
 	}
 	tmp = get_in_lst(new_node->var, env_list);
 	if (tmp)
-	{
-		free(tmp->value);
-		tmp->value = ft_strdup(new_node->value);
-		free(new_node->var);
-		free(new_node->value);
-		free(new_node);
-	}
+		free_node(new_node, tmp, new_node->value);
 }
