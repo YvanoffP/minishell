@@ -54,6 +54,16 @@ int	check_args(char *name)
 	return (1);
 }
 
+static int	print_error_export(char *str, char *args, char *msg, int ret)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (str!= NULL)
+		ft_putstr_fd(str, 2);
+	ft_putstr_fd(args, 2);
+	ft_putendl_fd(msg, 2);
+	return (ret);
+}
+
 int	export_func(t_env **env_list, t_built_args *args)
 {
 	int	i;
@@ -64,7 +74,8 @@ int	export_func(t_env **env_list, t_built_args *args)
 		while (args != NULL)
 		{
 			if (!check_args(args->name))
-				return (str_error("Export arguments: expected identifier", 0));
+				return (print_error_export("export: ",
+					args->name, ": not a valid identifier", 1));
 			if (!add_var_to_list(env_list, args->name))
 				return (str_error("Error malloc", 0));
 			args = args->next;

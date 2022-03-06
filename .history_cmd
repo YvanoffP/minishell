@@ -2901,3 +2901,11 @@ export
 export TEST+=123
 export
 exit
+export ""=""
+exit
+export TE-ST=123
+exit
+export TES-T=123
+exit
+export TES-T=123
+exit
