@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/06 22:32:34 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/06 22:35:21 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ t_env			*create_node(char *var_array);
 int				count_list(t_env **list);
 
 // Builtins - chained_list_3.c
-void            free_node(t_env *new_node, t_env *tmp, char *str);
+void			free_node(t_env *new_node, t_env *tmp, char *str);
 
 // Builtins - swap_nodes.c
 void			swap_nodes(t_env *tmp);
