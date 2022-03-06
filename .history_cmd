@@ -2834,3 +2834,25 @@ echo "$mama $papa"
 echo "$mama $papa bite"
 echo "$mama $?$papa bite"
 exit
+echo $mama
+export mama=5
+echo $mama
+echo $mama$papa$bite
+echo $mama$papa$bite
+exit
+echo $mama$papa
+echo $mama$papa$bite
+echo $mama$papa$bite
+export papa=4
+echo $mama$papa$bite
+export bite=2
+echo $mama$papa$bite
+export mama=2
+echo $mama$papa$bite
+unset papa
+echo $mama$papa$bite
+export papa=4
+unset bite
+echo $mama$papa$bite
+exit
+exit mama

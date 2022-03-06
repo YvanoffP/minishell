@@ -13,33 +13,32 @@
 
 #include "minishell.h"
 
-void	check_digit(char *arg)
+void static	check_digit_ext(char *arg)
 {
 	char	*error;
 	int		exit_status;
+
+	error = ft_strjoin(arg, ": numeric argument required");
+	exit_status = print_error("exit: ", error, 255);
+	free(error);
+	exit(exit_status);
+}
+
+void	check_digit(char *arg)
+{
 	int		i;
 
 	i = 0;
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
-		{
-			error = ft_strjoin(arg, ": numeric argument required");
-			exit_status = print_error("exit: ", error, 255);
-			free(error);
-			exit(exit_status);
-		}
+			check_digit_ext(arg);
 		i++;
 		if (arg[i] == 32)
 		{
 			skip_w_space(arg, &i);
 			if (arg[i] != '\0')
-			{
-				error = ft_strjoin(arg, ": numeric argument required");
-				exit_status = print_error("exit: ", error, 255);
-				free(error);
-				exit(exit_status);
-			}
+				check_digit_ext(arg);
 		}
 	}
 }

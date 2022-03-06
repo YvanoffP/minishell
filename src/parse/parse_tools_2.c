@@ -75,13 +75,9 @@ int	have_a_dollar_out_q(char *str, int i)
 	{
 		if (str[i] == 34)
 		{
-			i++;
-			while (str[i] != 34 && str[i])
-			{
+			while (str[++i] != 34 && str[i])
 				if (str[i] == '$')
 					return (i);
-				i++;
-			}
 		}
 		else if (str[i] == 39)
 		{

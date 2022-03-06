@@ -22,7 +22,8 @@ static void	init_var(t_mini *shell, t_alloc *var)
 	var->dollar_index = 0;
 }
 
-static void	dollar_out_quote_replace(t_alloc *var, t_env **env_list, t_mini *shell)
+static void	dollar_out_quote_replace(t_alloc *var,
+		t_env **env_list, t_mini *shell)
 {
 	var->ret = replace_dollars(var->tmp->file_name,
 			env_list, var->dollar_index, shell);
@@ -40,7 +41,8 @@ static void	dollar_out_quote_ext(t_alloc *var, t_env **env_list, t_mini *shell)
 	}
 	while (var->temp)
 	{
-		var->dollar_index = have_a_dollar_out_q(var->temp->name, var->dollar_index);
+		var->dollar_index = have_a_dollar_out_q(var->temp->name,
+				var->dollar_index);
 		if (var->dollar_index != -1)
 		{
 			var->ret = replace_dollars(var->temp->name,

@@ -75,13 +75,13 @@ void	quotes_cleaner(t_mini *shell, t_env **env_list)
 {
 	t_command		*child;
 	t_built_args	*tmp;
-	t_redir			*temp;
+	t_redir			*t;
 
 	child = shell->child;
 	while (child)
 	{
 		tmp = child->args;
-		temp = child->redirection;
+		t = child->redirection;
 		if (detect_quote(child->cmd))
 			child->cmd = quote_remover(child->cmd, env_list, shell);
 		while (tmp)
@@ -90,11 +90,11 @@ void	quotes_cleaner(t_mini *shell, t_env **env_list)
 				tmp->name = quote_remover(tmp->name, env_list, shell);
 			tmp = tmp->next;
 		}
-		while (temp)
+		while (t)
 		{
-			if (detect_quote(temp->file_name))
-				temp->file_name = quote_remover(temp->file_name, env_list, shell);
-			temp = temp->next;
+			if (detect_quote(t->file_name))
+				t->file_name = quote_remover(t->file_name, env_list, shell);
+			t = t->next;
 		}
 		child = child->next;
 	}

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   replace_dollars_ext.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*   And: tpauvret                                 +#+   +:+      +#+         */
@@ -11,34 +11,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../inc/minishell.h"
 
-static int	print_error_cd(char *str, char *msg, char *error, int ret)
+void	replace_dollars_ext(t_dollvar *data, char *str, int i)
 {
-	ft_putstr_fd("minishell: ", 2);
-	if (str != NULL)
-		ft_putstr_fd(str, 2);
-	ft_putstr_fd(msg, 2);
-	ft_putendl_fd(error, 2);
-	return (ret);
-}
-
-int	cd(t_built_args *args)
-{
-	int	ret;
-
-	ret = 0;
-	if (args)
-	{
-		if (ft_strlen(args->name))
-			ret = chdir(args->name);
-		else
-			return (0);
-	}
-	else
-		chdir(getenv("HOME"));
-	if (ret)
-		return (print_error_cd("cd: ", args->name,
-				": No such file or directory", 1));
-	return (0);
+	data->value = ft_substr(str, i, ft_strlen(str) - i);
+	free(data->ret);
+	data->ret = NULL;
+	data->ret = ft_strjoin(data->tmp, data->value);
+	free(data->tmp);
+	free(data->value);
+	data->tmp = NULL;
+	data->value = NULL;
 }
