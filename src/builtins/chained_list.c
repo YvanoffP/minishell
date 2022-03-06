@@ -66,7 +66,7 @@ int	is_in_lst(char	*var, t_env **env_list)
 	if (var[len] == '+')
 		t = ft_substr(var, 0, len);
 	else
-		t = ft_strdup(var); 
+		t = ft_strdup(var);
 	while (tmp != NULL && ft_strcmp(tmp->var, t) != 0)
 		tmp = tmp->next;
 	if (tmp)

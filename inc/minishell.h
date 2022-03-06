@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/06 21:48:33 by ypetruzz         ###   ########.fr       */
-/*																			*/
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
+/*   Updated: 2022/03/06 21:53:26 by tpauvret         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
@@ -47,7 +47,7 @@ typedef struct s_mini
 	char				*mini_cwd;
 	char				*argv;
 	int					fd_history;
-    int                 status;
+	int					status;
 }			t_mini;
 
 typedef struct s_env
@@ -64,7 +64,7 @@ typedef struct s_dollvar
 	char	*tmp;
 	char	*value;
 	int		flag;
-    int     status;
+	int		status;
 }			t_dollvar;
 
 /////////PARSING REDIRECTION/////////////////
@@ -286,12 +286,13 @@ int				get_value_in_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
 int				find_dollars_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
-char			*replace_dollars(char *str, t_env **env_list, int *i, t_mini *shell);
+char			*replace_dollars(char *str, t_env **env_list,
+					int *i, t_mini *shell);
 void			init_dollvar(t_dollvar *data, int i, t_mini *shell);
 char			*append(t_dollvar *data);
 
 // Parse - replace_dollars_ext.c
-void            replace_dollars_ext(t_dollvar *data, char *str, int *i);
+void			replace_dollars_ext(t_dollvar *data, char *str, int *i);
 
 // Builtins - pwd.c
 void			pwd(void);

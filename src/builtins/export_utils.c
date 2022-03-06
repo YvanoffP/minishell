@@ -13,6 +13,13 @@
 
 #include "../../inc/minishell.h"
 
+int	is_num(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
 int	check_wrong_char(char *str)
 {
 	if (*str == '=')
@@ -20,8 +27,8 @@ int	check_wrong_char(char *str)
 	while (*str)
 	{
 		if (is_sep(*str) || (*str >= 33 && *str <= 42)
-			|| (*str >= 44 && *str <= 47) ||
-			(*str == '=' && *(str + 1) == '='))
+			|| (*str >= 44 && *str <= 47)
+			|| (*str == '=' && *(str + 1) == '='))
 			return (0);
 		str++;
 	}

@@ -13,13 +13,6 @@
 
 #include "minishell.h"
 
-int	is_num(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-
 int	check_only_num(char *str)
 {
 	while (*str && is_num(*str))
@@ -57,7 +50,7 @@ int	check_args(char *name)
 static int	print_error_export(char *str, char *args, char *msg, int ret)
 {
 	ft_putstr_fd("minishell: ", 2);
-	if (str!= NULL)
+	if (str != NULL)
 		ft_putstr_fd(str, 2);
 	ft_putstr_fd(args, 2);
 	ft_putendl_fd(msg, 2);
@@ -75,7 +68,7 @@ int	export_func(t_env **env_list, t_built_args *args)
 		{
 			if (!check_args(args->name))
 				return (print_error_export("export: ",
-					args->name, ": not a valid identifier", 1));
+						args->name, ": not a valid identifier", 1));
 			if (!add_var_to_list(env_list, args->name))
 				return (str_error("Error malloc", 0));
 			args = args->next;
