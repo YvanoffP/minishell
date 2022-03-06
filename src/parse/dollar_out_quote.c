@@ -22,20 +22,20 @@ static void	init_var(t_mini *shell, t_alloc *var)
 	var->dollar_index = 0;
 }
 
-static void	dollar_out_quote_replace(t_alloc *var, t_env **env_list)
+static void	dollar_out_quote_replace(t_alloc *var, t_env **env_list, t_mini *shell)
 {
 	var->ret = replace_dollars(var->tmp->file_name,
-			env_list, var->dollar_index, 1);
+			env_list, var->dollar_index, shell);
 	var->tmp->file_name = realloc_string(var->tmp->file_name,
 			var->ret);
 }
 
-void	dollar_out_quote_ext(t_alloc *var, t_env **env_list)
+static void	dollar_out_quote_ext(t_alloc *var, t_env **env_list, t_mini *shell)
 {
 	if (var->dollar_index != -1)
 	{
 		var->ret = replace_dollars(var->child->cmd,
-				env_list, var->dollar_index, 1);
+				env_list, var->dollar_index, shell);
 		var->child->cmd = realloc_string(var->child->cmd, var->ret);
 	}
 	while (var->temp)
@@ -44,7 +44,7 @@ void	dollar_out_quote_ext(t_alloc *var, t_env **env_list)
 		if (var->dollar_index != -1)
 		{
 			var->ret = replace_dollars(var->temp->name,
-					env_list, var->dollar_index, 1);
+					env_list, var->dollar_index, shell);
 			var->temp->name = realloc_string(var->temp->name, var->ret);
 		}
 		else
@@ -65,12 +65,12 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 		var.i = 0;
 		var.dollar_index = 0;
 		var.dollar_index = have_a_dollar_out_q(var.child->cmd, 0);
-		dollar_out_quote_ext(&var, env_list);
+		dollar_out_quote_ext(&var, env_list, shell);
 		while (var.tmp)
 		{
 			var.dollar_index = have_a_dollar_out_q(var.tmp->file_name, 0);
 			if (var.dollar_index != -1)
-				dollar_out_quote_replace(&var, env_list);
+				dollar_out_quote_replace(&var, env_list, shell);
 			else
 				var.tmp = var.tmp->next;
 		}

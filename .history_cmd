@@ -2795,3 +2795,22 @@ $?
 exit
 export | grep "PWD"
 exit
+echo $mama
+echo $PATH
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+cat | ls
+echo $?
+echo $?$PATH
+echo $?$PATH
+echo $?$PATH
+echo $? $PATH
+echo $? $PATH
+./caca
+echo $?
+echa
+echo $?
+exit

@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/05 22:15:33 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:49:51 by ypetruzz         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_mini
 	char				*mini_cwd;
 	char				*argv;
 	int					fd_history;
+    int                 status;
 }			t_mini;
 
 typedef struct s_env
@@ -63,6 +64,7 @@ typedef struct s_dollvar
 	char	*tmp;
 	char	*value;
 	int		flag;
+    int     status;
 }			t_dollvar;
 
 /////////PARSING REDIRECTION/////////////////
@@ -224,7 +226,7 @@ void			alloc_childs(t_mini *shell, int *sep, int *space);
 
 // Parse - quote_treatment.c
 void			quotes_cleaner(t_mini *shell, t_env **env_list);
-char			*quote_remover(char *str, t_env **env_list);
+char			*quote_remover(char *str, t_env **env_list, t_mini *shell);
 char			*delete_quote(char *str, int *j);
 char			*realloc_string(char *str, char *s2);
 
@@ -283,8 +285,8 @@ int				get_value_in_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
 int				find_dollars_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
-char			*replace_dollars(char *str, t_env **env_list, int i, int flag);
-void			init_dollvar(t_dollvar *data, int i, int flag);
+char			*replace_dollars(char *str, t_env **env_list, int i, t_mini *shell);
+void			init_dollvar(t_dollvar *data, int i, t_mini *shell);
 char			*append(t_dollvar *data);
 
 // Builtins - pwd.c

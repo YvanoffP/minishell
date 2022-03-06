@@ -13,13 +13,14 @@
 
 #include "../../inc/minishell.h"
 
-void	init_dollvar(t_dollvar *data, int i, int flag)
+void	init_dollvar(t_dollvar *data, int i, t_mini *shell)
 {
 	data->j = i;
 	data->ret = NULL;
 	data->value = NULL;
 	data->tmp = NULL;
-	data->flag = flag;
+	data->flag = 1;
+	data->status = shell->status;
 }
 
 char	*append(t_dollvar *data)
@@ -43,7 +44,13 @@ int	get_value_in_str(char *str, int *i, t_dollvar *data, t_env **env_list)
 {
 	if (str[*i + 1] == 34 || str[*i + 1] == '\0')
 		return (0);
-	data->value = find_env_var(str, i, env_list);
+	if (str[*i + 1] == '?')
+	{
+		data->value = ft_itoa(data->status);
+		*i += 2;
+	}
+	else
+		data->value = find_env_var(str, i, env_list);
 	if (!data->value)
 	{
 		data->ret = append(data);
@@ -88,11 +95,11 @@ int	find_dollars_str(char *str, int *i, t_dollvar *data, t_env **env_list)
 	return (1);
 }
 
-char	*replace_dollars(char *str, t_env **env_list, int i, int flag)
+char	*replace_dollars(char *str, t_env **env_list, int i, t_mini *shell)
 {
 	t_dollvar	data;
 
-	init_dollvar(&data, i, flag);
+	init_dollvar(&data, i, shell);
 	if (i != 0)
 		data.tmp = ft_substr(str, 0, i);
 	while (str[i] != 34 && str[i])
