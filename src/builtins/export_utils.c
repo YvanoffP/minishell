@@ -19,8 +19,9 @@ int	check_wrong_char(char *str)
 		return (0);
 	while (*str)
 	{
-		if (is_sep(*str) || *str == ',' || *str == 34 || *str == 39
-			|| (*str == '=' && *(str + 1) == '='))
+		if (is_sep(*str) || (*str >= 33 && *str <= 42)
+			|| (*str >= 44 && *str <= 47) ||
+			(*str == '=' && *(str + 1) == '='))
 			return (0);
 		str++;
 	}

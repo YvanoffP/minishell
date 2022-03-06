@@ -2568,12 +2568,11 @@ cat
 cat
 exit
 
-<<<<<<< HEAD
+
 ECHO mama
 export
 exit
-=======
->>>>>>> 082aed0 (fixed ctrl=d)
+
 wc -l src/parse/*.c
 ls
 wc -l src/parse/*.c
@@ -2602,7 +2601,7 @@ exit
 exit
 echo mama
 exit
-<<<<<<< HEAD
+
 exit
 export mama=5
 export papa=$mama
@@ -2826,6 +2825,7 @@ echo $?
 echo $?
 echo $?
 exit
+
 echo $mama
 export mama=5
 echo $mama
@@ -2950,4 +2950,87 @@ exit
 echo $mama
 echo $PATH
 echo "$"mama
+
+exit
+export mama=5
+echo $mama$papa$bite
+exit
+env | grep "_="
+env
+export | grep "OLDPWD"
+export $?
+export TEST
+export
+export ___TEST=123
+export
+export TE-ST=100
+export
+exit
+export ""=""
+export TEST-=100
+export =======
+export echo
+export
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+exit
+export TE)ST=123
+export _TEST=123
+export -TEST=123
+exit
+export TE_ST=123
+export TE#ST=123
+export TE+ST=123
+exit
+export TEST+=123
+export TE+ST=123
+export TE+ST=123
+export TE+ST=123
+export TE+ST=123
+export TEST+=123
+exit
+export TEST+=123
+export
+export TE+ST=123
+export TEST=123
+export
+export TEST+=1234
+export
+export
+exit
+export TEST=123
+export TEST+=123
+
+
+export TEST+=123
+export TEST=123
+export TEST+=123
+export TEST=123
+export
+export TEST+=123
+export
+export TEST+=123
+export
+export TEST+=123
+export
+exit
+export TEST=123
+export
+export TEST+=123
+export
+exit
+export TEST+=123
+export
+exit
+export TEST+=123
+export
+export TEST+=123
+export
+exit
+export ""=""
+exit
+export TE-ST=123
+exit
+export TES-T=123
+exit
+
 exit

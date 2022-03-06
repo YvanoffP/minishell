@@ -56,14 +56,25 @@ void	delete_list(t_env *env_list)
 int	is_in_lst(char	*var, t_env **env_list)
 {
 	t_env	*tmp;
+	int		len;
+	char	*t;
 
+	len = ft_strlen(var) - 1;
 	tmp = *env_list;
 	if (tmp == NULL || var == NULL)
 		return (0);
-	while (tmp != NULL && ft_strcmp(tmp->var, var) != 0)
+	if (var[len] == '+')
+		t = ft_substr(var, 0, len);
+	else
+		t = ft_strdup(var); 
+	while (tmp != NULL && ft_strcmp(tmp->var, t) != 0)
 		tmp = tmp->next;
 	if (tmp)
+	{
+		free(t);
 		return (1);
+	}
+	free(t);
 	return (0);
 }
 
@@ -84,7 +95,29 @@ t_env	*get_in_lst(char *var, t_env **env_list)
 void	replace_in_lst(t_env *new_node, t_env **env_list)
 {
 	t_env	*tmp;
+	char	*t;
+	int		len;
 
+	len = ft_strlen(new_node->var) - 1;
+	if (new_node->var[len] == '+')
+	{
+		t = ft_substr(new_node->var, 0, len);
+		free(new_node->var);
+		new_node->var = ft_strdup(t);
+		free(t);
+		tmp = get_in_lst(new_node->var, env_list);
+		if (tmp)
+		{
+			t = ft_strjoin(tmp->value, new_node->value);
+			free(tmp->value);
+			tmp->value = ft_strdup(t);
+			free(new_node->var);
+			free(new_node->value);
+			free(new_node);
+			free(t);
+		}
+		return ;
+	}
 	tmp = get_in_lst(new_node->var, env_list);
 	if (tmp)
 	{
