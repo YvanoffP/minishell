@@ -53,6 +53,7 @@ PARSE_FILES =	parsing.c \
 				pimp_my_string.c \
 				pimp_my_string_2.c \
 				replace_dollars.c \
+				replace_dollars_ext.c \
 				alloc_childs.c \
 				dollar_out_quote.c \
 				arg_redir_nodes.c \
@@ -118,7 +119,7 @@ libft:
 	@echo "$(BLUE)███████████████████████ Making minishell ███████████████████████$(RESET)"
 
 $(NAME): libft $(OBJS)
-	@$(CC) -I $(HEADERSDIR) -I $(LIBFT_FOLDER) $(OBJS) $(LIBFT_FOLDER)/$(LIBFT_LIB) $(LIBS) -o $@ -lreadline -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib
+	@$(CC) -I $(HEADERSDIR) -I $(LIBFT_FOLDER) $(OBJS) $(LIBFT_FOLDER)/$(LIBFT_LIB) $(LIBS) -o $@ -lreadline -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib
 	@echo "$(BLUE)███████████████████████ Compiling is DONE ██████████████████████$(RESET)"
 
 $(OBJECTSDIR)/%.o : $(SOURCEDIR)/%.c $(HEADERSDIR)/*.h

@@ -38,6 +38,7 @@ int	cd(t_built_args *args)
 	else
 		chdir(getenv("HOME"));
 	if (ret)
-		return (print_error_cd("cd: ", args->name, ": No such file or directory", 1));
+		return (print_error_cd("cd: ", args->name,
+				": No such file or directory", 1));
 	return (0);
 }

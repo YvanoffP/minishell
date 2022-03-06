@@ -2568,12 +2568,11 @@ cat
 cat
 exit
 
-<<<<<<< HEAD
+
 ECHO mama
 export
 exit
-=======
->>>>>>> 082aed0 (fixed ctrl=d)
+
 wc -l src/parse/*.c
 ls
 wc -l src/parse/*.c
@@ -2602,7 +2601,7 @@ exit
 exit
 echo mama
 exit
-<<<<<<< HEAD
+
 exit
 export mama=5
 export papa=$mama
@@ -2826,6 +2825,132 @@ echo $?
 echo $?
 echo $?
 exit
+
+echo $mama
+export mama=5
+echo $mama
+echo $mama $papa
+echo "$mama $papa"
+echo "$mama $papa bite"
+echo "$mama $?$papa bite"
+exit
+echo $mama
+export mama=5
+echo $mama
+echo $mama$papa$bite
+echo $mama$papa$bite
+exit
+echo $mama$papa
+echo $mama$papa$bite
+echo $mama$papa$bite
+export papa=4
+echo $mama$papa$bite
+export bite=2
+echo $mama$papa$bite
+export mama=2
+echo $mama$papa$bite
+unset papa
+echo $mama$papa$bite
+export papa=4
+unset bite
+echo $mama$papa$bite
+exit
+exit mama
+echo $
+echo $mama$papa$bite
+
+ecport mama=5
+export mama=5
+echo $mama$papa$bite
+
+echo $mama$papa$bite$
+exit
+echo mama
+echo $
+export mama=5
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo $
+echo $mama
+echo $mama$
+echo $mama$$
+echo $mama$$$$$$$$$$
+echo $mama
+exit
+echo $mama$papa
+echo $mama$papa
+echo $mama$papa
+echo $mama$papa
+echo $mama$papa
+echo $mama$papa
+echo $mama$papa
+echo $mama
+echo $mama
+echo $mama
+exit
+echo $mama
+echo $mama
+echo $mama
+echo mama
+echo $$mama
+echo $mama
+echo mama
+echo $mama
+echo $mama$
+echo $mama$papa
+echo $mama$papa$
+export mama=5
+echo $mama$papa$
+echo $mama$papa$bite
+echo $mama$papa$bite$
+echo $
+echo $?
+echo "$"mama
+echo "$"mama
+echo "$"mama
+echo "$"mama
+echo $mama
+echo "$"mama
+exit
+echo "$"mama
+echo
+echo ""
+exit
+echo "$"mama
+echo "$"mama
+exit
+echo "$"mama
+echo "$"mama
+echo "$"mama
+echo "$"mama
+exit
+exit
+echo "$"mama
+echo "$"
+echo $
+exit
+echo $mama
+echo $PATH
+echo "$"mama
+echo "$"mama$
+echo "$"
+echo "$"papa"$PATH"
+echo $mama$papa$bite
+export mama=5
+echo $mama$papa$bite
+echo $mama$papa$bite$
+echo $mama$papa$bite$$$
+echo $mama$papa$bite$
+echo $mama$papa$bite$ '$'mama
+echo $mama$papa$bite$ '$'mama "$m'a'ma"
+exit
+echo $mama
+echo $PATH
+echo "$"mama
+
 exit
 export mama=5
 echo $mama$papa$bite
@@ -2907,5 +3032,5 @@ export TE-ST=123
 exit
 export TES-T=123
 exit
-export TES-T=123
+
 exit

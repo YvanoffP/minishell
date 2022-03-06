@@ -85,7 +85,7 @@ int	split_arg(t_mini *shell, t_env **env_list)
 	alloc_childs(shell, sep, space);
 	destroy_sep_n_space(&sep, &space);
 	dollar_out_quote(shell, env_list);
-	quotes_cleaner(shell, env_list);
+	quotes_cleaner(shell);
 	return (1);
 }
 
