@@ -16,9 +16,19 @@
 void	add_to_list(t_env **env_list, t_env *new_node)
 {
 	t_env	*list;
+	char	*t;
+	int		len;
 
 	if (!env_list || !new_node)
 		return ;
+	len = ft_strlen(new_node->var) - 1;
+	if (new_node->var[len] == '+')
+	{
+		t = ft_substr(new_node->var, 0, len);
+		free(new_node->var);
+		new_node->var = ft_strdup(t);
+		free(t);
+	}
 	if (*env_list)
 	{
 		list = *env_list;

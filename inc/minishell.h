@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/04 01:24:58 by tpauvret		  #+#	#+#			 */
-/*   Updated: 2022/03/06 15:49:51 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:55:27 by tpauvret         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void			swap_nodes(t_env *tmp);
 // Builtins - export.c
 int				export_func(t_env **env_list, t_built_args *args);
 int				check_only_num(char *str);
+int				check_plus(char *str);
 int				check_args(char *name);
 int				is_num(char c);
 

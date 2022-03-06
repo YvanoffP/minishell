@@ -2826,3 +2826,78 @@ echo $?
 echo $?
 echo $?
 exit
+exit
+export mama=5
+echo $mama$papa$bite
+exit
+env | grep "_="
+env
+export | grep "OLDPWD"
+export $?
+export TEST
+export
+export ___TEST=123
+export
+export TE-ST=100
+export
+exit
+export ""=""
+export TEST-=100
+export =======
+export echo
+export
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+exit
+export TE)ST=123
+export _TEST=123
+export -TEST=123
+exit
+export TE_ST=123
+export TE#ST=123
+export TE+ST=123
+exit
+export TEST+=123
+export TE+ST=123
+export TE+ST=123
+export TE+ST=123
+export TE+ST=123
+export TEST+=123
+exit
+export TEST+=123
+export
+export TE+ST=123
+export TEST=123
+export
+export TEST+=1234
+export
+export
+exit
+export TEST=123
+export TEST+=123
+
+
+export TEST+=123
+export TEST=123
+export TEST+=123
+export TEST=123
+export
+export TEST+=123
+export
+export TEST+=123
+export
+export TEST+=123
+export
+exit
+export TEST=123
+export
+export TEST+=123
+export
+exit
+export TEST+=123
+export
+exit
+export TEST+=123
+export
+export TEST+=123
+export
+exit

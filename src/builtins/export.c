@@ -29,11 +29,27 @@ int	check_only_num(char *str)
 	return (1);
 }
 
+int	check_plus(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '=' && str[i])
+	{
+		if (str[i] == '+' && str[i + 1] != '=')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_args(char *name)
 {
 	if (!check_wrong_char(name))
 		return (0);
 	if (!check_only_num(name))
+		return (0);
+	if (!check_plus(name))
 		return (0);
 	return (1);
 }
