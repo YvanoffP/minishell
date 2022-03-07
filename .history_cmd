@@ -3249,3 +3249,10 @@ echo mama
 export mama=5
 echo $mama
 exit
+echo mama
+exit
+mama
+exit
+exit
+echo mama
+exit

@@ -21,5 +21,5 @@ void	prompt_msg(t_mini *shell)
 	cwd = getcwd(buff, 4096);
 	if (shell->argv != NULL)
 		free(shell->argv);
-	shell->argv = readline("minishell % ");
+	shell->argv = readline("\e[1;32mminishell % \e[0m");
 }

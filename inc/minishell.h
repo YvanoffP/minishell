@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 02:09:19 by ypetruzz         ###   ########.fr       */
+/*   Updated: 2022/03/07 02:19:06 by ypetruzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define UNSET "unset"
 # define YES 1
 # define NO 0
+# define GREEN "\e[1;32m"
+# define RESET "\e[0m"
 
 int	g_infork;
 
@@ -286,6 +288,8 @@ void			fill_ret(int **ret);
 int				*have_a_dollar_out_q(char *str, int i);
 void			skip_w_space(char *str, int *i);
 void			skip_quote(char *str, int *i);
+void            need_spaces(t_mini *shell, t_env **env_list);
+void            check_tild(t_mini *shell);
 
 // Parse - replace_dollars.c
 int				get_value_in_str(char *str, int *i,
