@@ -55,7 +55,7 @@ int	*have_a_dollar_out_q(char *str, int i)
 {
 	int	*ret;
 	int	k;
-	int flag;
+	int	flag;
 
 	ret = malloc(sizeof(int) * 100);
 	k = 0;

@@ -3216,3 +3216,8 @@ exit
 echo "$USER""Users/$USER/file""'$USER'"'$USER'
 
 exit
+echo ~
+echo mama
+export mama=5
+echo $mama
+exit
