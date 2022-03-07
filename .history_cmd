@@ -3058,6 +3058,7 @@ export test+=cul
 export
 export test+mama=kekchose
 exit
+
 echo ~
 exit
 echo ~
@@ -3075,4 +3076,143 @@ echo ~
 echo ~
 echo ~
 echo ~
+
+cd 
+cd Documents/
+cd .
+cd ..
+cd Documents/
+cd ././
+cd "doesntexist" 
+cd '/etc' 
+pwd
+ls
+pwd
+exit
+cd ../../..
+pwd
+cd ?
+cd +
+cd $PWD/file_tests 
+pwd
+cd $PWD/file_tests
+cd $PWD/file_tests
+pwd
+echo rhobebou
+echo "bonjour"
+echo -nn bonjour
+echo -n"-n" bonjour
+echo ~123
+echo ~
+echo '~'
+echo ~
+echo "~"
+cd 42/
+echo "'$USER'"
+echo "'$USER'"
+echo "'mama'"
+exit
+echo " '$USER' "
+echo "$USER""Users/$USER/file""'$USER'"'$USER'
+echo "$USER""Users/$USER/file""'$USER'"'$USER
+echo "$USER""Users/$USER/file""'$USER'"'$USER'
+exit
+echo $USER $9999USER $8888USER $7777USER
+exit
+echo "$USER""Users/$USER/file""'$USER'"'$USER'
+echo "'$USER'" 
+exit
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+exit
+echo "'$USER'"
+exit
+echo "'$USER'"
+echo "'$USER'"
+echo mama
+exit
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+yvanpetruzzi
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+0x0000000182d30e68
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+exit
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+exit
+echo "'$USER'"
+echo "'$USER'"
+echo "mama"
+echo "'mama'"
+echo 'mama'
+echo "'mama'"
+echo 'mama'
+exit
+e
+exit
+
+echo "'mama'"
+echo "'$USER'"
+exit
+echo "'mama'"
+exit
+echo "'mama'"
+echo "'mama'"
+exit
+echo "'mama'"
+exit
+echo "'mama'"
+exit
+echo "'mama'"
+exit
+echo "'mama'"
+echo "'mama'"
+exit
+echo "'mama'"
+exit
+echo "'mama'"
+echo "'mama'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+lete_quote(
+lete_quote(
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "$USER""Users/$USER/file""'$USER'"'$USER'
+exit
+echo "$USER""Users/$USER/file""'$USER'"'$USER'
+
 exit

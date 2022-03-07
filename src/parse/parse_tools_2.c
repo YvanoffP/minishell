@@ -55,18 +55,24 @@ int	*have_a_dollar_out_q(char *str, int i)
 {
 	int	*ret;
 	int	k;
+	int flag;
 
 	ret = malloc(sizeof(int) * 100);
 	k = 0;
+	flag = 0;
 	fill_ret(&ret);
 	while (str[i])
 	{
+		if (str[i] == 34 && flag == 0)
+			flag = 1;
+		else if (str[i] == 34 && flag == 1)
+			flag = 0;
 		if (str[i] == '$')
 		{
 			if (check_dollar_validity(str, i))
 				ret[k++] = i;
 		}
-		else if (str[i] == 39)
+		else if (str[i] == 39 && flag == 0)
 			skip_quote(str, &i);
 		i++;
 	}

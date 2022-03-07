@@ -24,7 +24,8 @@ char	*find_env_var(char *str, int *i, t_env **env_list)
 	list = *env_list;
 	if (!ft_isdigit(str[*i]))
 		while (!is_w_space(str[*i]) && str[*i] && str[*i] != '$'
-			&& str[*i] != 34 && str[*i] != 39 && str[*i] != '=')
+			&& str[*i] != 34 && str[*i] != 39 && str[*i] != '='
+			&& str[*i] != '/')
 			*i += 1;
 	else
 		*i += 1;
