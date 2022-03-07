@@ -13,6 +13,38 @@
 
 #include "../../inc/minishell.h"
 
+void	check_tild(t_mini *shell)
+{
+	t_command		*tmp;
+	t_built_args	*temp;
+	char			*ret;
+
+	tmp = shell->child;
+	temp = shell->child->args;
+	while (tmp)
+	{
+		while (temp)
+		{
+			if (temp->name[0] == '~'
+				&& temp->name[1] == '\0')
+			{
+				ret = getenv("HOME");
+				free(temp->name);
+				temp->name = ft_strdup(ret);
+			}
+			temp = temp->next;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	need_spaces(t_mini *shell, t_env **env_list)
+{
+	check_tild(shell);
+	dollar_out_quote(shell, env_list);
+	quotes_cleaner(shell);
+}
+
 void	skip_w_space(char *str, int *i)
 {
 	while (is_w_space(str[*i]))
