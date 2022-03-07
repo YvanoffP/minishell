@@ -3359,3 +3359,51 @@ cat << EOF << papa
 cat << EOF << papa
 cat << EOF << papa
 exit
+cat << EOF
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+echo mama
+echo mama > echo papa
+echo mama | echo papa
+echo mama | cat << EOF
+cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF papa
+exit
+echo mama | cat << EOF
+cat << EOF | echo mama
+cat << EOF
+exity
+exit
+cat << EOf
+cat << EOF
+cat << EOF
+cat << EOF
+echo mama | cat << EOF
+cat << EOF | echo mama
+exit
+cat << EOF
+exit
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF salut
+cat << EOF << papa
+
+
+exit
