@@ -81,8 +81,6 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 			else
 				var.tmp = var.tmp->next;
 		}
-		if (var.dollar_index)
-			free(var.dollar_index);
 		var.child = var.child->next;
 	}
 }

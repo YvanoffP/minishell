@@ -23,21 +23,15 @@ void	init_dollvar(t_dollvar *data, int i, t_mini *shell)
 	data->status = shell->status;
 }
 
-char	*append(t_dollvar *data)
+static void	get_value_in_str_bis(t_dollvar *data)
 {
-	if (!data->value && !data->ret && data->tmp)
-		return (ft_strdup(data->tmp));
-	else if (!data->value && data->ret && data->tmp)
-		return (ft_strjoin(data->ret, data->tmp));
-	else if (data->value && !data->ret && data->tmp)
-		return (ft_strjoin(data->tmp, data->value));
-	else if (!data->value && data->ret && !data->tmp)
-		return (data->ret);
-	else if (data->value && data->ret && !data->tmp)
-		return (ft_strjoin(data->ret, data->value));
-	else if (data->value && !data->ret && !data->tmp)
-		return (ft_strdup(data->value));
-	return (NULL);
+	data->ret = append(data);
+	if (data->tmp != NULL)
+		free(data->tmp);
+	if (data->value != NULL)
+		free(data->value);
+	data->tmp = NULL;
+	data->value = NULL;
 }
 
 int	get_value_in_str(char *str, int *i, t_dollvar *data, t_env **env_list)
@@ -54,17 +48,12 @@ int	get_value_in_str(char *str, int *i, t_dollvar *data, t_env **env_list)
 	if (!data->value)
 	{
 		data->ret = append(data);
-		free(data->tmp);
+		if (data->tmp != NULL)
+			free(data->tmp);
 		data->tmp = NULL;
 	}
 	else
-	{
-		data->ret = append(data);
-		free(data->tmp);
-		free(data->value);
-		data->tmp = NULL;
-		data->value = NULL;
-	}
+		get_value_in_str_bis(data);
 	data->j = *i;
 	return (1);
 }
