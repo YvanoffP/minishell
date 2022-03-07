@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 18:16:28 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:58:16 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_mini
 	char				*argv;
 	int					fd_history;
 	int					status;
+	int					stdin_fd;
+	int					stdout_fd;
 }			t_mini;
 
 typedef struct s_env
@@ -111,6 +113,8 @@ typedef struct s_command
 	char				*cmd;
 	t_built_args		*args;
 	t_redir				*redirection;
+	int					fd[2];
+	struct s_command	*prev;
 	struct s_command	*next;
 }				t_command;
 
@@ -182,15 +186,9 @@ int				check_wrong_char(char *str);
 char			*join_path_to_arg(char *path, char *arg);
 int				exec_program(t_command *child, t_env **env_list);
 int				is_builtins(t_env **env_list, t_command *child);
-int				execution(t_env **env_list, t_mini *shell);
+int				process_cmd(t_env **env_list, t_mini *shell);
 
-// EXECUTION - redirection.c
-int				redirection(t_redir *redirection, t_process *proc);
-int				db_great_than(int *fd, t_redir *redirection);
-int				great_than(int *fd, t_redir *redirection);
-int				less_than(int *fd, t_redir *redirection);
-
-// EXCUTION - exec_tools.c
+// EXECUTION - exec_tools.c
 int				print_error(char *str, char *msg, int ret);
 char			**args_to_array(t_command *child);
 char			**lst_to_array(t_env **env_list);
@@ -205,23 +203,37 @@ int				check_path(t_env **env_list, t_command *child);
 int				find_file(t_env **env_list, t_command *child);
 int				file_error(t_redir *redirection);
 
-// EXECUTION - pipe.c
-int				pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list);
-int				close_fd(t_mini *shell, t_process *proc);
-int				create_fd_pipe(t_mini *shell, t_process *proc);
-int				pipe_fork(t_command	*child, t_env **env_list,
-					t_process *proc, int *cmd);
-
 //EXECUTION - heredoc.c
 void			exec_db_less(char *stop, int *heredoc_fd);
-int				redir_heredocs(t_redir *redir, int *fd, bool last);
+int				redir_heredocs(t_redir *redir, int fd, bool last);
 int				count_db_less(t_redir *redir);
-int				exec_heredocs(t_redir *redir, t_process *proc);
-void			process_heredocs(t_mini *shell, t_process *proc);
+int				exec_heredocs(t_redir *redir, int stdin_fd);
+void			process_heredocs(t_mini *shell);
 
 //EXECUTION - heredocs_utils.c
 void			newline(int signal);
 void			stop_heredoc(int signal);
+
+// EXECUTION - redirection.c
+bool			redir_output(t_redir *redir);
+bool			redir_append(t_redir *redir);
+bool			redir_input(t_redir *redir);
+bool			redirect(t_redir *redir, int *pipe_fd);
+bool			exec_redirections(t_redir *redir, int *pipe_fd);
+
+// EXECUTION - pipe.c
+void			init_pipes(t_command *tmp);
+void			left_pipe(t_command *cmds);
+void			right_pipe(t_command *cmds);
+bool			ft_lstall(t_redir *lst, bool (*f)(void *));
+bool			ft_lstany(t_redir *lst, bool (*f)(t_redir *));
+
+// EXECUTION - op_control.c
+bool			is_stdout_redir(t_redir *redir);
+void			fd_reset(t_mini *shell);
+void			close_pipes(t_command *child);
+bool			input_file_exist(void *redir_ptr);
+bool			op_control(t_command *child);
 
 // Signal - signal.c
 void			run_signals(int sig);

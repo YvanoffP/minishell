@@ -23,7 +23,7 @@ char	*join_path_to_arg(char *path, char *arg)
 	return (full_path);
 }
 
-static void	execve_call(t_command *child, t_env **env_list)
+void	execve_call(t_command *child, t_env **env_list)
 {
 	char	*error;
 
@@ -93,31 +93,31 @@ int	is_builtins(t_env **env_list, t_command *child)
 	return (0);
 }
 
-int	execution(t_env **env_list, t_mini *shell)
+int	process_cmd(t_env **env_list, t_mini *shell)
 {
-	t_process	*proc;
+	t_command	*start;
+	t_command	*child;
+	bool		error;
 
-	proc = malloc(sizeof(t_process));
-	proc->ret = 0;
-	proc->my_fd[0] = 0;
-	proc->my_fd[1] = 0;
-	shell->exec = proc;
-	backup(1);
-	process_heredocs(shell, proc);
-	if (shell->child->redirection)
+	start = shell->child;
+	child = shell->child;
+	init_pipes(start);
+	process_heredocs(shell);
+	while (child)
 	{
-		if (redirection(shell->child->redirection, proc))
-			return (backup(0));
+		error = !op_control(child);
+		if (!error)
+		{
+			is_builtins(env_list, child);
+			if (!child->next)
+				break ;
+			fd_reset(shell);
+		}
+		if (error)
+			break ;
+		child = child->next;
 	}
-	if (shell->child->cmd == NULL && shell->child->redirection == NULL)
-	{
-		free(proc);
-		return (print_error("\0", "command not found", 127));
-	}
-	if (shell->cmd_count > 1)
-		proc->ret = pipe_my_ride(shell, proc, env_list);
-	else if (shell->child->cmd != NULL)
-		proc->ret = is_builtins(env_list, shell->child);
-	backup(0);
-	return (proc->ret);
+	close_pipes(start);
+	fd_reset(shell);
+	return (0);
 }

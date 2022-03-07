@@ -75,7 +75,8 @@ EXEC_FILES = execution.c \
 			 redirection.c \
 			 file_func.c \
 			 heredoc.c \
-			 heredocs_utils.c
+			 heredocs_utils.c \
+			 op_control.c
 
 # Main file variable
 
@@ -124,7 +125,7 @@ libft:
 	@echo "$(BLUE)███████████████████████ Making minishell ███████████████████████$(RESET)"
 
 $(NAME): libft $(OBJS)
-	@$(CC) -I $(HEADERSDIR) -I $(LIBFT_FOLDER) $(OBJS) $(LIBFT_FOLDER)/$(LIBFT_LIB) $(LIBS) -o $@ -lreadline -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib
+	@$(CC) -I $(HEADERSDIR) -I $(LIBFT_FOLDER) $(OBJS) $(LIBFT_FOLDER)/$(LIBFT_LIB) $(LIBS) -o $@ -lreadline -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib
 	@echo "$(BLUE)███████████████████████ Compiling is DONE ██████████████████████$(RESET)"
 
 $(OBJECTSDIR)/%.o : $(SOURCEDIR)/%.c $(HEADERSDIR)/*.h

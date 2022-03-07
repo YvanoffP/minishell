@@ -3,102 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ypetruzz <ypetruzz@student.42lausanne.ch>  +#+  +:+       +#+        */
-/*   And: tpauvret                                 +#+   +:+      +#+         */
+/*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/03 23:13:46 by ypetruzz          #+#    #+#             */
-/*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
+/*   Created: 2022/03/07 22:55:40 by tpauvret          #+#    #+#             */
+/*   Updated: 2022/03/07 22:55:57 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	create_fd_pipe(t_mini *shell, t_process *proc)
+void	init_pipes(t_command *tmp)
 {
-	int	i;
+	t_command	*cmds;
 
-	i = 0;
-	proc->fd = malloc(sizeof(int) * (shell->cmd_count * 2));
-	proc->pid = malloc(sizeof(int) * (shell->cmd_count + 1));
-	if (!proc->fd || !proc->pid)
-		return (print_error("malloc", ": malloc failed", 1));
-	while (i < shell->cmd_count)
+	cmds = tmp;
+	while (cmds)
 	{
-		if (pipe(proc->fd + i * 2) < 0)
-			return (print_error("pipe", ": could not create pipe", 1));
-		i++;
+		pipe(cmds->fd);
+		cmds = cmds->next;
 	}
-	return (0);
 }
 
-int	pipe_fork(t_command	*child, t_env **env_list, t_process *proc, int *cmd)
+void	left_pipe(t_command *cmds)
 {
-	int	i;
-
-	i = 0;
-	g_infork = YES;
-	if (child->next)
-		if (dup2(proc->fd[*cmd + 1], STDOUT_FILENO) < 0)
-			exit(print_error("dup2", "could not Claude (kekw) the fd", 1));
-	if (*cmd != 0)
-		if (dup2(proc->fd[*cmd - 2], STDIN_FILENO) < 0)
-			exit(print_error("dup2", "could not Claude (kekw) the fd 1", 1));
-	if (child->redirection != NULL)
+	if (cmds->prev)
 	{
-		if (redirection(child->redirection, proc))
-			exit(1);
+		dup2(cmds->prev->fd[0], STDIN_FILENO);
+		close(cmds->prev->fd[0]);
 	}
-	while (i < (proc->cmd_count * 2))
-		close(proc->fd[i++]);
-	proc->ret = is_builtins(env_list, child);
-	exit(proc->ret);
 }
 
-int	close_fd(t_mini *shell, t_process *proc)
+void	right_pipe(t_command *cmds)
 {
-	int	i;
-	int	status;
-
-	i = 0;
-	while (i < (shell->cmd_count * 2))
-		close(proc->fd[i++]);
-	i = 0;
-	while (i < (shell->cmd_count + 1))
-	{
-		waitpid(proc->pid[i], &status, 0);
-		proc->ret = WEXITSTATUS(status);
-		i++;
-	}
-	free(proc->fd);
-	free(proc->pid);
-	return (proc->ret);
+	if (cmds->next)
+		dup2(cmds->fd[1], STDOUT_FILENO);
 }
 
-int	pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list)
+bool	ft_lstall(t_redir *lst, bool (*f)(void *))
 {
-	t_command	*tmp;
-	int			cmd;
-	int			i;
-
-	i = 0;
-	cmd = 0;
-	tmp = shell->child;
-	shell->cmd_count--;
-	proc->cmd_count = shell->cmd_count;
-	run_signals(2);
-	if (create_fd_pipe(shell, proc))
-		return (1);
-	while (tmp)
+	while (lst)
 	{
-		proc->pid[i] = fork();
-		if (proc->pid[i] == -1)
-			return (print_error("fork", ": could not fork properly", 1));
-		else if (proc->pid[i] == 0)
-			pipe_fork(tmp, env_list, proc, &cmd);
-		tmp = tmp->next;
-		cmd += 2;
-		backup(0);
-		i++;
+		if (!f(lst->file_name))
+			return (false);
+		lst = lst->next;
 	}
-	return (close_fd(shell, proc));
+	return (true);
+}
+
+bool	ft_lstany(t_redir *lst, bool (*f)(t_redir *))
+{
+	while (lst)
+	{
+		if (f(lst))
+			return (true);
+		lst = lst->next;
+	}
+	return (false);
 }

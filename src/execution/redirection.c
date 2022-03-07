@@ -13,58 +13,77 @@
 
 #include "../../inc/minishell.h"
 
-int	great_than(int *fd, t_redir *redirection)
+bool	redir_output(t_redir *redir)
 {
-	*fd = open(redirection->file_name,
-			O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
-	if ((*fd) < 0)
-		return (file_error(redirection));
-	dup2((*fd), STDOUT_FILENO);
-	close((*fd));
-	return (0);
-}
+	int	open_fd;
 
-int	less_than(int *fd, t_redir *redirection)
-{
-	*fd = open(redirection->file_name, O_RDONLY);
-	if ((*fd) < 0)
-		return (file_error(redirection));
-	dup2((*fd), STDIN_FILENO);
-	close((*fd));
-	return (0);
-}
-
-int	db_great_than(int *fd, t_redir *redirection)
-{
-	*fd = open(redirection->file_name,
-			O_CREAT | O_RDONLY | O_WRONLY | O_APPEND, 0644);
-	if ((*fd) < 0)
-		return (file_error(redirection));
-	dup2((*fd), STDOUT_FILENO);
-	close((*fd));
-	return (0);
-}
-
-int	redirection(t_redir *redirection, t_process *proc)
-{
-	while (redirection != NULL)
+	open_fd = open(redir->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (open_fd == -1)
 	{
-		if (redirection->type == LESS)
-		{
-			if (less_than(&proc->my_fd[0], redirection))
-				return (1);
-		}
-		else if (redirection->type == GREAT)
-		{
-			if (great_than(&proc->my_fd[1], redirection))
-				return (1);
-		}
-		else if (redirection->type == DB_GREAT)
-		{
-			if (db_great_than(&proc->my_fd[1], redirection))
-				return (1);
-		}
-		redirection = redirection->next;
+		print_error("Permission denied new part", ": AHAH", 1);
+		return (false);
 	}
-	return (0);
+	dup2(open_fd, STDOUT_FILENO);
+	close(open_fd);
+	return (true);
+}
+
+bool	redir_append(t_redir *redir)
+{
+	int	open_fd;
+
+	open_fd = open(redir->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (open_fd == -1)
+	{
+		print_error("Permission denied new part", ": AHAH", 1);
+		return (false);
+	}
+	dup2(open_fd, STDOUT_FILENO);
+	close(open_fd);
+	return (true);
+}
+
+bool	redir_input(t_redir *redir)
+{
+	int	open_fd;
+
+	open_fd = open(redir->file_name, O_RDONLY);
+	if (open_fd == -1)
+	{
+		print_error("Permission denied new part", ": AHAH", 1);
+		return (false);
+	}
+	dup2(open_fd, STDIN_FILENO);
+	close(open_fd);
+	return (true);
+}
+
+bool	redirect(t_redir *redir, int *pipe_fd)
+{
+	t_redir	*redirs;
+
+	redirs = redir;
+	if (redirs->type == GREAT)
+		return (redir_output(redirs));
+	else if (redirs->type == DB_GREAT)
+		return (redir_append(redirs));
+	else if (redirs->type == LESS)
+		return (redir_input(redirs));
+	else if (redirs->type == DB_LESS)
+		dup2(pipe_fd[0], STDIN_FILENO);
+	return (true);
+}
+
+bool	exec_redirections(t_redir *redir, int *pipe_fd)
+{
+	t_redir	*redirs;
+
+	redirs = redir;
+	while (redirs)
+	{
+		if (!redirect(redirs, pipe_fd))
+			return (false);
+		redirs = redirs->next;
+	}
+	return (true);
 }
