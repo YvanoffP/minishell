@@ -21,6 +21,9 @@ void	init_child(t_mini *shell)
 	child->cmd = NULL;
 	child->args = NULL;
 	child->redirection = NULL;
+	child->fd[0] = 0;
+	child->fd[1] = 0;
+	child->prev = NULL;
 	child->next = NULL;
 	shell->child = child;
 }
@@ -38,8 +41,11 @@ void	create_n_add_empty_child(t_mini *shell)
 		new->args = NULL;
 		new->cmd = NULL;
 		new->next = NULL;
+		new->fd[0] = 0;
+		new->fd[1] = 0;
 		while (lst && lst->next)
 			lst = lst->next;
+		new->prev = lst;
 		lst->next = new;
 	}
 }

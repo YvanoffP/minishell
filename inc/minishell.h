@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 18:16:28 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:29:01 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_mini
 	char				*argv;
 	int					fd_history;
 	int					status;
+	int					stdin_fd;
+	int					stdout_fd;
 }			t_mini;
 
 typedef struct s_env
@@ -111,6 +113,8 @@ typedef struct s_command
 	char				*cmd;
 	t_built_args		*args;
 	t_redir				*redirection;
+	int					fd[2];
+	struct s_command	*prev;
 	struct s_command	*next;
 }				t_command;
 
@@ -214,10 +218,10 @@ int				pipe_fork(t_command	*child, t_env **env_list,
 
 //EXECUTION - heredoc.c
 void			exec_db_less(char *stop, int *heredoc_fd);
-int				redir_heredocs(t_redir *redir, int *fd, bool last);
+int				redir_heredocs(t_redir *redir, int fd, bool last);
 int				count_db_less(t_redir *redir);
-int				exec_heredocs(t_redir *redir, t_process *proc);
-void			process_heredocs(t_mini *shell, t_process *proc);
+int				exec_heredocs(t_redir *redir, int stdin_fd);
+void			process_heredocs(t_mini *shell);
 
 //EXECUTION - heredocs_utils.c
 void			newline(int signal);
@@ -327,5 +331,9 @@ void			unset(t_built_args *args, t_env **env_list);
 void			check_digit(char *arg);
 int				check_exit(char *arg);
 int				exit_func(t_built_args *args);
+
+
+//TEST
+int				process_cmd(t_env **env_list, t_mini *shell);
 
 #endif

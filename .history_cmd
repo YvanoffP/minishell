@@ -3460,3 +3460,22 @@ cat << mama
 echo mama | echo bite | ls ../minishell -la | echo turbochiasse mdr | ls > papa -la < mama
 exity
 exit
+salut
+echo mama
+cat | ls
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+echo mama | cat << EOF
+cat << EOF | echo mama
+ls > papa | echo mama
+ls
+cat papa
+ls > papa -la | echo mama
+cat papa
+exit
