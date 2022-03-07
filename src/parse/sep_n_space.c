@@ -27,6 +27,11 @@ int	detect_sep(char *str, int *start)
 	}
 	else if (str[*start] == '<')
 	{
+		if (str[*start + 1] == '<')
+		{
+			*start += 3;
+			return (DB_LESS);
+		}
 		*start += 2;
 		return (LESS);
 	}

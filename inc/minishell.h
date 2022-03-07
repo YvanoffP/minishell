@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 02:22:24 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:16:28 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <unistd.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
@@ -89,6 +90,7 @@ typedef enum e_type{
 	GREAT,
 	DB_GREAT,
 	LESS,
+	DB_LESS,
 }			t_type;
 
 typedef struct s_redir
@@ -209,6 +211,17 @@ int				close_fd(t_mini *shell, t_process *proc);
 int				create_fd_pipe(t_mini *shell, t_process *proc);
 int				pipe_fork(t_command	*child, t_env **env_list,
 					t_process *proc, int *cmd);
+
+//EXECUTION - heredoc.c
+void			exec_db_less(char *stop, int *heredoc_fd);
+int				redir_heredocs(t_redir *redir, int *fd, bool last);
+int				count_db_less(t_redir *redir);
+int				exec_heredocs(t_redir *redir, t_process *proc);
+void			process_heredocs(t_mini *shell, t_process *proc);
+
+//EXECUTION - heredocs_utils.c
+void			newline(int signal);
+void			stop_heredoc(int signal);
 
 // Signal - signal.c
 void			run_signals(int sig);

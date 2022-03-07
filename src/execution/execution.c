@@ -103,6 +103,7 @@ int	execution(t_env **env_list, t_mini *shell)
 	proc->my_fd[1] = 0;
 	shell->exec = proc;
 	backup(1);
+	process_heredocs(shell, proc);
 	if (shell->child->redirection)
 	{
 		if (redirection(shell->child->redirection, proc))

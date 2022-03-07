@@ -3256,9 +3256,162 @@ exit
 exit
 echo mama
 exit
+cat << EOF
+exit
+cat << EOF
+cat << EOF
+cat << EOF mama
+cat << EOF mama
+exit
+cat << EOF
+echo << EOF
+exit
+cat << EOF
+make
+exit
+cat << EOF
+echo << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+echo << EOF
+echo << EOF mama
+exit
+cat << EOF << mescouilles
+exit
+cat << EOF << papa
+cat << EOf
+cat << EOF << papa
+exit
+cat << EOF
+echo papa | echo papa
+cat << EOF | echo mama
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+cat << EOF
+cat << EOF papa
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOf
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+echo mama | cat << EOF
+echo > mama cul
+cat << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOf
+
+echo mama | cat << EOF
+echo mama | echo papa
+exit
+cat << EOF
+
+exit
+$?
+echo $?
+cat << EOF
+exit
+coucou
+echo $?
+$?
+cat << EOF
+echo $?
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF papa
+cat << EOF << papa
+exit
+cat << EOF << papa
+cat << EOF << papa
+cat << EOF << papa
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+echo mama
+echo mama > echo papa
+echo mama | echo papa
+echo mama | cat << EOF
+cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF papa
+exit
+echo mama | cat << EOF
+cat << EOF | echo mama
+cat << EOF
+exity
+exit
+cat << EOf
+cat << EOF
+cat << EOF
+cat << EOF
+echo mama | cat << EOF
+cat << EOF | echo mama
+exit
+cat << EOF
+exit
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF salut
+cat << EOF << papa
+
+
+exit
+
 con tent ?
 exit
 content ?
 ok
 git add -o
 git add -p
+
