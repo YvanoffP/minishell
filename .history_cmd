@@ -3407,3 +3407,11 @@ cat << EOF << papa
 
 
 exit
+
+con tent ?
+exit
+content ?
+ok
+git add -o
+git add -p
+
