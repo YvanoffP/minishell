@@ -60,6 +60,31 @@ void	destroy_sep_n_space(int **sep, int **space)
 	free(*space);
 }
 
+void	check_tild(t_mini *shell)
+{
+	t_command		*tmp;
+	t_built_args	*temp;
+	char			*ret;
+
+	tmp = shell->child;
+	temp = shell->child->args;
+	while (tmp)
+	{
+		while (temp)
+		{
+			if (temp->name[0] == '~'
+				&& temp->name[1] == '\0')
+			{
+				ret = getenv("HOME");
+				free(temp->name);
+				temp->name = ft_strdup(ret);
+			}
+			temp = temp->next;
+		}
+		tmp = tmp->next;
+	}
+}
+
 int	split_arg(t_mini *shell, t_env **env_list)
 {
 	int	*sep;
@@ -84,6 +109,7 @@ int	split_arg(t_mini *shell, t_env **env_list)
 		create_n_add_empty_child(shell);
 	alloc_childs(shell, sep, space);
 	destroy_sep_n_space(&sep, &space);
+	check_tild(shell);
 	dollar_out_quote(shell, env_list);
 	quotes_cleaner(shell);
 	return (1);
