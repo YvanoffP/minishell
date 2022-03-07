@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/06 22:35:21 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/07 02:09:19 by ypetruzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void			init_env(t_env **env_list, char **env);
 void			exit_shell(t_mini *shell);
 
 // MiniShell - prompt_msg.c
-char			*sub_path(char *path);
 void			prompt_msg(t_mini *shell);
 
 // MiniShell - working_history.c
