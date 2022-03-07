@@ -324,7 +324,10 @@ int				find_dollars_str(char *str, int *i,
 char			*replace_dollars(char *str, t_env **env_list,
 					int *i, t_mini *shell);
 void			init_dollvar(t_dollvar *data, int i, t_mini *shell);
+
+// Parse - append.c
 char			*append(t_dollvar *data);
+char			*append_next(t_dollvar *data);
 
 // Parse - replace_dollars_ext.c
 void			replace_dollars_ext(t_dollvar *data, char *str, int *i);

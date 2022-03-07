@@ -53,6 +53,7 @@ PARSE_FILES =	parsing.c \
 				parse_tools_3.c \
 				sep_n_space.c \
 				pimp_my_string.c \
+				append.c \
 				pimp_my_string_2.c \
 				replace_dollars.c \
 				replace_dollars_ext.c \
