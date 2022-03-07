@@ -13,7 +13,7 @@
 
 #include "minishell.h"
 
-static void	write_inputrc(void)
+void	write_inputrc(void)
 {
 	int		fd;
 	int		ret;
@@ -82,13 +82,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_mini	shell;
 	t_env	*env_list;
+	t_errs	err;
 
 	if (argc > 1)
 		return (str_error("Too many arguments", 0));
 	(void)argv;
-	init_mini(&shell, &env_list);
+	init_mini(&shell, &env_list, &err);
 	init_env(&env_list, envp);
-	write_inputrc();
 	while (1)
 	{
 		run_signals(1);
@@ -99,7 +99,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(shell.argv, ""))
 		{
 			if (parsing(&shell, &env_list))
-				shell.status = process_cmd(&env_list, &shell);
+				shell.status = process_cmd(&env_list, &shell, &err);
 			destroy(&shell);
 		}
 	}

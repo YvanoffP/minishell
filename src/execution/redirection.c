@@ -13,14 +13,15 @@
 
 #include "../../inc/minishell.h"
 
-bool	redir_output(t_redir *redir)
+bool	redir_output(t_redir *redir, t_errs *err)
 {
 	int	open_fd;
 
 	open_fd = open(redir->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (open_fd == -1)
 	{
-		print_error("Permission denied new part", ": AHAH", 1);
+		err->str_err = ft_strjoin("minishell :", redir->file_name);
+		err->str_err = ft_strjoin(err->str_err, " : No such file or directory\n");
 		return (false);
 	}
 	dup2(open_fd, STDOUT_FILENO);
@@ -28,14 +29,15 @@ bool	redir_output(t_redir *redir)
 	return (true);
 }
 
-bool	redir_append(t_redir *redir)
+bool	redir_append(t_redir *redir, t_errs *err)
 {
 	int	open_fd;
 
 	open_fd = open(redir->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (open_fd == -1)
 	{
-		print_error("Permission denied new part", ": AHAH", 1);
+		err->str_err = ft_strjoin("minishell :", redir->file_name);
+		err->str_err = ft_strjoin(err->str_err, " : No such file or directory\n");
 		return (false);
 	}
 	dup2(open_fd, STDOUT_FILENO);
@@ -43,14 +45,15 @@ bool	redir_append(t_redir *redir)
 	return (true);
 }
 
-bool	redir_input(t_redir *redir)
+bool	redir_input(t_redir *redir, t_errs *err)
 {
 	int	open_fd;
 
 	open_fd = open(redir->file_name, O_RDONLY);
 	if (open_fd == -1)
 	{
-		print_error("Permission denied new part", ": AHAH", 1);
+		err->str_err = ft_strjoin("minishell :", redir->file_name);
+		err->str_err = ft_strjoin(err->str_err, " : No such file or directory\n");
 		return (false);
 	}
 	dup2(open_fd, STDIN_FILENO);
@@ -58,30 +61,30 @@ bool	redir_input(t_redir *redir)
 	return (true);
 }
 
-bool	redirect(t_redir *redir, int *pipe_fd)
+bool	redirect(t_redir *redir, int *pipe_fd, t_errs *err)
 {
 	t_redir	*redirs;
 
 	redirs = redir;
 	if (redirs->type == GREAT)
-		return (redir_output(redirs));
+		return (redir_output(redirs, err));
 	else if (redirs->type == DB_GREAT)
-		return (redir_append(redirs));
+		return (redir_append(redirs, err));
 	else if (redirs->type == LESS)
-		return (redir_input(redirs));
+		return (redir_input(redirs, err));
 	else if (redirs->type == DB_LESS)
 		dup2(pipe_fd[0], STDIN_FILENO);
 	return (true);
 }
 
-bool	exec_redirections(t_redir *redir, int *pipe_fd)
+bool	exec_redirections(t_redir *redir, int *pipe_fd, t_errs *err)
 {
 	t_redir	*redirs;
 
 	redirs = redir;
 	while (redirs)
 	{
-		if (!redirect(redirs, pipe_fd))
+		if (!redirect(redirs, pipe_fd, err))
 			return (false);
 		redirs = redirs->next;
 	}

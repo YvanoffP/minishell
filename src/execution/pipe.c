@@ -12,16 +12,20 @@
 
 #include "../../inc/minishell.h"
 
-void	init_pipes(t_command *tmp)
+t_command	*init_pipes(t_mini *shell, t_command **child)
 {
+	t_command	*tmp;
 	t_command	*cmds;
 
+	tmp = shell->child;
+	*child = shell->child;
 	cmds = tmp;
 	while (cmds)
 	{
 		pipe(cmds->fd);
 		cmds = cmds->next;
 	}
+	return (tmp);
 }
 
 void	left_pipe(t_command *cmds)

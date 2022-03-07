@@ -118,6 +118,14 @@ typedef struct s_command
 	struct s_command	*next;
 }				t_command;
 
+typedef struct s_errs
+{
+    bool            error;
+    char            *str_err;
+    struct s_errs   *next;
+    struct s_errs   *prev;
+}           t_errs;
+
 typedef struct s_process
 {
 	int	*fd;
@@ -131,9 +139,10 @@ typedef struct s_process
 
 //FILSDEPUTE
 void			rl_replace_line(const char *str, int i);
+void            write_inputrc(void);
 
 // MiniShell - minishell.c
-void			init_mini(t_mini *shell, t_env **env);
+void			init_mini(t_mini *shell, t_env **env, t_errs *err);
 void			init_env(t_env **env_list, char **env);
 void			exit_shell(t_mini *shell);
 
@@ -186,7 +195,9 @@ int				check_wrong_char(char *str);
 char			*join_path_to_arg(char *path, char *arg);
 int				exec_program(t_command *child, t_env **env_list);
 int				is_builtins(t_env **env_list, t_command *child);
-int				process_cmd(t_env **env_list, t_mini *shell);
+int				process_cmd(t_env **env_list, t_mini *shell, t_errs *err);
+void            init_errs(t_errs *err);
+void            add_new_err_node(t_errs *err);
 
 // EXECUTION - exec_tools.c
 int				print_error(char *str, char *msg, int ret);
@@ -215,14 +226,14 @@ void			newline(int signal);
 void			stop_heredoc(int signal);
 
 // EXECUTION - redirection.c
-bool			redir_output(t_redir *redir);
-bool			redir_append(t_redir *redir);
-bool			redir_input(t_redir *redir);
-bool			redirect(t_redir *redir, int *pipe_fd);
-bool			exec_redirections(t_redir *redir, int *pipe_fd);
+bool			redir_output(t_redir *redir, t_errs *err);
+bool			redir_append(t_redir *redir, t_errs *err);
+bool			redir_input(t_redir *redir, t_errs *err);
+bool			redirect(t_redir *redir, int *pipe_f, t_errs *errd);
+bool			exec_redirections(t_redir *redir, int *pipe_fd, t_errs *err);
 
 // EXECUTION - pipe.c
-void			init_pipes(t_command *tmp);
+t_command		*init_pipes(t_mini *shell, t_command **child);
 void			left_pipe(t_command *cmds);
 void			right_pipe(t_command *cmds);
 bool			ft_lstall(t_redir *lst, bool (*f)(void *));
@@ -231,9 +242,9 @@ bool			ft_lstany(t_redir *lst, bool (*f)(t_redir *));
 // EXECUTION - op_control.c
 bool			is_stdout_redir(t_redir *redir);
 void			fd_reset(t_mini *shell);
-void			close_pipes(t_command *child);
+void			close_pipes(t_command *child, t_errs *err);
 bool			input_file_exist(void *redir_ptr);
-bool			op_control(t_command *child);
+bool			op_control(t_command *child, t_errs *err);
 
 // Signal - signal.c
 void			run_signals(int sig);

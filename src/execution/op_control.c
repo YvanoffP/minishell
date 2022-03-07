@@ -28,11 +28,22 @@ void	fd_reset(t_mini *shell)
 	dup2(shell->stdin_fd, STDIN_FILENO);
 }
 
-void	close_pipes(t_command *child)
+void	close_pipes(t_command *child, t_errs *err)
 {
 	t_command	*cmds;
 
 	cmds = child;
+	if (err)
+		while (err->prev)
+			err = err->prev;
+	if (err)
+	{
+		while (err->next)
+		{
+			ft_putstr_fd(err->str_err, STDERR_FILENO);
+			err = err->next;
+		}
+	}
 	while (cmds)
 	{
 		close(cmds->fd[0]);
@@ -57,7 +68,7 @@ bool	input_file_exist(void *redir_ptr)
 	return (true);
 }
 
-bool	op_control(t_command *child)
+bool	op_control(t_command *child, t_errs *err)
 {
 	t_command	*tmp;
 	t_redir		*redirs;
@@ -67,7 +78,7 @@ bool	op_control(t_command *child)
 	left_pipe(tmp);
 	if (!ft_lstall(redirs, input_file_exist))
 		return (false);
-	if (!exec_redirections(redirs, tmp->fd))
+	if (!exec_redirections(redirs, tmp->fd, err))
 		return (false);
 	if (!ft_lstany(redirs, is_stdout_redir))
 		right_pipe(tmp);

@@ -71,10 +71,10 @@ int	count_args(t_built_args *lst)
 
 int	print_error(char *str, char *msg, int ret)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (str != NULL)
-		ft_putstr_fd(str, 2);
-	ft_putendl_fd(msg, 2);
+		ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
 	return (ret);
 }
 

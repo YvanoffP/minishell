@@ -93,31 +93,50 @@ int	is_builtins(t_env **env_list, t_command *child)
 	return (0);
 }
 
-int	process_cmd(t_env **env_list, t_mini *shell)
+void	init_errs(t_errs *err)
+{
+	err->error = false;
+	err->str_err = NULL;
+	err->next = NULL;
+	err->prev = NULL;
+}
+
+void	add_new_err_node(t_errs *err)
+{
+	t_errs	*new;
+
+	new = malloc(sizeof(t_errs));
+	init_errs(new);
+	new->prev = err;
+	err->next = new;
+	err = err->next;
+}
+
+int	process_cmd(t_env **env_list, t_mini *shell, t_errs *err)
 {
 	t_command	*start;
 	t_command	*child;
-	bool		error;
 
-	start = shell->child;
-	child = shell->child;
-	init_pipes(start);
+	start = init_pipes(shell, &child);
 	process_heredocs(shell);
 	while (child)
 	{
-		error = !op_control(child);
-		if (!error)
+		err->error = !op_control(child, err);
+		if (!err->error)
 		{
 			is_builtins(env_list, child);
 			if (!child->next)
 				break ;
 			fd_reset(shell);
 		}
-		if (error)
-			break ;
+		if (err->error)
+		{
+			fd_reset(shell);
+			add_new_err_node(err);
+		}
 		child = child->next;
 	}
-	close_pipes(start);
+	close_pipes(start, err);
 	fd_reset(shell);
 	return (0);
 }
