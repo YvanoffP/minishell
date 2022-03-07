@@ -43,14 +43,16 @@ static void	destroy_childs(t_mini *shell)
 		while (shell->child->args)
 		{
 			var.temp = shell->child->args->next;
-			free(shell->child->args->name);
+			if (shell->child->args->name)
+				free(shell->child->args->name);
 			free(shell->child->args);
 			shell->child->args = var.temp;
 		}
 		while (shell->child->redirection)
 		{
 			var.tmp = shell->child->redirection->next;
-			free(shell->child->redirection->file_name);
+			if (shell->child->redirection->file_name)
+				free(shell->child->redirection->file_name);
 			free(shell->child->redirection);
 			shell->child->redirection = var.tmp;
 		}
@@ -64,10 +66,16 @@ static void	destroy(t_mini *shell)
 {
 	destroy_childs(shell);
 	if (shell->argv)
+	{
 		free(shell->argv);
+		shell->argv = NULL;
+	}
 	shell->argv = NULL;
 	if (shell->exec)
+	{
 		free(shell->exec);
+		shell->exec = NULL;
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
