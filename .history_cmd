@@ -3256,3 +3256,32 @@ exit
 exit
 echo mama
 exit
+cat << EOF
+exit
+cat << EOF
+cat << EOF
+cat << EOF mama
+cat << EOF mama
+exit
+cat << EOF
+echo << EOF
+exit
+cat << EOF
+make
+exit
+cat << EOF
+echo << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+cat << EOF
+echo << EOF
+echo << EOF mama
+exit
+cat << EOF << mescouilles
+exit
+cat << EOF << papa

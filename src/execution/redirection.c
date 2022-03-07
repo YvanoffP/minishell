@@ -45,6 +45,23 @@ int	db_great_than(int *fd, t_redir *redirection)
 	return (0);
 }
 
+/*int	db_less_than(t_redir *redirection)
+{
+	char	*ret;
+
+	while (1)
+	{
+		ret = readline("\e[1;32m> \e[0m");
+		if (!ft_strcmp(ret, redirection->file_name))
+			break ;
+		else if (ret)
+			free(ret);
+	}
+	if (ret)
+		free(ret);
+	return (0);
+}*/
+
 int	redirection(t_redir *redirection, t_process *proc)
 {
 	while (redirection != NULL)
@@ -64,6 +81,11 @@ int	redirection(t_redir *redirection, t_process *proc)
 			if (db_great_than(&proc->my_fd[1], redirection))
 				return (1);
 		}
+//		else if (redirection->type == DB_LESS)
+//		{
+//			if (db_less_than(redirection))
+//				return (1);
+//		}
 		redirection = redirection->next;
 	}
 	return (0);

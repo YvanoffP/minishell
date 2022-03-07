@@ -93,6 +93,108 @@ int	is_builtins(t_env **env_list, t_command *child)
 	return (0);
 }
 
+void	newline(int signal)
+{
+	(void)signal;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+static void	stop_heredoc(int signal)
+{
+	(void)signal;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	exit(130);
+}
+
+void	exec_db_less(char *stop, int *heredoc_fd)
+{
+	char	*line;
+
+	signal(SIGINT, stop_heredoc);
+	line = readline("> ");
+	while (line)
+	{
+		if (ft_strcmp(line, stop) == 0)
+		{
+			close(heredoc_fd[1]);
+			close(heredoc_fd[0]);
+			break ;
+		}
+		ft_putendl_fd(line, heredoc_fd[1]);
+		free(line);
+		line = readline("> ");
+	}
+	free(line);
+	exit(0);
+}
+
+int	redir_heredocs(t_redir *redir, int fd)
+{
+	int		heredoc_fd[2];
+	pid_t	pid;
+	int		wstatus;
+	int		ret;
+
+	signal(SIGINT, SIG_IGN);
+	pipe(heredoc_fd);
+	pid = fork();
+	if (pid == -1)
+		return (print_error(NULL, ": fork failed", 1));
+	if (pid == 0)
+		exec_db_less(redir->file_name, heredoc_fd);
+	waitpid(pid, &wstatus, 0);
+	signal(SIGINT, newline);
+	if (WIFEXITED(wstatus))
+		ret = WEXITSTATUS(wstatus);
+	dup2(heredoc_fd[0], fd);
+	close(heredoc_fd[1]);
+	close(heredoc_fd[0]);
+	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 130)
+		return (1);
+	return (0);
+}
+
+int	exec_heredocs(t_redir *redir, t_process *proc)
+{
+	t_redir *tmp;
+	char	*stop;
+
+	tmp = redir;
+	while (tmp)
+	{
+		stop = tmp->file_name;
+		if (tmp->type == DB_LESS)
+		{
+			if (redir_heredocs(tmp, proc->my_fd[0]))
+				return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+void	process_heredocs(t_mini *shell, t_process *proc)
+{
+	t_command	*child;
+	t_redir		*redir;
+
+	child = shell->child;
+	while (child)
+	{
+		redir = child->redirection;
+		while (redir)
+		{
+			if (redir->type == DB_LESS)
+				exec_heredocs(redir, proc);
+			redir = redir->next;
+		}
+		child = child->next;
+	}
+}
+
 int	execution(t_env **env_list, t_mini *shell)
 {
 	t_process	*proc;
@@ -105,6 +207,7 @@ int	execution(t_env **env_list, t_mini *shell)
 	backup(1);
 	if (shell->child->redirection)
 	{
+		process_heredocs(shell, proc);
 		if (redirection(shell->child->redirection, proc))
 			return (backup(0));
 	}

@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 02:22:24 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:03:13 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef enum e_type{
 	GREAT,
 	DB_GREAT,
 	LESS,
+	DB_LESS,
 }			t_type;
 
 typedef struct s_redir
