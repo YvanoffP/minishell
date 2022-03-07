@@ -20,7 +20,6 @@ t_built_args	*create_args_node(t_mini *shell, int **ptr_space, int *i)
 	new = malloc(sizeof(t_built_args));
 	if (!new)
 		return (NULL);
-	new = malloc(sizeof(t_built_args));
 	new->name = ft_substr(shell->argv, *i, **ptr_space - *i);
 	new->next = NULL;
 	*i = **ptr_space + 1;
@@ -65,7 +64,6 @@ t_redir	*create_redir_node(t_mini *shell, int **ptr_space, int *i)
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return (NULL);
-	new = malloc(sizeof(t_redir));
 	new->type = detect_sep(shell->argv, i);
 	*i = **ptr_space + 1;
 	(*ptr_space)++;

@@ -3415,3 +3415,48 @@ ok
 git add -o
 git add -p
 
+echo mama
+echo coucou
+echo salut
+pwd
+cat << mama
+cat Makefile 
+ls
+cat | ls
+
+
+
+
+
+exit
+echo mama
+echo mama | echo papa
+exit
+echo mama
+exit
+echo mama
+exit
+echo mama | echo bite | ls ../minishell -la
+cat << mama
+exit
+cat .history_cmd 
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+exit
+cat << mama
+exiot
+exit
+echo mama | echo bite | ls ../minishell -la
+echo mama | echo bite | ls ../minishell -la
+cat << mama
+cat << mama
+echo mama | echo bite | ls ../minishell -la | echo turbochiasse mdr | ls > papa -la < mama
+exity
+exit

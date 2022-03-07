@@ -54,6 +54,8 @@ static void	dollar_out_quote_ext(t_alloc *var, t_env **env_list, t_mini *shell)
 		else
 			var->temp = var->temp->next;
 	}
+	if (var->dollar_index)
+		free(var->dollar_index);
 }
 
 void	dollar_out_quote(t_mini *shell, t_env **env_list)
@@ -67,8 +69,6 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 		var.ret = NULL;
 		var.i = 0;
 		var.temp = var.child->args;
-		if (var.dollar_index)
-			free(var.dollar_index);
 		var.dollar_index = have_a_dollar_out_q(var.child->cmd, 0);
 		dollar_out_quote_ext(&var, env_list, shell);
 		while (var.tmp)
@@ -81,6 +81,8 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 			else
 				var.tmp = var.tmp->next;
 		}
+		if (var.dollar_index)
+			free(var.dollar_index);
 		var.child = var.child->next;
 	}
 }
