@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 22:56:26 by tpauvret          #+#    #+#             */
+/*   Updated: 2022/03/07 22:57:10 by tpauvret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	exec_db_less(char *stop, int *heredoc_fd)
@@ -51,7 +63,7 @@ int	redir_heredocs(t_redir *redir, int fd, bool last)
 
 int	count_db_less(t_redir *redir)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 	int		ret;
 
 	tmp = redir;
@@ -67,7 +79,7 @@ int	count_db_less(t_redir *redir)
 
 int	exec_heredocs(t_redir *redir, int stdin_fd)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 	char	*stop;
 	int		count;
 

@@ -3479,3 +3479,8 @@ cat papa
 ls > papa -la | echo mama
 cat papa
 exit
+cat mama
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
