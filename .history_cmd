@@ -3216,3 +3216,32 @@ exit
 echo "$USER""Users/$USER/file""'$USER'"'$USER'
 
 exit
+exit
+pwd
+cd /etc
+pwd
+cd ..
+pwd
+cd ..
+pwd
+ls
+cd Users/
+cd yvanpetruzzi/
+ls
+exit
+ls
+pwd
+cd /etc
+pwd
+cd ..
+cd ..
+pwd
+cd usr/
+ls
+cd ..
+cd Users/
+cd yvanpetruzzi/
+ls
+pwd
+cd $PWD/file_tests
+exit

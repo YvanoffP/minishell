@@ -21,7 +21,6 @@ void	init_mini(t_mini *shell, t_env **env)
 
 	i = -1;
 	cwd = getcwd(buff, 4096);
-	shell->mini_cwd = sub_path(cwd);
 	shell->argv = NULL;
 	shell->exec = NULL;
 	shell->cmd_count = 0;
