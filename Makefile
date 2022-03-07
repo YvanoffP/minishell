@@ -72,7 +72,9 @@ EXEC_FILES = execution.c \
 			 pipe.c \
 			 exec_tools.c \
 			 redirection.c \
-			 file_func.c
+			 file_func.c \
+			 heredoc.c \
+			 heredocs_utils.c
 
 # Main file variable
 

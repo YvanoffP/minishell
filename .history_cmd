@@ -3285,3 +3285,77 @@ exit
 cat << EOF << mescouilles
 exit
 cat << EOF << papa
+cat << EOf
+cat << EOF << papa
+exit
+cat << EOF
+echo papa | echo papa
+cat << EOF | echo mama
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+cat << EOF
+cat << EOF papa
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOf
+echo mama | cat << EOF
+exit
+echo mama | cat << EOF
+echo mama | cat << EOF
+echo > mama cul
+cat << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOf
+
+echo mama | cat << EOF
+echo mama | echo papa
+exit
+cat << EOF
+
+exit
+$?
+echo $?
+cat << EOF
+exit
+coucou
+echo $?
+$?
+cat << EOF
+echo $?
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+echo mama | cat << EOF
+exit
+cat << EOF
+cat << EOF papa
+cat << EOF << papa
+exit
+cat << EOF << papa
+cat << EOF << papa
+cat << EOF << papa
+exit
