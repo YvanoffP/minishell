@@ -4286,6 +4286,80 @@ echo mama > papa | echo pa > ma
 echo mama > papa | echo pa > ma
 asdfagasdfg asdrfg asdfg asdfg asdfg adsfg adfg adfg dasfrg dafsg adfg adfgadf gadfg 
 exit
+echo mama
+echo mama
+cat | ls
+cat | ls
+exit
+echo mama
+echo papa
+cat | ls
+exit
+cat | ls
+exit
+cat | ls
+exit
+cat << EOF
+ls | cat << EOF
+cat << EOF | ls
+exit
+cat | ls
+cat | ls
+exit
+cat | ls
+cat << EOF
+ls | cat << EOF
+exit
+cat | ls
+exit
+cat | ls
+cat | cat | ls
+exit
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama | echo papa
+ls
+touch papa
+chmod 000 papa
+cat papa
+./papa 
+echo $?
+cat << EOF
+ls | cat << EOF
+ls | cat << EOF
+exit
+ls | cat << EOF
+exit
+ls | cat << EOF
+exit
+exit
+coucou
+AHAH
+echo mama
+ls | cat << EOF
+MAMA
+CAT << EOF
+echo $?
+
+
+
+echo ~
+exit
+exit
+exit
+exit
+exit
+
 srfghkjasdbrgaksdfhbguikadshfkgujhaduksfhgkjadhsfkjghkuadjsfhgkjadhsfkjghdasjkfhgkjhadkjfhg
 exit
 cat |ls

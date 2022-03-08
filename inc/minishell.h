@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/08 14:59:02 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:26:14 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ int				print_error(char *str, char *msg, int ret);
 char			**args_to_array(t_command *child);
 char			**lst_to_array(t_env **env_list);
 int				count_args(t_built_args *lst);
+int				detect_heredocs(t_command *child);
 
 // EXECUTION - file_func.c
 void			exec_file(t_command *child, t_env **env_list,
@@ -223,6 +224,8 @@ int				file_error(t_redir *redirection);
 void			init_errs(t_mini *shell);
 void			add_new_err_node(t_errs *err);
 void			destroy_err(t_mini *shell);
+void			shell_error(t_mini *shell);
+int				backup(int flag);
 
 //EXECUTION - heredoc.c
 void			exec_db_less(char *stop, int *heredoc_fd);
@@ -242,6 +245,11 @@ bool			redir_input(t_redir *redir, t_errs *err);
 bool			redirect(t_redir *redir, int *pipe_f, t_errs *errd);
 bool			exec_redirections(t_redir *redir, int *pipe_fd, t_errs *err);
 
+// EXECUTION - redir_exec.c / pipe_exec.c
+int				execution(t_env **env_list, t_mini *shell);
+int				pipe_my_ride(t_mini *shell, t_process *proc, t_env **env_list);
+int				ft_redirection(t_redir *redirection, t_process *proc);
+
 // EXECUTION - pipe.c
 t_command		*init_pipes(t_mini *shell, t_command **child);
 void			left_pipe(t_command *cmds);
@@ -260,6 +268,7 @@ bool			op_control(t_command *child, t_errs *err);
 // Signal - signal.c
 void			run_signals(int sig);
 void			restore_prompt(int sig);
+void			ctrl_c2(int sig);
 void			ctrl_c(int sig);
 void			back_slash(int sig);
 

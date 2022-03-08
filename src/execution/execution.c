@@ -101,6 +101,8 @@ int	process_cmd(t_env **env_list, t_mini *shell)
 
 	start = init_pipes(shell, &child);
 	process_heredocs(shell);
+	if (!detect_heredocs(start))
+		return (execution(env_list, shell));
 	while (child)
 	{
 		shell->err->error = !op_control(child, shell->err);
@@ -112,11 +114,7 @@ int	process_cmd(t_env **env_list, t_mini *shell)
 			fd_reset(shell);
 		}
 		if (shell->err->error)
-		{
-			fd_reset(shell);
-			add_new_err_node(shell->err);
-			shell->err = shell->err->next;
-		}
+			shell_error(shell);
 		child = child->next;
 	}
 	close_pipes(start, shell);

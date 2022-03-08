@@ -15,10 +15,6 @@
 
 void	prompt_msg(t_mini *shell)
 {
-	char	*cwd;
-	char	buff[4096];
-
-	cwd = getcwd(buff, 4096);
 	if (shell->argv != NULL)
 		free(shell->argv);
 	shell->argv = readline("minishell$ ");

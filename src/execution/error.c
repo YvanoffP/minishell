@@ -48,3 +48,31 @@ void	destroy_err(t_mini *shell)
 		shell->err = tmp;
 	}
 }
+
+int	backup(int flag)
+{
+	static int	stdin;
+	static int	stdout;
+	static int	stderr;
+
+	if (flag)
+	{
+		stdin = dup(STDIN_FILENO);
+		stdout = dup(STDOUT_FILENO);
+		stderr = dup(STDERR_FILENO);
+	}
+	else if (!flag)
+	{
+		dup2(stdin, 0);
+		dup2(stdout, 1);
+		dup2(stderr, 2);
+	}
+	return (1);
+}
+
+void	shell_error(t_mini *shell)
+{
+	fd_reset(shell);
+	add_new_err_node(shell->err);
+	shell->err = shell->err->next;
+}
