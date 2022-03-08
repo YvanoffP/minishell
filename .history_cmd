@@ -4173,3 +4173,6 @@ cat mama
 exit
 cat mama
 exit
+cat mama
+echo mama
+exit

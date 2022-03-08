@@ -13,7 +13,7 @@
 
 #include "../../inc/minishell.h"
 
-void	init_dollvar(t_dollvar *data, int i, t_mini *shell)
+void	init_dollvar(t_dollvar *data, int i)
 {
 	data->j = i;
 	data->ret = NULL;
@@ -84,11 +84,11 @@ int	find_dollars_str(char *str, int *i, t_dollvar *data, t_env **env_list)
 	return (1);
 }
 
-char	*replace_dollars(char *str, t_env **env_list, int *i, t_mini *shell)
+char	*replace_dollars(char *str, t_env **env_list, int *i)
 {
 	t_dollvar	data;
 
-	init_dollvar(&data, *i, shell);
+	init_dollvar(&data, *i);
 	if (*i != 0)
 		data.tmp = ft_substr(str, 0, *i);
 	while (str[*i] != 34 && str[*i])

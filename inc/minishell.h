@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/08 14:55:28 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:59:02 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,9 +342,9 @@ int				get_value_in_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
 int				find_dollars_str(char *str, int *i,
 					t_dollvar *data, t_env **env_list);
-char			*replace_dollars(char *str, t_env **env_list,
-					int *i, t_mini *shell);
-void			init_dollvar(t_dollvar *data, int i, t_mini *shell);
+char			*replace_dollars(char *str,
+					t_env **env_list, int *i);
+void			init_dollvar(t_dollvar *data, int i);
 
 // Parse - append.c
 char			*append(t_dollvar *data);
