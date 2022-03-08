@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 22:57:28 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/08 14:14:48 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:22:59 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,22 @@ void	close_pipes(t_command *child, t_mini *shell)
 	fd_reset(shell);
 }
 
-bool	input_file_exist(void *redir_ptr)
+bool	input_file_exist(void *redir_ptr, t_errs *err)
 {
 	struct stat	buf;
 	t_redir		*redir;
+	char		*tmp;
 
 	redir = redir_ptr;
 	if (redir->type != LESS)
 		return (true);
 	if (stat(redir->file_name, &buf) == -1)
 	{
-		print_error("Permission denied new part", ": relou", 1);
+		err->str_err = ft_strjoin("minishell: ", redir->file_name);
+		tmp = ft_strdup(err->str_err);
+		free(err->str_err);
+		err->str_err = ft_strjoin(tmp, "Permission denied");
+		free(tmp);
 		return (false);
 	}
 	return (true);
@@ -78,7 +83,7 @@ bool	op_control(t_command *child, t_errs *err)
 	tmp = child;
 	redirs = child->redirection;
 	left_pipe(tmp);
-	if (!ft_lstall(redirs, input_file_exist))
+	if (!ft_lstall(redirs, input_file_exist, err))
 		return (false);
 	if (!exec_redirections(redirs, tmp->fd, err))
 		return (false);

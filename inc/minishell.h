@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/08 14:15:46 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:22:33 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,14 +245,14 @@ bool			exec_redirections(t_redir *redir, int *pipe_fd, t_errs *err);
 t_command		*init_pipes(t_mini *shell, t_command **child);
 void			left_pipe(t_command *cmds);
 void			right_pipe(t_command *cmds);
-bool			ft_lstall(t_redir *lst, bool (*f)(void *));
+bool			ft_lstall(t_redir *lst, bool (*f)(void *, t_errs *), t_errs *err);
 bool			ft_lstany(t_redir *lst, bool (*f)(t_redir *));
 
 // EXECUTION - op_control.c
 bool			is_stdout_redir(t_redir *redir);
 void			fd_reset(t_mini *shell);
 void			close_pipes(t_command *child, t_mini *shell);
-bool			input_file_exist(void *redir_ptr);
+bool			input_file_exist(void *redir_ptr, t_errs *err);
 bool			op_control(t_command *child, t_errs *err);
 
 // Signal - signal.c
