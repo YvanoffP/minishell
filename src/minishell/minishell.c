@@ -13,7 +13,7 @@
 
 #include "minishell.h"
 
-void	init_mini(t_mini *shell, t_env **env, t_errs *err)
+void	init_mini(t_mini *shell, t_env **env)
 {
 	char	buff[4096];
 	char	*cwd;
@@ -33,7 +33,6 @@ void	init_mini(t_mini *shell, t_env **env, t_errs *err)
 	g_status.status = 0;
 	shell->status = 0;
 	write_inputrc();
-	init_errs(err);
 }
 
 void	init_env(t_env **env_list, char **env)

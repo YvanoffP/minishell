@@ -88,7 +88,7 @@ int	main(int argc, char **argv, char **envp)
 		return (str_error("Too many arguments", 0));
 	(void)argv;
 	err = malloc(sizeof(t_errs));
-	init_mini(&shell, &env_list, err);
+	init_mini(&shell, &env_list);
 	init_env(&env_list, envp);
 	while (1)
 	{
@@ -100,7 +100,10 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(shell.argv, ""))
 		{
 			if (parsing(&shell, &env_list))
+			{
+				init_errs(err);
 				g_status.status = process_cmd(&env_list, &shell, err);
+			}
 			destroy(&shell);
 		}
 	}

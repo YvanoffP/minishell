@@ -148,7 +148,7 @@ void			rl_replace_line(const char *str, int i);
 void            write_inputrc(void);
 
 // MiniShell - minishell.c
-void			init_mini(t_mini *shell, t_env **env, t_errs *err);
+void			init_mini(t_mini *shell, t_env **env);
 void			init_env(t_env **env_list, char **env);
 void			exit_shell(t_mini *shell);
 
