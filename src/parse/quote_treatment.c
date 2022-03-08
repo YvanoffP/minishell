@@ -55,10 +55,7 @@ char	*quote_remover(char *str)
 				return (str);
 		}
 		else if (str[j] == 39)
-		{
 			str = delete_quote(str, &j);
-			//j--;
-		}
 		j++;
 	}
 	return (str);
