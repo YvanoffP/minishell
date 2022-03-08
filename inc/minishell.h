@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/08 14:22:33 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:55:28 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@
 
 typedef struct s_global
 {
-    int infork;
-    int status;
-}           t_global;
+	int	infork;
+	int	status;
+}			t_global;
 
-t_global    g_status;
+t_global	g_status;
 
 typedef struct s_mini
 {
@@ -127,11 +127,11 @@ typedef struct s_command
 
 typedef struct s_errs
 {
-    bool            error;
-    char            *str_err;
-    struct s_errs   *next;
-    struct s_errs   *prev;
-}           t_errs;
+	bool			error;
+	char			*str_err;
+	struct s_errs	*next;
+	struct s_errs	*prev;
+}			t_errs;
 
 typedef struct s_process
 {
@@ -146,7 +146,7 @@ typedef struct s_process
 
 //FILSDEPUTE
 void			rl_replace_line(const char *str, int i);
-void            write_inputrc(void);
+void			write_inputrc(void);
 
 // MiniShell - minishell.c
 void			init_mini(t_mini *shell, t_env **env);
@@ -219,9 +219,9 @@ int				find_file(t_env **env_list, t_command *child);
 int				file_error(t_redir *redirection);
 
 // EXECUTION - error.c
-void            init_errs(t_mini *shell);
-void            add_new_err_node(t_errs *err);
-void            destroy_err(t_mini *shell);
+void			init_errs(t_mini *shell);
+void			add_new_err_node(t_errs *err);
+void			destroy_err(t_mini *shell);
 
 //EXECUTION - heredoc.c
 void			exec_db_less(char *stop, int *heredoc_fd);
@@ -245,7 +245,8 @@ bool			exec_redirections(t_redir *redir, int *pipe_fd, t_errs *err);
 t_command		*init_pipes(t_mini *shell, t_command **child);
 void			left_pipe(t_command *cmds);
 void			right_pipe(t_command *cmds);
-bool			ft_lstall(t_redir *lst, bool (*f)(void *, t_errs *), t_errs *err);
+bool			ft_lstall(t_redir *lst, bool (*f)(void *, t_errs *),
+					t_errs *err);
 bool			ft_lstany(t_redir *lst, bool (*f)(t_redir *));
 
 // EXECUTION - op_control.c

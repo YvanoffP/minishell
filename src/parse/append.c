@@ -14,7 +14,7 @@
 
 char	*append(t_dollvar *data)
 {
-	char *ret;
+	char	*ret;
 
 	if (!data->value && !data->ret && data->tmp)
 	{
@@ -39,7 +39,7 @@ char	*append(t_dollvar *data)
 
 char	*append_next(t_dollvar *data)
 {
-	char *ret;
+	char	*ret;
 
 	if (data->value && data->ret && !data->tmp)
 	{
