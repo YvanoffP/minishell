@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/08 21:26:14 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:52:40 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ char			*join_path_to_arg(char *path, char *arg);
 int				exec_program(t_command *child, t_env **env_list);
 int				is_builtins(t_env **env_list, t_command *child);
 int				process_cmd(t_env **env_list, t_mini *shell);
-void            execve_call(t_command *child, t_env **env_list);
+void			execve_call(t_command *child, t_env **env_list);
 
 // EXECUTION - exec_tools.c
 int				print_error(char *str, char *msg, int ret);
