@@ -4359,4 +4359,10 @@ exit
 exit
 exit
 exit
+
+srfghkjasdbrgaksdfhbguikadshfkgujhaduksfhgkjadhsfkjghkuadjsfhgkjadhsfkjghdasjkfhgkjhadkjfhg
+exit
+cat |ls
+rm 'cho mama < papa | echo papa >mama'
+ls
 exit
