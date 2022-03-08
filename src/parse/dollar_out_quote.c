@@ -78,6 +78,8 @@ void	dollar_out_quote(t_mini *shell, t_env **env_list)
 				dollar_out_quote_replace(&var, env_list, shell);
 			else
 				var.tmp = var.tmp->next;
+			if (var.dollar_index)
+				free(var.dollar_index);
 		}
 		var.child = var.child->next;
 	}

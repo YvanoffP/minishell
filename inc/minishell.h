@@ -202,8 +202,6 @@ char			*join_path_to_arg(char *path, char *arg);
 int				exec_program(t_command *child, t_env **env_list);
 int				is_builtins(t_env **env_list, t_command *child);
 int				process_cmd(t_env **env_list, t_mini *shell, t_errs *err);
-void            init_errs(t_errs *err);
-void            add_new_err_node(t_errs *err);
 
 // EXECUTION - exec_tools.c
 int				print_error(char *str, char *msg, int ret);
@@ -218,6 +216,11 @@ int				check_file(t_env **env_list, t_command *child);
 int				check_path(t_env **env_list, t_command *child);
 int				find_file(t_env **env_list, t_command *child);
 int				file_error(t_redir *redirection);
+
+// EXECUTION - error.c
+void            init_errs(t_errs *err);
+void            add_new_err_node(t_errs *err);
+void            destroy_err(t_errs *err);
 
 //EXECUTION - heredoc.c
 void			exec_db_less(char *stop, int *heredoc_fd);

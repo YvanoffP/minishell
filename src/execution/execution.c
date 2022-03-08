@@ -10,6 +10,7 @@
 /*   Updated: 2022/03/03 23:13:46 by ypetruzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	*join_path_to_arg(char *path, char *arg)
@@ -91,25 +92,6 @@ int	is_builtins(t_env **env_list, t_command *child)
 	else
 		return (check_path(env_list, child));
 	return (0);
-}
-
-void	init_errs(t_errs *err)
-{
-	err->error = false;
-	err->str_err = NULL;
-	err->next = NULL;
-	err->prev = NULL;
-}
-
-void	add_new_err_node(t_errs *err)
-{
-	t_errs	*new;
-
-	new = malloc(sizeof(t_errs));
-	init_errs(new);
-	new->prev = err;
-	err->next = new;
-	err = err->next;
 }
 
 int	process_cmd(t_env **env_list, t_mini *shell, t_errs *err)

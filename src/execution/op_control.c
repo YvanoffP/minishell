@@ -34,7 +34,7 @@ void	close_pipes(t_command *child, t_errs *err)
 
 	cmds = child;
 	if (err)
-		while (err->prev)
+		while (err->prev != NULL)
 			err = err->prev;
 	if (err)
 	{
@@ -44,7 +44,7 @@ void	close_pipes(t_command *child, t_errs *err)
 			err = err->next;
 		}
 	}
-	//destroy err
+	//destroy_err(err);
 	while (cmds)
 	{
 		close(cmds->fd[0]);

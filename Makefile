@@ -76,6 +76,7 @@ EXEC_FILES = execution.c \
 			 file_func.c \
 			 heredoc.c \
 			 heredocs_utils.c \
+			 error.c \
 			 op_control.c
 
 # Main file variable
