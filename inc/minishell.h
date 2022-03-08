@@ -250,7 +250,7 @@ bool			ft_lstany(t_redir *lst, bool (*f)(t_redir *));
 // EXECUTION - op_control.c
 bool			is_stdout_redir(t_redir *redir);
 void			fd_reset(t_mini *shell);
-void			close_pipes(t_command *child, t_errs *err);
+void			close_pipes(t_command *child, t_errs *err, t_mini *shell);
 bool			input_file_exist(void *redir_ptr);
 bool			op_control(t_command *child, t_errs *err);
 

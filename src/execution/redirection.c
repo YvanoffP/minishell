@@ -21,7 +21,7 @@ bool	redir_output(t_redir *redir, t_errs *err)
 	open_fd = open(redir->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (open_fd == -1)
 	{
-		err->str_err = ft_strjoin("minishell :", redir->file_name);
+		err->str_err = ft_strjoin("minishell: ", redir->file_name);
 		tmp = ft_strdup(err->str_err);
 		free(err->str_err);
 		err->str_err = ft_strjoin(tmp, " : No such file or directory\n");
@@ -41,7 +41,7 @@ bool	redir_append(t_redir *redir, t_errs *err)
 	open_fd = open(redir->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (open_fd == -1)
 	{
-		err->str_err = ft_strjoin("minishell :", redir->file_name);
+		err->str_err = ft_strjoin("minishell: ", redir->file_name);
 		tmp = ft_strdup(err->str_err);
 		free(err->str_err);
 		err->str_err = ft_strjoin(tmp, " : No such file or directory\n");
@@ -61,7 +61,7 @@ bool	redir_input(t_redir *redir, t_errs *err)
 	open_fd = open(redir->file_name, O_RDONLY);
 	if (open_fd == -1)
 	{
-		err->str_err = ft_strjoin("minishell :", redir->file_name);
+		err->str_err = ft_strjoin("minishell: ", redir->file_name);
 		tmp = ft_strdup(err->str_err);
 		free(err->str_err);
 		err->str_err = ft_strjoin(tmp, " : No such file or directory\n");

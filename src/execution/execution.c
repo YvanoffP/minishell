@@ -115,10 +115,10 @@ int	process_cmd(t_env **env_list, t_mini *shell, t_errs *err)
 		{
 			fd_reset(shell);
 			add_new_err_node(err);
+			err = err->next;
 		}
 		child = child->next;
 	}
-	close_pipes(start, err);
-	fd_reset(shell);
+	close_pipes(start, err, shell);
 	return (0);
 }

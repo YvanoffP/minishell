@@ -28,7 +28,7 @@ void	fd_reset(t_mini *shell)
 	dup2(shell->stdin_fd, STDIN_FILENO);
 }
 
-void	close_pipes(t_command *child, t_errs *err)
+void	close_pipes(t_command *child, t_errs *err, t_mini *shell)
 {
 	t_command	*cmds;
 
@@ -44,13 +44,14 @@ void	close_pipes(t_command *child, t_errs *err)
 			err = err->next;
 		}
 	}
-	//destroy_err(err);
+	destroy_err(err);
 	while (cmds)
 	{
 		close(cmds->fd[0]);
 		close(cmds->fd[1]);
 		cmds = cmds->next;
 	}
+	fd_reset(shell);
 }
 
 bool	input_file_exist(void *redir_ptr)

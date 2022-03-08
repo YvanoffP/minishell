@@ -29,20 +29,17 @@ void	add_new_err_node(t_errs *err)
 	init_errs(new);
 	new->prev = err;
 	err->next = new;
-	err = err->next;
 }
 
 void	destroy_err(t_errs *err)
 {
 	t_errs	*tmp;
 
-	tmp = err->prev;
 	while (err)
 	{
-		if (err->str_err != NULL)
-			free(err->str_err);
+		tmp = err->prev;
+		free(err->str_err);
 		free(err);
 		err = tmp;
-		tmp = err->prev;
 	}
 }
