@@ -15,12 +15,6 @@
 
 void	init_mini(t_mini *shell, t_env **env)
 {
-	char	buff[4096];
-	char	*cwd;
-	int		i;
-
-	i = -1;
-	cwd = getcwd(buff, 4096);
 	shell->argv = NULL;
 	shell->exec = NULL;
 	shell->child = NULL;
