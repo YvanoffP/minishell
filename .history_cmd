@@ -3821,3 +3821,10 @@ cat | ls
 cat | ls
 cat
 ls | cat
+
+cat | ls
+cat | ls
+exit
+salut
+cat | ls
+exit

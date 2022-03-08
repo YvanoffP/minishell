@@ -37,7 +37,7 @@ static void	destroy_childs(t_mini *shell)
 {
 	t_alloc	var;
 
-	while (shell->child)
+	while (shell->child != NULL)
 	{
 		var.child = shell->child->next;
 		while (shell->child->args)

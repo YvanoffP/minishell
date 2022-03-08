@@ -38,7 +38,7 @@ void	restore_prompt(int sig)
 
 void	ctrl_c(int sig)
 {
-	write(STDOUT_FILENO, "\n", 1);
+	write(STDERR_FILENO, "\n", 1);
 	(void)sig;
 }
 

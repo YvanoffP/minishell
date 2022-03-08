@@ -204,7 +204,6 @@ int				print_error(char *str, char *msg, int ret);
 char			**args_to_array(t_command *child);
 char			**lst_to_array(t_env **env_list);
 int				count_args(t_built_args *lst);
-int				backup(int flag);
 
 // EXECUTION - file_func.c
 void			exec_file(t_command *child, t_env **env_list,

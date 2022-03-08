@@ -33,27 +33,6 @@ char	**args_to_array(t_command *child)
 	return (arg);
 }
 
-int	backup(int flag)
-{
-	static int	stdin;
-	static int	stdout;
-	static int	stderr;
-
-	if (flag)
-	{
-		stdin = dup(STDIN_FILENO);
-		stdout = dup(STDOUT_FILENO);
-		stderr = dup(STDERR_FILENO);
-	}
-	else if (!flag)
-	{
-		dup2(stdin, 0);
-		dup2(stdout, 1);
-		dup2(stderr, 2);
-	}
-	return (1);
-}
-
 int	count_args(t_built_args *lst)
 {
 	t_built_args	*tmp;

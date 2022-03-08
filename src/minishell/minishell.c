@@ -23,11 +23,11 @@ void	init_mini(t_mini *shell, t_env **env, t_errs *err)
 	cwd = getcwd(buff, 4096);
 	shell->argv = NULL;
 	shell->exec = NULL;
-	shell->cmd_count = 0;
 	shell->child = NULL;
+	*env = NULL;
+	shell->cmd_count = 0;
 	shell->stdin_fd = dup(STDIN_FILENO);
 	shell->stdout_fd = dup(STDOUT_FILENO);
-	*env = NULL;
 	shell->fd_history = 0;
 	g_infork = NO;
 	shell->status = 0;
@@ -58,7 +58,6 @@ void	init_env(t_env **env_list, char **env)
 
 void	exit_shell(t_mini *shell)
 {
-	free(shell->mini_cwd);
 	if (shell->argv)
 		free(shell->argv);
 }

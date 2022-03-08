@@ -44,6 +44,7 @@ void	close_pipes(t_command *child, t_errs *err)
 			err = err->next;
 		}
 	}
+	//destroy err
 	while (cmds)
 	{
 		close(cmds->fd[0]);
