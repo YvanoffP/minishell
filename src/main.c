@@ -65,6 +65,8 @@ static void	destroy_childs(t_mini *shell)
 static void	destroy(t_mini *shell)
 {
 	destroy_childs(shell);
+	if (shell->err)
+		free(shell->err);
 	if (shell->argv)
 	{
 		free(shell->argv);
