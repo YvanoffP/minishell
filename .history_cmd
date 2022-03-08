@@ -4125,3 +4125,32 @@ echo mama
 echo mama
 echo mama
 exit
+coucou
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+echo mama
+ls
+exit
+cat papa
+echo $?
+exit
+cat papa
+cat papa
+cat papa
+cat papa
+cat papa

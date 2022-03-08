@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 22:55:40 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 22:55:57 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:19:46 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	right_pipe(t_command *cmds)
 		dup2(cmds->fd[1], STDOUT_FILENO);
 }
 
-bool	ft_lstall(t_redir *lst, bool (*f)(void *))
+bool	ft_lstall(t_redir *lst, bool (*f)(void *, t_errs *), t_errs *err)
 {
 	while (lst)
 	{
-		if (!f(lst->file_name))
+		if (!f(lst->file_name, err))
 			return (false);
 		lst = lst->next;
 	}
