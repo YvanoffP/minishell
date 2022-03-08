@@ -106,7 +106,7 @@ int	process_cmd(t_env **env_list, t_mini *shell)
 		shell->err->error = !op_control(child, shell->err);
 		if (!shell->err->error)
 		{
-			is_builtins(env_list, child);
+			g_status.status = is_builtins(env_list, child);
 			if (!child->next)
 				break ;
 			fd_reset(shell);
@@ -120,5 +120,5 @@ int	process_cmd(t_env **env_list, t_mini *shell)
 		child = child->next;
 	}
 	close_pipes(start, shell);
-	return (0);
+	return (g_status.status);
 }

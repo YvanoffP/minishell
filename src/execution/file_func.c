@@ -33,15 +33,13 @@ void	exec_file(t_command *child, t_env **env_list, char *path, int *status)
 
 int	check_path(t_env **env_list, t_command *child)
 {
-	int	status;
-
 	if (ft_strchr(child->cmd, '/') || child->cmd[0] == '.')
 		return (check_file(env_list, child));
 	else
 	{
-		status = find_file(env_list, child);
-		if (status != -77)
-			return (status);
+		g_status.status = find_file(env_list, child);
+		if (g_status.status != -77)
+			return (g_status.status);
 		return (print_error(child->cmd, ": command not found", 127));
 	}
 	return (0);

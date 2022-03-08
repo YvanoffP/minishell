@@ -4154,3 +4154,22 @@ cat papa
 cat papa
 cat papa
 cat papa
+cat mama
+echo mama
+cat mama
+echo $?
+exit
+cat mama
+echo $?
+exit
+cat mama
+echo $?
+echo mama
+echo $?
+exit
+cat mama
+exit
+cat mama
+exit
+cat mama
+exit
