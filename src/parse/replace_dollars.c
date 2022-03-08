@@ -20,7 +20,7 @@ void	init_dollvar(t_dollvar *data, int i, t_mini *shell)
 	data->value = NULL;
 	data->tmp = NULL;
 	data->flag = 1;
-	data->status = shell->status;
+	data->status = g_status.status;
 }
 
 static void	get_value_in_str_bis(t_dollvar *data)

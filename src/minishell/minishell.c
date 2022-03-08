@@ -29,7 +29,8 @@ void	init_mini(t_mini *shell, t_env **env, t_errs *err)
 	shell->stdin_fd = dup(STDIN_FILENO);
 	shell->stdout_fd = dup(STDOUT_FILENO);
 	shell->fd_history = 0;
-	g_infork = NO;
+	g_status.infork = NO;
+	g_status.status = 0;
 	shell->status = 0;
 	write_inputrc();
 	init_errs(err);

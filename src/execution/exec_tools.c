@@ -54,6 +54,7 @@ int	print_error(char *str, char *msg, int ret)
 	if (str != NULL)
 		ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
+	g_status.status = ret;
 	return (ret);
 }
 

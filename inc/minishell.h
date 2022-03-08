@@ -40,7 +40,13 @@
 # define GREEN "\e[1;32m"
 # define RESET "\e[0m"
 
-int	g_infork;
+typedef struct s_global
+{
+    int infork;
+    int status;
+}           t_global;
+
+t_global    g_status;
 
 typedef struct s_mini
 {

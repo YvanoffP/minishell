@@ -33,6 +33,7 @@ void	restore_prompt(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	g_status.status = 130;
 	(void)sig;
 }
 

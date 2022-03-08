@@ -3828,3 +3828,16 @@ exit
 salut
 cat | ls
 exit
+echo $?
+exit
+echo 'mama
+echo $?
+echo "mama
+echo $?
+echo || mam
+echo $?
+chier
+echo $?
+yes
+yes crack
+exit

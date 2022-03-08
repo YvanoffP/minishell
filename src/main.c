@@ -99,7 +99,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(shell.argv, ""))
 		{
 			if (parsing(&shell, &env_list))
-				shell.status = process_cmd(&env_list, &shell, &err);
+				g_status.status = process_cmd(&env_list, &shell, &err);
 			destroy(&shell);
 		}
 	}

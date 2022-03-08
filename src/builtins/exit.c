@@ -73,11 +73,11 @@ int	exit_func(t_built_args *args)
 
 	if (args == NULL)
 	{
-		if (g_infork == NO)
+		if (g_status.infork == NO)
 			ft_putendl_fd("exit", 1);
 		exit(0);
 	}
-	if (g_infork == NO)
+	if (g_status.infork == NO)
 		ft_putendl_fd("exit", 1);
 	i = check_exit(args->name);
 	if (args->next != NULL)
