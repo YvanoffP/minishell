@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 22:57:28 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 22:57:30 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:14:48 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@ void	fd_reset(t_mini *shell)
 	dup2(shell->stdin_fd, STDIN_FILENO);
 }
 
-void	close_pipes(t_command *child, t_errs *err, t_mini *shell)
+void	close_pipes(t_command *child, t_mini *shell)
 {
 	t_command	*cmds;
 
 	cmds = child;
-	if (err)
-		while (err->prev != NULL)
-			err = err->prev;
-	if (err)
+	if (shell->err)
+		while (shell->err->prev != NULL)
+			shell->err = shell->err->prev;
+	if (shell->err)
 	{
-		while (err->next)
+		while (shell->err->next)
 		{
-			ft_putstr_fd(err->str_err, STDERR_FILENO);
-			err = err->next;
+			ft_putstr_fd(shell->err->str_err, STDERR_FILENO);
+			shell->err = shell->err->next;
 		}
 	}
-	//destroy_err(err);
+	destroy_err(shell);
 	while (cmds)
 	{
 		close(cmds->fd[0]);

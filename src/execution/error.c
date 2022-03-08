@@ -13,12 +13,13 @@
 
 #include "../../inc/minishell.h"
 
-void	init_errs(t_errs *err)
+void	init_errs(t_mini *shell)
 {
-	err->error = false;
-	err->str_err = NULL;
-	err->next = NULL;
-	err->prev = NULL;
+	shell->err = malloc(sizeof(t_errs));
+	shell->err->error = false;
+	shell->err->str_err = NULL;
+	shell->err->next = NULL;
+	shell->err->prev = NULL;
 }
 
 void	add_new_err_node(t_errs *err)
@@ -26,20 +27,24 @@ void	add_new_err_node(t_errs *err)
 	t_errs	*new;
 
 	new = malloc(sizeof(t_errs));
-	init_errs(new);
+	new->error = false;
+	new->str_err = NULL;
+	new->next = NULL;
+	new->prev = NULL;
 	new->prev = err;
 	err->next = new;
 }
 
-void	destroy_err(t_errs *err)
+void	destroy_err(t_mini *shell)
 {
 	t_errs	*tmp;
 
-	while (err)
+	while (shell->err)
 	{
-		tmp = err->prev;
-		free(err->str_err);
-		free(err);
-		err = tmp;
+		tmp = shell->err->prev;
+		if (shell->err->str_err)
+			free(shell->err->str_err);
+		free(shell->err);
+		shell->err = tmp;
 	}
 }

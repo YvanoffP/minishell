@@ -25,4 +25,5 @@ void	working_history(t_mini *shell)
 		write(shell->fd_history, shell->argv, ft_strlen(shell->argv));
 		write(shell->fd_history, "\n", 1);
 	}
+	init_errs(shell);
 }

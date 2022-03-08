@@ -94,7 +94,7 @@ int	is_builtins(t_env **env_list, t_command *child)
 	return (0);
 }
 
-int	process_cmd(t_env **env_list, t_mini *shell, t_errs *err)
+int	process_cmd(t_env **env_list, t_mini *shell)
 {
 	t_command	*start;
 	t_command	*child;
@@ -103,22 +103,22 @@ int	process_cmd(t_env **env_list, t_mini *shell, t_errs *err)
 	process_heredocs(shell);
 	while (child)
 	{
-		err->error = !op_control(child, err);
-		if (!err->error)
+		shell->err->error = !op_control(child, shell->err);
+		if (!shell->err->error)
 		{
 			is_builtins(env_list, child);
 			if (!child->next)
 				break ;
 			fd_reset(shell);
 		}
-		if (err->error)
+		if (shell->err->error)
 		{
 			fd_reset(shell);
-			add_new_err_node(err);
-			err = err->next;
+			add_new_err_node(shell->err);
+			shell->err = shell->err->next;
 		}
 		child = child->next;
 	}
-	close_pipes(start, err, shell);
+	close_pipes(start, shell);
 	return (0);
 }
