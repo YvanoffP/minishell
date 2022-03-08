@@ -24,6 +24,7 @@ void	init_mini(t_mini *shell, t_env **env)
 	shell->argv = NULL;
 	shell->exec = NULL;
 	shell->child = NULL;
+	shell->err = NULL;
 	*env = NULL;
 	shell->cmd_count = 0;
 	shell->stdin_fd = dup(STDIN_FILENO);

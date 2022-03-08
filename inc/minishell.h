@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/07 22:58:16 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:15:46 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_mini
 	int					cmd_count;
 	struct s_command	*child;
 	struct s_process	*exec;
+	struct s_errs		*err;
 	char				*mini_cwd;
 	char				*argv;
 	int					fd_history;
@@ -201,7 +202,7 @@ int				check_wrong_char(char *str);
 char			*join_path_to_arg(char *path, char *arg);
 int				exec_program(t_command *child, t_env **env_list);
 int				is_builtins(t_env **env_list, t_command *child);
-int				process_cmd(t_env **env_list, t_mini *shell, t_errs *err);
+int				process_cmd(t_env **env_list, t_mini *shell);
 
 // EXECUTION - exec_tools.c
 int				print_error(char *str, char *msg, int ret);
@@ -218,9 +219,9 @@ int				find_file(t_env **env_list, t_command *child);
 int				file_error(t_redir *redirection);
 
 // EXECUTION - error.c
-void            init_errs(t_errs *err);
+void            init_errs(t_mini *shell);
 void            add_new_err_node(t_errs *err);
-void            destroy_err(t_errs *err);
+void            destroy_err(t_mini *shell);
 
 //EXECUTION - heredoc.c
 void			exec_db_less(char *stop, int *heredoc_fd);
@@ -250,7 +251,7 @@ bool			ft_lstany(t_redir *lst, bool (*f)(t_redir *));
 // EXECUTION - op_control.c
 bool			is_stdout_redir(t_redir *redir);
 void			fd_reset(t_mini *shell);
-void			close_pipes(t_command *child, t_errs *err, t_mini *shell);
+void			close_pipes(t_command *child, t_mini *shell);
 bool			input_file_exist(void *redir_ptr);
 bool			op_control(t_command *child, t_errs *err);
 
