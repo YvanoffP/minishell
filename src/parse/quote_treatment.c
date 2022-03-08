@@ -15,31 +15,30 @@
 
 char	*delete_quote(char *str, int *j)
 {
-	int		index;
-	int		k;
-	char	*ret;
+	t_alloc	index;
 
-	index = 0;
-	k = 0;
-	ret = malloc(sizeof(char) * (ft_strlen(str) - 2) + 1);
-	if (!ret)
+	index.i = 0;
+	index.k = 0;
+	index.ret = malloc(sizeof(char) * (ft_strlen(str) - 2) + 1);
+	if (!index.ret)
 		return (NULL);
-	while (str[k])
+	while (str[index.k])
 	{
-		if (k == *j)
-			k++;
-		ret[index++] = str[k++];
-		if (str[k] == str[*j] && k > *j)
+		if (index.k == *j)
+			index.k++;
+		if (str[index.k] != str[*j] || index.k < *j)
+			index.ret[index.i++] = str[index.k++];
+		if (str[index.k] == str[*j] && index.k > *j)
 		{
-			*j = k++ - 2;
+			*j = index.k++ - 2;
 			break ;
 		}
 	}
-	while (str[k])
-		ret[index++] = str[k++];
-	ret[index] = '\0';
+	while (str[index.k])
+		index.ret[index.i++] = str[index.k++];
+	index.ret[index.i] = '\0';
 	free(str);
-	return (ret);
+	return (index.ret);
 }
 
 char	*quote_remover(char *str)
@@ -58,7 +57,7 @@ char	*quote_remover(char *str)
 		else if (str[j] == 39)
 		{
 			str = delete_quote(str, &j);
-			j--;
+			//j--;
 		}
 		j++;
 	}
