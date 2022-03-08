@@ -4286,3 +4286,9 @@ echo mama > papa | echo pa > ma
 echo mama > papa | echo pa > ma
 asdfagasdfg asdrfg asdfg asdfg asdfg adsfg adfg adfg dasfrg dafsg adfg adfgadf gadfg 
 exit
+srfghkjasdbrgaksdfhbguikadshfkgujhaduksfhgkjadhsfkjghkuadjsfhgkjadhsfkjghdasjkfhgkjhadkjfhg
+exit
+cat |ls
+rm 'cho mama < papa | echo papa >mama'
+ls
+exit

@@ -203,6 +203,7 @@ char			*join_path_to_arg(char *path, char *arg);
 int				exec_program(t_command *child, t_env **env_list);
 int				is_builtins(t_env **env_list, t_command *child);
 int				process_cmd(t_env **env_list, t_mini *shell);
+void            execve_call(t_command *child, t_env **env_list);
 
 // EXECUTION - exec_tools.c
 int				print_error(char *str, char *msg, int ret);
