@@ -79,3 +79,23 @@ char	**lst_to_array(t_env **env_list)
 	ret[i] = NULL;
 	return (ret);
 }
+
+int	detect_heredocs(t_command *child)
+{
+	t_command	*tmp;
+	t_redir		*redir;
+
+	tmp = child;
+	redir = tmp->redirection;
+	while (tmp)
+	{
+		while (redir)
+		{
+			if (redir->type == DB_LESS)
+				return (1);
+			redir = redir->next;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}

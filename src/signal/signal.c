@@ -25,6 +25,11 @@ void	run_signals(int sig)
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, back_slash);
 	}
+	if (sig == 3)
+	{
+		signal(SIGINT, ctrl_c2);
+		signal(SIGQUIT, back_slash);
+	}
 }
 
 void	restore_prompt(int sig)
@@ -34,6 +39,11 @@ void	restore_prompt(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 	g_status.status = 130;
+	(void)sig;
+}
+
+void	ctrl_c2(int sig)
+{
 	(void)sig;
 }
 
