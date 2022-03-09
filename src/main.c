@@ -80,6 +80,18 @@ static void	destroy(t_mini *shell)
 	}
 }
 
+static int	check_only_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == 32)
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_mini	shell;
@@ -97,7 +109,9 @@ int	main(int argc, char **argv, char **envp)
 		if (shell.argv == NULL)
 			break ;
 		working_history(&shell);
-		if (ft_strcmp(shell.argv, ""))
+		if (check_only_spaces(shell.argv))
+			destroy(&shell);
+		else if (ft_strcmp(shell.argv, ""))
 		{
 			if (parsing(&shell, &env_list))
 				g_status.status = process_cmd(&env_list, &shell);
