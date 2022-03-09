@@ -38,12 +38,13 @@ void	restore_prompt(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	g_status.status = 130;
+	g_status.status = 1;
 	(void)sig;
 }
 
 void	ctrl_c2(int sig)
 {
+	g_status.status = 130;
 	(void)sig;
 }
 

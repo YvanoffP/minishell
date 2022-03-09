@@ -5381,3 +5381,21 @@ exit
                                                                        
                                                                        
 exit
+echo $?
+cat
+echo $?
+exit
+echo $?
+cat
+echo $?
+exit
+cat | ls
+echo $?
+exit
+cat
+echo $?
+echo $?
+cat | ls
+echo $?
+exi
+exit
