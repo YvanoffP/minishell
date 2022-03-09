@@ -23,13 +23,15 @@ char	**args_to_array(t_command *child)
 	i = count_args(tmp) + 1;
 	arg = (char **)malloc(sizeof(char *) * (i + 1));
 	i = 0;
-	arg[i++] = ft_strdup(child->cmd);
+	arg[i] = ft_strdup(child->cmd);
+	i++;
 	while (tmp != NULL)
 	{
-		arg[i++] = ft_strdup(tmp->name);
+		arg[i] = ft_strdup(tmp->name);
 		tmp = tmp->next;
+		i++;
 	}
-	arg[i] = NULL;
+	arg[i] = 0;
 	return (arg);
 }
 
@@ -40,7 +42,7 @@ int	count_args(t_built_args *lst)
 
 	tmp = lst;
 	i = 0;
-	while (tmp && tmp->next)
+	while (tmp)
 	{
 		tmp = tmp->next;
 		i++;
