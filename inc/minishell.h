@@ -6,7 +6,7 @@
 /*   By: tpauvret <tpauvret@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:52:16 by tpauvret          #+#    #+#             */
-/*   Updated: 2022/03/08 21:52:40 by tpauvret         ###   ########.fr       */
+/*   Updated: 2022/11/10 20:48:41 by tpauvret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@
 # define UNSET "unset"
 # define YES 1
 # define NO 0
-# define GREEN "\e[1;32m"
-# define RESET "\e[0m"
 
 typedef struct s_global
 {

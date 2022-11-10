@@ -17,3 +17,5 @@ make
 ```
 
 - Then you can our minishell like a classic shell
+
+![minishell](/docs/minishell_movie.gif)

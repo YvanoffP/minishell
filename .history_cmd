@@ -3,3 +3,13 @@ ls
 ls -l
 cat | ls
 exit
+exit
+ls
+ls -ls
+exit
+ls
+ls -la
+cat | ls
+echo test
+echo $USER
+exit
