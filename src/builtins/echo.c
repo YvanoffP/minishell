@@ -46,9 +46,6 @@ static void	echo_func_ext(t_built_args *args)
 
 void	echo_func(t_built_args *args)
 {
-	int	i;
-
-	i = 0;
 	if (!args)
 	{
 		write(1, "\n", 1);

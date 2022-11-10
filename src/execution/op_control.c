@@ -14,9 +14,6 @@
 
 bool	is_stdout_redir(t_redir *redir)
 {
-	t_redir		*redirs;
-
-	redirs = redir;
 	if (redir->type == GREAT || redir->type == DB_GREAT)
 		return (true);
 	return (false);

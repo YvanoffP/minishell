@@ -42,7 +42,6 @@ int	count_pipe(char *str)
 {
 	int		i;
 	int		nb_sep;
-	char	c;
 
 	i = 0;
 	nb_sep = 0;
@@ -52,7 +51,6 @@ int	count_pipe(char *str)
 		if (str[i] == '|')
 		{
 			nb_sep++;
-			c = str[i];
 			if (is_sep(str[i + 1]))
 				return (-1);
 		}

@@ -39,7 +39,6 @@ int	redir_heredocs(t_redir *redir, int fd, bool last)
 	int		heredoc_fd[2];
 	pid_t	pid;
 	int		wstatus;
-	int		ret;
 
 	signal(SIGINT, SIG_IGN);
 	pipe(heredoc_fd);
@@ -50,8 +49,6 @@ int	redir_heredocs(t_redir *redir, int fd, bool last)
 		exec_db_less(redir->file_name, heredoc_fd);
 	waitpid(pid, &wstatus, 0);
 	signal(SIGINT, newline);
-	if (WIFEXITED(wstatus))
-		ret = WEXITSTATUS(wstatus);
 	if (last)
 		dup2(heredoc_fd[0], fd);
 	close(heredoc_fd[1]);
@@ -80,14 +77,12 @@ int	count_db_less(t_redir *redir)
 int	exec_heredocs(t_redir *redir, int stdin_fd)
 {
 	t_redir	*tmp;
-	char	*stop;
 	int		count;
 
 	tmp = redir;
 	count = count_db_less(tmp);
 	while (tmp)
 	{
-		stop = tmp->file_name;
 		if (tmp->type == DB_LESS)
 		{
 			if (redir_heredocs(tmp, stdin_fd, count-- == 1))

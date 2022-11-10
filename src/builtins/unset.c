@@ -17,9 +17,7 @@ void	unset(t_built_args *args, t_env **env_list)
 {
 	t_env	*check_node;
 	t_env	*prev_node;
-	int		i;
 
-	i = 1;
 	check_node = *env_list;
 	if (!args || *env_list == NULL)
 		return ;

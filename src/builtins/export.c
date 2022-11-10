@@ -59,9 +59,6 @@ static int	print_error_export(char *str, char *args, char *msg, int ret)
 
 int	export_func(t_env **env_list, t_built_args *args)
 {
-	int	i;
-
-	i = 1;
 	if (args != NULL)
 	{
 		while (args != NULL)

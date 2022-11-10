@@ -13,7 +13,7 @@
 
 #include "minishell.h"
 
-void static	check_digit_ext(char *arg)
+static void	check_digit_ext(char *arg)
 {
 	char	*error;
 	int		exit_status;
